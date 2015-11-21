@@ -155,7 +155,7 @@
            	  $(pkg_tests).css('display','none');
            }
            var pkg_consultation = document.createElement('h6');
-           //$(pkg_consultation).css('float','left');
+           
            var consult_span = document.createElement('span');
            $(consult_span).html("Consultations"+"&nbsp"+":"+data[i].consultationsCount);
            if (data[i].consultationsCount == "0") 
@@ -209,12 +209,7 @@
                 $(error_page).append(load_msg);
                $(error_page).modal().open();
     } 
-              /*$(document).ready(function() 
-               { 
-                 alert("tablesorter");
-                $("#myTable").tablesorter( {sortList: [[0,0], [1,0]]} ); 
-                } 
-                ); */
+              
  function package_details(package_slug,package_name,package_consultation) 
  {
  	$.ajax({
