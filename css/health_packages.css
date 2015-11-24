@@ -112,4 +112,11 @@
 {
       border: 1px solid #ddd !important;
 }
+.pkg_data
+{
+  border: 1px solid #ddd !important;
 }
+.pkg_data:nth-child(2n)
+  {
+      background:rgba(236,246,248,0.99) !important;
+  }

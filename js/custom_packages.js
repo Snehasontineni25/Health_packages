@@ -219,7 +219,6 @@
          success:function(data){
                console.log(data);
                 var pkg_dataToStore = JSON.stringify(data);
-                console.log(pkg_dataToStore);
              localStorage.setItem('pkg_someData',pkg_dataToStore);
                var package_list_modal = document.createElement('div');
                $(package_list_modal).addClass("modal");
@@ -493,6 +492,7 @@
                  $(lab_details_tr).on('click',function () 
                  {
                  	 //alert("package details");
+                 	 loadingimage_handler();
                  	 var package_labslug = $(this).data('package_labslug');
                  	 pkg_test_details(package_labslug,package_slug,package_name,package_consultation);
                  	});//click
@@ -577,19 +577,21 @@
                var pkg_mrp_data = document.createElement('div');
                 $(pkg_mrp_data).css('float','left');
                var pkg_Mrp = document.createElement('div');
-               $(pkg_Mrp).html("&nbsp"+"&nbsp"+data.packageMRP);
+               $(pkg_Mrp).html(data.packageMRP);
+               $(pkg_Mrp).addClass("fa fa-inr");
                $(pkg_Mrp).css('color','rgb(236,73,73)');
+               $(pkg_Mrp).css('paddingTop','3px');
                //$(pkg_Mrp).html("MRP"+"&nbsp"+"&nbsp");
                $(pkg_Mrp).css('float','left');
-               $(pkg_Mrp).css('paddingRight','36px');
+               $(pkg_Mrp).css('paddingRight','39px');
                $(pkg_Mrp).css('width','27px');
                $(pkg_mrp_data).append(pkg_Mrp);
                var pkg_Mrp_element = document.createElement('div');
                //$(pkg_Mrp_element).html(data.packageMRP); 
-               $(pkg_Mrp_element).html("&nbsp"+"("+"Mrp"+")");
+               $(pkg_Mrp_element).html("&nbsp"+"&nbsp"+"&nbsp"+"("+"MRP"+")");
                //$(pkg_Mrp_element).css('textDecoration','line-through');
               	//$(pkg_Mrp_element).css('color','rgb(236,73,73)');
-              	$(pkg_Mrp_element).css('fontSize','13px');
+              	$(pkg_Mrp_element).css('fontSize','12px');
               	$(pkg_Mrp_element).css('float','right');
               	 var pkg_address_finalprice  = document.createElement('div');
                $(pkg_address_finalprice).css('marginRight','10px');
@@ -613,12 +615,15 @@
                $(pkg_finalprice_info).css('float','right'); 
                var pkg_finalprice = document.createElement('div');
               // $(pkg_finalprice).html("Final Price"+"&nbsp"+"&nbsp"+":"+"&nbsp");
-              $(pkg_finalprice).html("Discount"+"&nbsp"+"&nbsp"+"&nbsp");
+              $(pkg_finalprice).html("&nbsp"+data.packageDiscount+"%");
+              //$(pkg_finalprice).html("Discount"+"&nbsp"+"&nbsp"+"&nbsp");
                $(pkg_finalprice).css('float','left');
                var pkg_finalprice_element = document.createElement('div');
                //$(pkg_finalprice_element).html(data.packageFinalPrice); 
-               $(pkg_finalprice_element).html("&nbsp"+":"+"&nbsp"+"&nbsp"+"&nbsp"+data.packageDiscount+"%");
+               //$(pkg_finalprice_element).html("&nbsp"+data.packageDiscount+"%");
+               $(pkg_finalprice_element).html("&nbsp"+"&nbsp"+"("+"Discount"+")");
               	$(pkg_finalprice_element).css('float','right');
+              	//$(pkg_finalprice_element).css('fontSize','12px');
               	 var pkg_area_discount  = document.createElement('div');
                $(pkg_area_discount).css('marginRight','10px');
                var pkg_area_pincode = document.createElement('div');
@@ -631,18 +636,23 @@
                //$(pkg_discount_info).css('marginBottom','16px');
                var pkg_discount = document.createElement('div');
                //$(pkg_discount).html("Discount"+"&nbsp"+"&nbsp"+"&nbsp");
-               $(pkg_discount).html("Final Price"+"&nbsp"+"&nbsp"+":"+"&nbsp");
+               //$(pkg_discount).html("Final Price"+"&nbsp"+"&nbsp"+"&nbsp");
+               $(pkg_discount).addClass("fa fa-inr");
+               $(pkg_discount).html(data.packageFinalPrice);
                $(pkg_discount).css('float','left');
-               //$(pkg_discount).css('paddingRight','1px');
+               $(pkg_discount).css('paddingTop','4px');
+               //$(pkg_discount).css('paddingRight','1px');s
                var pkg_discount_element = document.createElement('div');
                //$(pkg_discount_element).html("&nbsp"+":"+data.packageDiscount+"%"); 
-               $(pkg_discount_element).addClass("fa fa-inr");
-               $(pkg_discount_element).html(data.packageFinalPrice);
+               //$(pkg_discount_element).addClass("fa fa-inr");
+               //$(pkg_discount_element).html(data.packageFinalPrice);
+               $(pkg_discount_element).html("&nbsp"+"&nbsp"+"("+"Final Price"+")");
               	$(pkg_discount_element).css('float','right');
-              	$(pkg_discount_element).css('paddingTop','5px');
+              	//$(pkg_discount_element).css('paddingTop','5px');
+              	//$(pkg_discount_element).css('fontSize','12px');
                var pkg_contents_head = document.createElement('div');
                $(pkg_contents_head).css('marginTop','93px');
-               $(pkg_contents_head).css('marginRight','10px');
+               $(pkg_contents_head).css('marginRight','20px');
                var pkg_contents_head_element = document.createElement('h5');
                $(pkg_contents_head_element).html("&nbsp"+"&nbsp"+"&nbsp"+"Package Contents");
                $(pkg_contents_head_element).css('backgroundColor','#41A7B3');
@@ -651,7 +661,7 @@
                  $(pkg_contents_head_element).css('height','19px');
                  $(pkg_contents_head_element).css('paddingTop','1px');
                  $(pkg_contents_head).append(pkg_contents_head_element);
-                 var pkg_count_var = 1;
+                /* var pkg_count_var = 1;
                  var pkg_counter_element = document.createElement('div');
                  $(pkg_counter_element).addClass("tests_count");
                  $(pkg_counter_element).css("marginRight","10px");
@@ -659,12 +669,34 @@
                  $(pkg_left_counter).addClass("left_count");
                  var pkg_right_counter = document.createElement('div');
                  $(pkg_right_counter).addClass("right_count");
+                 if((data.packageDetails.TestsInfo.length >20) && (pkg_count_var>(data.packageDetails.TestsInfo.length)))
+               	{
+               	   var pkg_tests_info_head = document.createElement('div');
+               	   $(pkg_tests_info_head).html("Tests Information");
+               	   $(pkg_tests_info_head).addClass("package_contents");
+               	    $(pkg_tests_info_head).css('fontWeight','bold');
+               	   $(pkg_right_counter).append(pkg_tests_info_head);
+               	   $(pkg_left_counter).css('float','left');
+               	   pkg_count_var++;
+               	
+               	}//if head
+               	else 
+               	{
+               		 var pkg_tests_info_head = document.createElement('div');
+               	   $(pkg_tests_info_head).html("Tests Information");
+               	   $(pkg_tests_info_head).addClass("package_contents");
+               	   $(pkg_tests_info_head).css('fontWeight','bold');
+               	   $(pkg_left_counter).append(pkg_tests_info_head);
+               	    pkg_count_var++;
+               	}//else head
                  for (var i=0 ;i<data.packageDetails.TestsInfo.length;i++) 
                {
+               	
                	if((data.packageDetails.TestsInfo.length >20) && (pkg_count_var>(data.packageDetails.TestsInfo.length)))
                {
                	var pkg_contents_data = document.createElement('div');
                	$(pkg_contents_data).addClass("package_contents");
+               	$(pkg_contents_data).css('textIndent','20pt');
                	var pkgcontentname = data.packageDetails.TestsInfo[i];
                	var pkgcontentname_result = pkgcontentname.split(",");
                	$(pkg_contents_data).html(pkgcontentname_result);
@@ -676,6 +708,7 @@
                {
                	 var pkg_contents_data = document.createElement('div');
                	$(pkg_contents_data).addClass("package_contents");
+               	$(pkg_contents_data).css('textIndent','20pt');
                	var pkgcontentname = data.packageDetails.TestsInfo[i];
                	var pkgcontentname_result = pkgcontentname.split(",");
                	$(pkg_contents_data).html(pkgcontentname_result);
@@ -684,7 +717,431 @@
                }//else
                }//for
                $(pkg_counter_element).append(pkg_left_counter);
-               $(pkg_counter_element).append(pkg_right_counter);
+               $(pkg_counter_element).append(pkg_right_counter);*/
+                  /*var pkg_count_var = 1;
+                 var pkg_counter_element = document.createElement('div');
+                 $(pkg_counter_element).addClass("tests-list");
+                 $(pkg_counter_element).css('marginRight','20px');
+                 var pkg_left_element = document.createElement('div');
+                 $(pkg_left_element).addClass("left_list");
+                 var pkg_right_element = document.createElement('div');
+                 $(pkg_right_element).addClass("right_list");
+                 var pkg_totalcount =0;
+                 //console.log(data.packageDetails.GroupsInfo.length);
+                /* for(var i=0;i<data.packageDetails.GroupsInfo.length;i++)
+                 {
+                 	  var pkg_new_str  =  data.packageDetails.GroupsInfo[i].testsInGroup;
+                 	  var pkg_temp_str = pkg_new_str.split(",");
+                 	  console.log(pkg_temp_str);
+                 	  pkg_totalcount = pkg_totalcount+pkg_temp_str.length+1;
+                 	    console.log(pkg_totalcount);
+                  }//for groupsinfo */
+                 /*if(data.packageDetails.TestsInfo.length !=0)
+                 {
+                    pkg_totalcount = data.packageDetails.TestsInfo.length+1+pkg_totalcount;                 
+                 }//if testslength
+                 if(data.packageDetails.Consultations.length !=0)
+                 {
+                    pkg_totalcount = data.packageDetails.Consultations.length+1+pkg_totalcount;                 
+                 }//if consultationslength
+                 if(data.packageDetails.GroupsInfo.length !=0)
+               {
+               	 for(var i=0;i<data.packageDetails.GroupsInfo.length;i++)
+                 {
+                 	  var pkg_new_str  =  data.packageDetails.GroupsInfo[i].testsInGroup;
+                 	  var pkg_temp_str = pkg_new_str.split(",");
+                 	  //console.log(pkg_new_str);
+                 	  //console.log(pkg_temp_str);
+                 	  pkg_totalcount = pkg_totalcount+pkg_temp_str.length+1;
+                 	  //console.log(pkg_totalcount);
+                 	  if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
+                    {  
+                         
+                        var pkg_group_heading = document.createElement('div');
+                 	      $(pkg_group_heading).addClass("package_contents");
+                        $(pkg_group_heading).html(data.packageDetails.GroupsInfo[i].groupName);
+                        $(pkg_group_heading).css('fontWeight', 'bold');
+                        $(pkg_right_element).append(pkg_group_heading);
+                        $(pkg_left_element).css('float','left');
+                        pkg_count_var++;
+                    }//if groupheading
+                  else 
+                   {
+                   	  
+                   	 var pkg_group_heading = document.createElement('div');
+                 	    $(pkg_group_heading).addClass("package_contents");
+                      $(pkg_group_heading).html(data.packageDetails.GroupsInfo[i].groupName);
+                      $(pkg_group_heading).css('fontWeight', 'bold');
+                   	 $(pkg_left_element).append(pkg_group_heading);
+                	    pkg_count_var++;
+                	 }//else groupheading
+                	 console.log(pkg_temp_str);
+                 	 console.log(pkg_temp_str.length);
+                 	  for(i=0;i<pkg_temp_str.length;i++)
+                    {
+                      
+                       if((pkg_totalcount > 20)&& (pkg_count_var>(pkg_totalcount/2)))
+                       { 
+                         var pkg_group_data = document.createElement('div');
+                         $(pkg_group_data).addClass("package_contents");
+                         $(pkg_group_data).html(pkg_temp_str[i]);
+                         $(pkg_group_data).css('textIndent','20pt');
+                         $(pkg_right_element).append(pkg_group_data);
+                         $(pkg_left_element).css('float','left');
+                         pkg_count_var++;  
+                       }//if groupdata
+                       else 
+                        { 
+                           var pkg_group_data = document.createElement('div');
+                           $(pkg_group_data).addClass("package_contents");
+                           $(pkg_group_data).html(pkg_temp_str[i]);
+                           $(pkg_group_data).css('textIndent','20pt');
+                           $(pkg_left_element).append(pkg_group_data);
+                           pkg_count_var++;
+                        }//else groupdata
+                    }//for strlength
+                	  //console.log(pkg_temp_str.length);
+                 	}//for
+               }//if 
+                
+             /* if(data.packageDetails.GroupsInfo.length !=0)
+               {
+               	
+                 for(var i=0;i<data.packageDetails.GroupsInfo.length;i++)
+                 {
+                 	 var pkg_new_str = data.packageDetails.GroupsInfo[i].testsInGroup;
+                   var pkg_temp_str = pkg_new_str.split(",");
+                   console.log(pkg_temp_str);
+                    if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
+                    {  
+                         
+                        var pkg_group_heading = document.createElement('div');
+                 	      $(pkg_group_heading).addClass("package_contents");
+                        $(pkg_group_heading).html(data.packageDetails.GroupsInfo[i].groupName);
+                        $(pkg_group_heading).css('fontWeight', 'bold');
+                        $(pkg_right_element).append(pkg_group_heading);
+                        $(pkg_left_element).css('float','left');
+                        pkg_count_var++;
+                    }//if groupheading
+                  else 
+                   {
+                   	  
+                   	 var pkg_group_heading = document.createElement('div');
+                 	    $(pkg_group_heading).addClass("package_contents");
+                      $(pkg_group_heading).html(data.packageDetails.GroupsInfo[i].groupName);
+                      $(pkg_group_heading).css('fontWeight', 'bold');
+                   	 $(pkg_left_element).append(pkg_group_heading);
+                	    pkg_count_var++;
+                	 }//else groupheading
+                  
+                   for(i=0;i<pkg_temp_str.length;i++)
+                    {
+                      
+                       if((pkg_totalcount > 20)&& (pkg_count_var>(pkg_totalcount/2)))
+                       { 
+                         var pkg_group_data = document.createElement('div');
+                         $(pkg_group_data).addClass("package_contents");
+                         $(pkg_group_data).html(temp_str[i]);
+                         $(pkg_group_data).css('textIndent','20pt');
+                         $(pkg_right_element).append(pkg_group_data);
+                         $(pkg_left_element).css('float','left');
+                         pkg_count_var++;  
+                       }//if groupdata
+                       else 
+                        { 
+                           var pkg_group_data = document.createElement('div');
+                           $(pkg_group_data).addClass("package_contents");
+                           $(pkg_group_data).html(pkg_temp_str[i]);
+                           $(pkg_group_data).css('textIndent','20pt');
+                           $(pkg_left_element).append(pkg_group_data);
+                           pkg_count_var++;
+                        }//else groupdata
+                    }//for strlength
+                 } //for groupslength 
+                }//if groupsinfolength */
+              /*if(data.packageDetails.TestsInfo.length != 0)
+              {
+                if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
+                 {        
+                    var pkg_tests_heading = document.createElement('div'); 
+                    $(pkg_tests_heading).addClass("package_contents");
+                    $(pkg_tests_heading).html("Individual Tests");
+                    $(pkg_tests_heading).css('fontWeight','bold');
+                    $(pkg_right_element).append(pkg_tests_heading);
+                    $(pkg_left_element).css('float','left');
+                    pkg_count_var++;
+                 }//if testsheading
+               else 
+               {
+               	 var pkg_tests_heading = document.createElement('div');
+               	 $(pkg_tests_heading).addClass("package_contents");
+                   $(pkg_tests_heading).html("Individual Tests");
+                   $(pkg_tests_heading).css('fontWeight','bold');
+                   $(pkg_left_element).append(pkg_tests_heading);
+                   pkg_count_var++;               	
+               }//else testsheading
+                 
+                for(var  i=0;i<data.packageDetails.TestsInfo.length;i++)
+                 {
+                    
+                     if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
+                      {
+                      	  var pkg_content_data = document.createElement('div');
+                          $(pkg_content_data).addClass("package_contents");
+                          $(pkg_content_data).html(data.packageDetails.TestsInfo[i]);
+                          $(pkg_content_data).css('textIndent','20pt');
+                          $(pkg_right_element).append(pkg_content_data);
+                          $(pkg_left_element).css('float','left');
+                          pkg_count_var++;
+                      }//if contentdata
+                    else 
+                     {
+                     	var pkg_content_data = document.createElement('div');
+                        $(pkg_content_data).addClass("package_contents");
+                        $(pkg_content_data).html(data.packageDetails.TestsInfo[i]);
+                        $(pkg_content_data).css('textIndent','20pt');
+                    	   $(pkg_left_element).append(pkg_content_data);
+                    	   pkg_count_var++;
+                    	}//else contentdata
+                 }//for TestsInfo
+                }//if testsinfolength
+              if(data.packageDetails.Consultations.length !=0)
+              {
+                if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
+                   {
+                   	   var pkg_consult_heading = document.createElement('div');
+                   	   $(pkg_consult_heading).addClass("package_contents");
+                        $(pkg_consult_heading).html("Consultations");
+                        $(pkg_consult_heading).css('fontWeight','bold');
+                        $(pkg_right_element).append(pkg_consult_heading);
+                        $(pkg_left_element).css('float','left');
+                       pkg_count_var++;
+                   }//if consultheading
+                 else  
+                    {
+                   	  var pkg_consult_heading = document.createElement('div');
+                   	  $(pkg_consult_heading).addClass("package_contents");
+                       $(pkg_consult_heading).html("Consultations");
+                       $(pkg_consult_heading).css('fontWeight','bold');
+                       $(pkg_left_element).append(pkg_consult_heading);
+                       pkg_count_var++;
+                 	 }//else consultheading
+                      	
+                 for(var i=0;i<data.packageDetails.Consultations.length;i++)
+                 {
+                    
+                    if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
+                     { 
+                        var pkg_consult_data = document.createElement('div');
+                        $(pkg_consult_data).addClass("package_contents");
+                        $(pkg_consult_data).html(data.packageDetails.Consultations[i]);
+                        $(pkg_consult_data).css('textIndent','20pt');
+                        $(pkg_right_element).append(pkg_consult_data); 
+                        $(pkg_left_element).css('float','left');
+                        pkg_count_var++;
+                     }//if consultdata
+                   else 
+                    {
+                    	  var pkg_consult_data = document.createElement('div');
+                       $(pkg_consult_data).addClass("package_contents");
+                       $(pkg_consult_data).html(data.packageDetails.Consultations[i]);
+                       $(pkg_consult_data).css('textIndent','20pt');
+                   	 $(pkg_left_element).append(pkg_consult_data);
+                   	 pkg_count_var++;        
+                    }//else consultdata
+                 }//for Consultations   
+              }//if dataconsultationslength
+               
+                if((pkg_totalcount >20) && ((pkg_totalcount%2) !=0))  
+                {
+                var pkg_empty_element = document.createElement('div');
+                $(pkg_empty_element).addClass("package_contents");
+                $(pkg_empty_element).html("-");
+                $(pkg_empty_element).css('textIndent','20pt')
+                //$(pkg_right_element).append(pkg_empty_element);
+                }//if odd*/
+                var pkg_count_var = 1;
+                 var pkg_counter_element = document.createElement('div');
+                 $(pkg_counter_element).addClass("pkg_tests-list");
+                 $(pkg_counter_element).css('marginRight','20px');
+                 var pkg_left_element = document.createElement('div');
+                 $(pkg_left_element).addClass("pkg_left_list");
+                 var pkg_right_element = document.createElement('div');
+                 $(pkg_right_element).addClass("pkg_right_list");
+                 var pkg_totalcount =0;
+                 for(var i=0;i<data.packageDetails.GroupsInfo.length;i++)
+                 {
+                 	  var pkg_new_str  =  data.packageDetails.GroupsInfo[i].testsInGroup;
+                 	  var pkg_temp_str = pkg_new_str.split(",");
+                    console.log(pkg_temp_str);
+                 	  pkg_totalcount = pkg_totalcount+pkg_temp_str.length+1;
+                  }//for groupsinfo
+                 if(data.packageDetails.TestsInfo.length !=0)
+                 {
+                    pkg_totalcount = data.packageDetails.TestsInfo.length+1+pkg_totalcount;                 
+                 }//if testslength
+                 if(data.packageDetails.Consultations.length !=0)
+                 {
+                    pkg_totalcount = data.packageDetails.Consultations.length+1+pkg_totalcount;                 
+                 }//if consultationslength
+                
+              if(data.packageDetails.GroupsInfo.length !=0)
+               {
+                for(var i=0;i<data.packageDetails.GroupsInfo.length;i++)
+                 {
+                 	   var pkg_new_str = data.packageDetails.GroupsInfo[i].testsInGroup;
+                   var pkg_temp_str = pkg_new_str.split(",");
+                   console.log(pkg_temp_str); 
+                    if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
+                    {  
+                        var pkg_group_heading = document.createElement('div');
+                 	      $(pkg_group_heading).addClass("pkg_data");
+                        $(pkg_group_heading).html(data.packageDetails.GroupsInfo[i].groupName);
+                        $(pkg_group_heading).css('fontWeight', 'bold');
+                        $(pkg_right_element).append(pkg_group_heading);
+                        $(pkg_left_element).css('float','left');
+                        pkg_count_var++;
+                    }//if groupheading
+                  else 
+                   {
+                   	 var pkg_group_heading = document.createElement('div');
+                 	    $(pkg_group_heading).addClass("pkg_data");
+                      $(pkg_group_heading).html(data.packageDetails.GroupsInfo[i].groupName);
+                      $(pkg_group_heading).css('fontWeight', 'bold');
+                   	 $(pkg_left_element).append(pkg_group_heading);
+                	    pkg_count_var++;
+                	 }//else groupheading
+                	 
+                   var pkg_new_str = data.packageDetails.GroupsInfo[i].testsInGroup;
+                   var pkg_temp_str = pkg_new_str.split(",");
+                   console.log(pkg_temp_str.length);
+                    for(i=0;i<pkg_temp_str.length;i++)
+                    {
+                      
+                       if((pkg_totalcount > 20)&& (pkg_count_var>(pkg_totalcount/2)))
+                       { 
+                         var pkg_group_data = document.createElement('div');
+                         $(pkg_group_data).addClass("pkg_data");
+                         $(pkg_group_data).html(pkg_temp_str[i]);
+                         $(pkg_group_data).css('textIndent','20pt');
+                         $(pkg_right_element).append(pkg_group_data);
+                         $(pkg_left_element).css('float','left');
+                         pkg_count_var++;  
+                       }//if groupdata
+                       else 
+                        { 
+                           var pkg_group_data = document.createElement('div');
+                           $(pkg_group_data).addClass("pkg_data");
+                           $(pkg_group_data).html(pkg_temp_str[i]);
+                           $(pkg_group_data).css('textIndent','20pt');
+                           $(pkg_left_element).append(pkg_group_data);
+                           pkg_count_var++;
+                        }//else groupdata
+                    }//for strlength 
+                   
+                 } //for groupslength 
+                }//if groupsinfolength
+              if(data.packageDetails.TestsInfo.length != 0)
+              {
+                if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
+                 {        
+                    var pkg_tests_heading = document.createElement('div'); 
+                    $(pkg_tests_heading).addClass("pkg_data");
+                    $(pkg_tests_heading).html("Individual Tests");
+                    $(pkg_tests_heading).css('fontWeight','bold');
+                    $(pkg_right_element).append(pkg_tests_heading);
+                    $(pkg_left_element).css('float','left');
+                    pkg_count_var++;
+                 }//if testsheading
+               else 
+               {
+               	 var pkg_tests_heading = document.createElement('div');
+               	 $(pkg_tests_heading).addClass("pkg_data");
+                   $(pkg_tests_heading).html("Individual Tests");
+                   $(pkg_tests_heading).css('fontWeight','bold');
+                   $(pkg_left_element).append(pkg_tests_heading);
+                   pkg_count_var++;               	
+               }//else testsheading
+                 
+                for(var  i=0;i<data.packageDetails.TestsInfo.length;i++)
+                 {
+                    
+                     if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
+                      {
+                      	  var pkg_content_data = document.createElement('div');
+                          $(pkg_content_data).addClass("pkg_data");
+                          $(pkg_content_data).html(data.packageDetails.TestsInfo[i]);
+                          $(pkg_content_data).css('textIndent','20pt');
+                          $(pkg_right_element).append(pkg_content_data);
+                          $(pkg_left_element).css('float','left');
+                          pkg_count_var++;
+                      }//if contentdata
+                    else 
+                     {
+                     	var pkg_content_data = document.createElement('div');
+                        $(pkg_content_data).addClass("pkg_data");
+                        $(pkg_content_data).html(data.packageDetails.TestsInfo[i]);
+                        $(pkg_content_data).css('textIndent','20pt');
+                    	   $(pkg_left_element).append(pkg_content_data);
+                    	   pkg_count_var++;
+                    	}//else contentdata
+                 }//for TestsInfo
+                }//if testsinfolength
+              if(data.packageDetails.Consultations.length !=0)
+              {
+                if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
+                   {
+                   	   var pkg_consult_heading = document.createElement('div');
+                   	   $(pkg_consult_heading).addClass("pkg_data");
+                        $(pkg_consult_heading).html("Consultations");
+                        $(pkg_consult_heading).css('fontWeight','bold');
+                        $(pkg_right_element).append(pkg_consult_heading);
+                        $(pkg_left_element).css('float','left');
+                       pkg_count_var++;
+                   }//if consultheading
+                 else  
+                    {
+                   	  var pkg_consult_heading = document.createElement('div');
+                   	  $(pkg_consult_heading).addClass("pkg_data");
+                       $(pkg_consult_heading).html("Consultations");
+                       $(pkg_consult_heading).css('fontWeight','bold');
+                       $(pkg_left_element).append(pkg_consult_heading);
+                       pkg_count_var++;
+                 	 }//else consultheading
+                      	
+                 for(var i=0;i<data.packageDetails.Consultations.length;i++)
+                 {
+                    
+                    if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
+                     { 
+                        var pkg_consult_data = document.createElement('div');
+                        $(pkg_consult_data).addClass("pkg_data");
+                        $(pkg_consult_data).html(data.packageDetails.Consultations[i]);
+                        $(pkg_consult_data).css('textIndent','20pt');
+                        $(pkg_right_element).append(pkg_consult_data); 
+                        $(pkg_left_element).css('float','left');
+                        pkg_count_var++;
+                     }//if consultdata
+                   else 
+                    {
+                    	  var pkg_consult_data = document.createElement('div');
+                       $(pkg_consult_data).addClass("pkg_data");
+                       $(pkg_consult_data).html(data.packageDetails.Consultations[i]);
+                       $(pkg_consult_data).css('textIndent','20pt');
+                   	 $(pkg_left_element).append(pkg_consult_data);
+                   	 pkg_count_var++;        
+                    }//else consultdata
+                 }//for Consultations   
+              }//if dataconsultationslength
+               console.log(pkg_totalcount);
+                if((pkg_totalcount >20) && ((pkg_totalcount%2) !=0))  
+                {
+                var pkg_empty_element = document.createElement('div');
+                $(pkg_empty_element).addClass("pkg_data");
+                $(pkg_empty_element).html("-");
+                $(pkg_empty_element).css('textIndent','20pt')
+                $(pkg_right_element).append(pkg_empty_element);
+                }//if odd
                  var pkg_back_btn = document.createElement('button');
                  $(pkg_back_btn).html("Back");
                  $(pkg_back_btn).css('float','left');
@@ -709,6 +1166,7 @@
                  $(pkg_back_btn).on('click',function () 
                  {
                  	  //package_list(package_slug,package_name,package_consultation);
+                 	   loadingimage_handler();
                  	  pkg_test_details_back(package_slug,package_name,package_consultation)
                  	});
                  	$(pkg_next_btn).on('click',function () 
@@ -729,6 +1187,8 @@
                  $(pkg_address_finalprice).append(pkg_finalprice_info);
                  $(pkg_area_discount).append(pkg_area_pincode);
                  $(pkg_area_discount).append(pkg_discount_info);
+                 $(pkg_counter_element).append(pkg_left_element);
+                $(pkg_counter_element).append(pkg_right_element);
                  $(package_test_modal).append(pkg_test_close);
                 $(package_test_modal).append(pkg_test_name);
                 $(package_test_modal).append(pkg_labinfo_price);
@@ -740,10 +1200,10 @@
                 $(package_test_modal).append(pkg_counter_element);
                 if (data.packageDetails.TestsInfo.length ==0) 
                 {
-                	 $(pkg_contents_head).detach();
+                	 
                 }
-                $(package_test_modal).append(pkg_back_btn);
-                $(package_test_modal).append(pkg_next_btn);
+                //$(package_test_modal).append(pkg_back_btn);
+                //$(package_test_modal).append(pkg_next_btn);
                 $(pkg_test_close).on('click',function () 
                  {
                  	 
@@ -1028,7 +1488,7 @@
                  $(local_labs_table).append(local_lab_details_tr);
                  $(local_lab_details_tr).on('click',function () 
                  {
-                 	 //alert("package details");
+                 	 
                  	 var local_package_labslug = $(this).data('package_labslug');
                  	 pkg_test_details(local_package_labslug,package_slug,package_name,package_consultation);
                  	});//click
