@@ -5,16 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="shortcut icon" href="favicon.png" type="image/png" />	
 <title>Zotey</title>
-<link rel="stylesheet" href="css/bootstrap.min.css" />
+<!--<link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="font_awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/master.css"/>
 <link rel="stylesheet" href="css/stylesheet.css"/>
 <link rel="stylesheet" href="css/newstyles.css"/>
 <link rel="stylesheet" href="css/demo-modals.css"/>
+<link rel="stylesheet" href="css/tmm_form_wizard_style_demo.css"/>
+<link rel="stylesheet" href="css//tmm_form_wizard_layout.css"/>
 <link rel="stylesheet" href="css/the-modal.css"/>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,700,800' rel='stylesheet' type='text/css'>
 <link href="css/sliderstyle.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="css/health_packages.css"/>
+<link rel="stylesheet" href="css/health_packages.css"/>-->
 </head>
 <body>
 <section class="inner-header section-one">
@@ -163,11 +165,58 @@
 </section>
 
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.the-modal.js"></script>
 <script src="js/jquery.tablesorter.js"></script>
 <script src="js/custom_packages.js"></script>
-<script type="text/javascript" src="js/jquery.flexisel.js"></script>
+<script type="text/javascript" src="js/jquery.flexisel.js"></script>-->
+<script>
+
+var css_files = ['http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,700,800',
+                 'css/bootstrap.min.css',
+                 'css/fontello.css',
+                 'font_awesome/css/font-awesome.min.css',
+                  'css/the-modal.css',
+                  'css/demo-modals.css',
+                   'css/tmm_form_wizard_style_demo.css',
+                   'css/tmm_form_wizard_layout.css',
+                   'css/master.css',
+                   'css/stylesheet.css',
+                   'css/newstyles.css',
+                   'css/health_packages.css'];
+    css_files.forEach(function(href) {
+  var link_element = document.createElement('link');
+  link_element.rel =' stylesheet';
+  link_element.href = href;
+  link_element.async = false; 
+  document.head.appendChild(link_element);
+});
+ var date_css = ['css/bootstrap-datetimepicker.min.css'];
+  date_css.forEach(function(href) {
+  var link_dateelement = document.createElement('link');
+  link_dateelement.rel =' stylesheet';
+  link_dateelement.href = href;
+  link_dateelement.media = 'screen';
+  link_dateelement.async = false; 
+  document.head.appendChild(link_dateelement);
+});                   
+</script>
+<script type="text/javascript">
+var a=['https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
+        'js/bootstrap.min.js',
+        'js/jquery.flexisel.js',
+        'js/jquery.the-modal.js',
+        'js/bootstrap-datetimepicker.js',
+        'js/jquery.tablesorter.js',
+        'js/tmm_form_wizard_custom.js',
+        'js/custom_packages.js'];
+ a.forEach(function(src) {
+  var element = document.createElement('script');
+  element.src = src;
+  element.async = false; 
+  document.body.appendChild(element);
+});
+</script>
 </body>
 </html>

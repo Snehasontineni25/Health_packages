@@ -12,7 +12,11 @@
 }
 .table_head tr th:nth-child(5)
  {
-    width: 86px !important;
+    width: 105px !important;
+  }
+  .table_head tr th:nth-child(4)
+ {
+    width: 88px !important;
   }
   .package_contents:nth-child(2n)
   {
@@ -20,7 +24,10 @@
   }
   #deal_data:hover
   {
-      background:rgb(214,242,242) !important;
+      background:rgb(65, 167, 179) !important;
+      /*background:rgba(102,178,193,1)!important;
+       background:rgba(102,178,193,1)!important;*/
+      color: white;
   }
  .package_img
  {	
@@ -62,6 +69,7 @@
    .cust_pack:hover
    {
      background:rgb(214,242,242) !important;	
+     border-radius: 10px;
    }
   /* .pack_cont 
    {
@@ -120,3 +128,10 @@
   {
       background:rgba(236,246,248,0.99) !important;
   }
+  .datetimepicker 
+{
+  left:666.5px !important;
+  top:342px !important;
+  position:fixed !important;
+}
+

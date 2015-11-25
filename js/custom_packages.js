@@ -216,7 +216,8 @@
          type:'POST',
          dataType: 'json',
          data:{packageSlug:package_slug},
-         success:function(data){
+         success:function(data)
+         {
                console.log(data);
                 var pkg_dataToStore = JSON.stringify(data);
              localStorage.setItem('pkg_someData',pkg_dataToStore);
@@ -226,7 +227,7 @@
                $(package_list_modal).css('position','relative');
                $(package_list_modal).css('backgroundColor','#fff');
                $(package_list_modal).css('paddingRight','0px');
-               $(package_list_modal).css('width','960px');
+               $(package_list_modal).css('width','818px');
                var close_element = document.createElement('a');
                $(close_element).addClass("close");
                $(close_element).attr('href','#');
@@ -353,8 +354,8 @@
              $(pkg_consultations_asc).append(pkg_consultations_img_asc);
              $(pkg_consultations_imgs).append(pkg_consultations_desc);
              $(pkg_consultations_imgs).append(pkg_consultations_asc);
-             $(labconsultations_th).append(pkg_labconsultations);
-             $(labconsultations_th).append(pkg_consultations_imgs);
+             //$(labconsultations_th).append(pkg_labconsultations);
+             //$(labconsultations_th).append(pkg_consultations_imgs);
               var labprice_th = document.createElement('th');
               $(labprice_th).css('border', '1px solid #ddd');
               var pkg_labprice = document.createElement('div');
@@ -406,10 +407,11 @@
               var book_th = document.createElement('th');
               $(book_th).html("Details");
               $(book_th).css('textAlign','center');
+              $(book_th).css('padding','10px');
                $(labs_tr).append(labname_th);
               $(labs_tr).append(labarea_th);
               $(labs_tr).append(labtests_th);
-              $(labs_tr).append(labconsultations_th);
+              //$(labs_tr).append(labconsultations_th);
               $(labs_tr).append(labprice_th);
               $(labs_tr).append(labdiscount_th);
               $(labs_tr).append(book_th);
@@ -420,6 +422,7 @@
               	 var lab_details_tr = document.createElement('tr');
               	  $(lab_details_tr).attr('id','deal_data');
               	 $(lab_details_tr).attr('data-package_labslug',data[i].labSlug);
+              	 $(lab_details_tr).attr('data-package_selectedlabname',data[i].labName);
               	 var labname_td = document.createElement('td');
               	 $(labname_td).html(data[i].labName);
               	 $(labname_td).css('border', '1px solid #ddd');
@@ -447,6 +450,14 @@
               	 $(price_td).css('border', '1px solid #ddd');
               	 $(div_td).css('float','left');
               	 $(price_td).css('padding-left',	'9px');
+              	  if(data[i].labFinalPrice.length == "3" && data[i].labMRP.length =="3")
+              	  {
+              	    $(price_td).css('padding-left',	'24px');
+              	  }  
+              	  if((data[i].labFinalPrice.length == "3" && data[i].labMRP.length =="4") || (data[i].labFinalPrice.length == "4" && data[i].labMRP.length =="3"))
+                 {
+                   $(price_td).css('padding-left',	'19px');
+                 }  
               	 var fp = document.createElement('div');
               	 var finalprice = document.createElement('div');
               	 $(finalprice).html(data[i].labMRP);
@@ -471,35 +482,48 @@
               	 $(book_td).css('paddingRight','6px');
               	 $(book_td).css('border', '1px solid #ddd');
               	 var book_div = document.createElement('div');
-              	 $(book_div).html("View");
+              	 //$(book_div).html("View");
+              	 $(book_div).addClass("view_btn");
               	 $(book_div).css("background","#ea494f");
               	 $(book_div).css('borderRadius','5px');
               	 $(book_div).css("color","white");
-              	 $(book_div).css("fontSize","11px");
-              	 $(book_div).css('width','36px');
-              	 $(book_div).css("paddingLeft","5px");
-              	 $(book_div).css("paddingRight","5px");
+              	 //$(book_div).css("fontSize","11px");
+              	 //$(book_div).css('width','36px');
+              	 //$(book_div).css("paddingLeft","5px");
+              	 //$(book_div).css("paddingRight","5px");
               	 $(book_div).css('border','0px');
+              	 $(book_div).css('height','18px');
+              	 $(book_div).css('width','32px');
+              	 $(book_div).css('marginLeft','10px');
+              	 var book_view_div = document.createElement('div');
+              	 $(book_view_div).html("View");
+              	 $(book_view_div).css('fontSize','10px');
+              	 $(book_view_div).css('height','16px');
+              	 $(book_view_div).css('paddingTop','2px');
+              	 $(book_view_div).css('paddingLeft','5px');
+              	 $(book_view_div).css('paddingRight','5px');
+              	 $(book_div).append(book_view_div);
               	 $(book_td).append(book_div);
               	 $(lab_details_tr).append(labname_td);
                 $(lab_details_tr).append(labarea_td);
                 $(lab_details_tr).append(labtests_td);
-                $(lab_details_tr).append(consultations_td);
+                //$(lab_details_tr).append(consultations_td);
                 $(lab_details_tr).append(price_td);
                 $(lab_details_tr).append(discount_td);
                 $(lab_details_tr).append(book_td);
                  $(labs_table).append(lab_details_tr);
                  $(lab_details_tr).on('click',function () 
                  {
-                 	 //alert("package details");
+                 	 
                  	 loadingimage_handler();
                  	 var package_labslug = $(this).data('package_labslug');
-                 	 pkg_test_details(package_labslug,package_slug,package_name,package_consultation);
+                 	 var package_labname = $(this).data('package_selectedlabname');
+                 	 pkg_test_details(package_labslug,package_slug,package_name,package_consultation,package_labname);
                  	});//click
-              	}  
+              	}//for data length  
                 $(labs_tr).on('click',function () 
                 {
-                	   $("#myTable").tablesorter( {sortList: [[0,1], [1,0],[4,0]]} ); 
+                	   $("#myTable").tablesorter({sortList: [[0,1], [1,0],[4,0]]}); 
                 	});
                var close_button = document.createElement('button');
                $(close_button).html("Close");
@@ -509,6 +533,7 @@
                $(close_button).css('marginTop','16px');
                $(close_button).css('marginRight','23px');
                $(close_button).css('borderRadius','5px');
+               $(close_button).css('width','60px');
                $(package_list_modal).append(close_element);
                $(package_list_modal).append(head_name);
                $(package_list_modal).append(offer_labs);
@@ -525,18 +550,19 @@
                	  $(package_list_modal).modal().close(); 
                  });//click
                 $(package_list_modal).modal().open();
- }
- });
- }
+ }//success fnctn
+ });//ajax
+ }//fnctn handler
  
- function pkg_test_details(package_labslug,package_slug,package_name,package_consultation)
+ function pkg_test_details(package_labslug,package_slug,package_name,package_consultation,package_labname)
  {
  	 $.ajax({
          url:"http://beta.zotey.com/m-api/d-packages/lab-package-info",
          type:'POST',
          dataType: 'json',
          data:{packageSlug:package_slug,labSlug:package_labslug},
-         success:function(data){
+         success:function(data)
+         {
          	console.log(data);
                var package_test_modal = document.createElement('div');
                $(package_test_modal).addClass("modal");
@@ -661,319 +687,23 @@
                  $(pkg_contents_head_element).css('height','19px');
                  $(pkg_contents_head_element).css('paddingTop','1px');
                  $(pkg_contents_head).append(pkg_contents_head_element);
-                /* var pkg_count_var = 1;
-                 var pkg_counter_element = document.createElement('div');
-                 $(pkg_counter_element).addClass("tests_count");
-                 $(pkg_counter_element).css("marginRight","10px");
-                 var pkg_left_counter = document.createElement('div');
-                 $(pkg_left_counter).addClass("left_count");
-                 var pkg_right_counter = document.createElement('div');
-                 $(pkg_right_counter).addClass("right_count");
-                 if((data.packageDetails.TestsInfo.length >20) && (pkg_count_var>(data.packageDetails.TestsInfo.length)))
-               	{
-               	   var pkg_tests_info_head = document.createElement('div');
-               	   $(pkg_tests_info_head).html("Tests Information");
-               	   $(pkg_tests_info_head).addClass("package_contents");
-               	    $(pkg_tests_info_head).css('fontWeight','bold');
-               	   $(pkg_right_counter).append(pkg_tests_info_head);
-               	   $(pkg_left_counter).css('float','left');
-               	   pkg_count_var++;
-               	
-               	}//if head
-               	else 
-               	{
-               		 var pkg_tests_info_head = document.createElement('div');
-               	   $(pkg_tests_info_head).html("Tests Information");
-               	   $(pkg_tests_info_head).addClass("package_contents");
-               	   $(pkg_tests_info_head).css('fontWeight','bold');
-               	   $(pkg_left_counter).append(pkg_tests_info_head);
-               	    pkg_count_var++;
-               	}//else head
-                 for (var i=0 ;i<data.packageDetails.TestsInfo.length;i++) 
-               {
-               	
-               	if((data.packageDetails.TestsInfo.length >20) && (pkg_count_var>(data.packageDetails.TestsInfo.length)))
-               {
-               	var pkg_contents_data = document.createElement('div');
-               	$(pkg_contents_data).addClass("package_contents");
-               	$(pkg_contents_data).css('textIndent','20pt');
-               	var pkgcontentname = data.packageDetails.TestsInfo[i];
-               	var pkgcontentname_result = pkgcontentname.split(",");
-               	$(pkg_contents_data).html(pkgcontentname_result);
-               	$(pkg_right_counter).append(pkg_contents_data);
-               	$(pkg_left_counter).css('float','left');
-               	pkg_count_var++;
-               }//if
-               else 
-               {
-               	 var pkg_contents_data = document.createElement('div');
-               	$(pkg_contents_data).addClass("package_contents");
-               	$(pkg_contents_data).css('textIndent','20pt');
-               	var pkgcontentname = data.packageDetails.TestsInfo[i];
-               	var pkgcontentname_result = pkgcontentname.split(",");
-               	$(pkg_contents_data).html(pkgcontentname_result);
-               	$(pkg_left_counter).append(pkg_contents_data);
-               	 pkg_count_var++;
-               }//else
-               }//for
-               $(pkg_counter_element).append(pkg_left_counter);
-               $(pkg_counter_element).append(pkg_right_counter);*/
-                  /*var pkg_count_var = 1;
-                 var pkg_counter_element = document.createElement('div');
-                 $(pkg_counter_element).addClass("tests-list");
-                 $(pkg_counter_element).css('marginRight','20px');
-                 var pkg_left_element = document.createElement('div');
-                 $(pkg_left_element).addClass("left_list");
-                 var pkg_right_element = document.createElement('div');
-                 $(pkg_right_element).addClass("right_list");
-                 var pkg_totalcount =0;
-                 //console.log(data.packageDetails.GroupsInfo.length);
-                /* for(var i=0;i<data.packageDetails.GroupsInfo.length;i++)
-                 {
-                 	  var pkg_new_str  =  data.packageDetails.GroupsInfo[i].testsInGroup;
-                 	  var pkg_temp_str = pkg_new_str.split(",");
-                 	  console.log(pkg_temp_str);
-                 	  pkg_totalcount = pkg_totalcount+pkg_temp_str.length+1;
-                 	    console.log(pkg_totalcount);
-                  }//for groupsinfo */
-                 /*if(data.packageDetails.TestsInfo.length !=0)
-                 {
-                    pkg_totalcount = data.packageDetails.TestsInfo.length+1+pkg_totalcount;                 
-                 }//if testslength
-                 if(data.packageDetails.Consultations.length !=0)
-                 {
-                    pkg_totalcount = data.packageDetails.Consultations.length+1+pkg_totalcount;                 
-                 }//if consultationslength
-                 if(data.packageDetails.GroupsInfo.length !=0)
-               {
-               	 for(var i=0;i<data.packageDetails.GroupsInfo.length;i++)
-                 {
-                 	  var pkg_new_str  =  data.packageDetails.GroupsInfo[i].testsInGroup;
-                 	  var pkg_temp_str = pkg_new_str.split(",");
-                 	  //console.log(pkg_new_str);
-                 	  //console.log(pkg_temp_str);
-                 	  pkg_totalcount = pkg_totalcount+pkg_temp_str.length+1;
-                 	  //console.log(pkg_totalcount);
-                 	  if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
-                    {  
-                         
-                        var pkg_group_heading = document.createElement('div');
-                 	      $(pkg_group_heading).addClass("package_contents");
-                        $(pkg_group_heading).html(data.packageDetails.GroupsInfo[i].groupName);
-                        $(pkg_group_heading).css('fontWeight', 'bold');
-                        $(pkg_right_element).append(pkg_group_heading);
-                        $(pkg_left_element).css('float','left');
-                        pkg_count_var++;
-                    }//if groupheading
-                  else 
-                   {
-                   	  
-                   	 var pkg_group_heading = document.createElement('div');
-                 	    $(pkg_group_heading).addClass("package_contents");
-                      $(pkg_group_heading).html(data.packageDetails.GroupsInfo[i].groupName);
-                      $(pkg_group_heading).css('fontWeight', 'bold');
-                   	 $(pkg_left_element).append(pkg_group_heading);
-                	    pkg_count_var++;
-                	 }//else groupheading
-                	 console.log(pkg_temp_str);
-                 	 console.log(pkg_temp_str.length);
-                 	  for(i=0;i<pkg_temp_str.length;i++)
-                    {
-                      
-                       if((pkg_totalcount > 20)&& (pkg_count_var>(pkg_totalcount/2)))
-                       { 
-                         var pkg_group_data = document.createElement('div');
-                         $(pkg_group_data).addClass("package_contents");
-                         $(pkg_group_data).html(pkg_temp_str[i]);
-                         $(pkg_group_data).css('textIndent','20pt');
-                         $(pkg_right_element).append(pkg_group_data);
-                         $(pkg_left_element).css('float','left');
-                         pkg_count_var++;  
-                       }//if groupdata
-                       else 
-                        { 
-                           var pkg_group_data = document.createElement('div');
-                           $(pkg_group_data).addClass("package_contents");
-                           $(pkg_group_data).html(pkg_temp_str[i]);
-                           $(pkg_group_data).css('textIndent','20pt');
-                           $(pkg_left_element).append(pkg_group_data);
-                           pkg_count_var++;
-                        }//else groupdata
-                    }//for strlength
-                	  //console.log(pkg_temp_str.length);
-                 	}//for
-               }//if 
-                
-             /* if(data.packageDetails.GroupsInfo.length !=0)
-               {
-               	
-                 for(var i=0;i<data.packageDetails.GroupsInfo.length;i++)
-                 {
-                 	 var pkg_new_str = data.packageDetails.GroupsInfo[i].testsInGroup;
-                   var pkg_temp_str = pkg_new_str.split(",");
-                   console.log(pkg_temp_str);
-                    if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
-                    {  
-                         
-                        var pkg_group_heading = document.createElement('div');
-                 	      $(pkg_group_heading).addClass("package_contents");
-                        $(pkg_group_heading).html(data.packageDetails.GroupsInfo[i].groupName);
-                        $(pkg_group_heading).css('fontWeight', 'bold');
-                        $(pkg_right_element).append(pkg_group_heading);
-                        $(pkg_left_element).css('float','left');
-                        pkg_count_var++;
-                    }//if groupheading
-                  else 
-                   {
-                   	  
-                   	 var pkg_group_heading = document.createElement('div');
-                 	    $(pkg_group_heading).addClass("package_contents");
-                      $(pkg_group_heading).html(data.packageDetails.GroupsInfo[i].groupName);
-                      $(pkg_group_heading).css('fontWeight', 'bold');
-                   	 $(pkg_left_element).append(pkg_group_heading);
-                	    pkg_count_var++;
-                	 }//else groupheading
-                  
-                   for(i=0;i<pkg_temp_str.length;i++)
-                    {
-                      
-                       if((pkg_totalcount > 20)&& (pkg_count_var>(pkg_totalcount/2)))
-                       { 
-                         var pkg_group_data = document.createElement('div');
-                         $(pkg_group_data).addClass("package_contents");
-                         $(pkg_group_data).html(temp_str[i]);
-                         $(pkg_group_data).css('textIndent','20pt');
-                         $(pkg_right_element).append(pkg_group_data);
-                         $(pkg_left_element).css('float','left');
-                         pkg_count_var++;  
-                       }//if groupdata
-                       else 
-                        { 
-                           var pkg_group_data = document.createElement('div');
-                           $(pkg_group_data).addClass("package_contents");
-                           $(pkg_group_data).html(pkg_temp_str[i]);
-                           $(pkg_group_data).css('textIndent','20pt');
-                           $(pkg_left_element).append(pkg_group_data);
-                           pkg_count_var++;
-                        }//else groupdata
-                    }//for strlength
-                 } //for groupslength 
-                }//if groupsinfolength */
-              /*if(data.packageDetails.TestsInfo.length != 0)
-              {
-                if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
-                 {        
-                    var pkg_tests_heading = document.createElement('div'); 
-                    $(pkg_tests_heading).addClass("package_contents");
-                    $(pkg_tests_heading).html("Individual Tests");
-                    $(pkg_tests_heading).css('fontWeight','bold');
-                    $(pkg_right_element).append(pkg_tests_heading);
-                    $(pkg_left_element).css('float','left');
-                    pkg_count_var++;
-                 }//if testsheading
-               else 
-               {
-               	 var pkg_tests_heading = document.createElement('div');
-               	 $(pkg_tests_heading).addClass("package_contents");
-                   $(pkg_tests_heading).html("Individual Tests");
-                   $(pkg_tests_heading).css('fontWeight','bold');
-                   $(pkg_left_element).append(pkg_tests_heading);
-                   pkg_count_var++;               	
-               }//else testsheading
-                 
-                for(var  i=0;i<data.packageDetails.TestsInfo.length;i++)
-                 {
-                    
-                     if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
-                      {
-                      	  var pkg_content_data = document.createElement('div');
-                          $(pkg_content_data).addClass("package_contents");
-                          $(pkg_content_data).html(data.packageDetails.TestsInfo[i]);
-                          $(pkg_content_data).css('textIndent','20pt');
-                          $(pkg_right_element).append(pkg_content_data);
-                          $(pkg_left_element).css('float','left');
-                          pkg_count_var++;
-                      }//if contentdata
-                    else 
-                     {
-                     	var pkg_content_data = document.createElement('div');
-                        $(pkg_content_data).addClass("package_contents");
-                        $(pkg_content_data).html(data.packageDetails.TestsInfo[i]);
-                        $(pkg_content_data).css('textIndent','20pt');
-                    	   $(pkg_left_element).append(pkg_content_data);
-                    	   pkg_count_var++;
-                    	}//else contentdata
-                 }//for TestsInfo
-                }//if testsinfolength
-              if(data.packageDetails.Consultations.length !=0)
-              {
-                if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
-                   {
-                   	   var pkg_consult_heading = document.createElement('div');
-                   	   $(pkg_consult_heading).addClass("package_contents");
-                        $(pkg_consult_heading).html("Consultations");
-                        $(pkg_consult_heading).css('fontWeight','bold');
-                        $(pkg_right_element).append(pkg_consult_heading);
-                        $(pkg_left_element).css('float','left');
-                       pkg_count_var++;
-                   }//if consultheading
-                 else  
-                    {
-                   	  var pkg_consult_heading = document.createElement('div');
-                   	  $(pkg_consult_heading).addClass("package_contents");
-                       $(pkg_consult_heading).html("Consultations");
-                       $(pkg_consult_heading).css('fontWeight','bold');
-                       $(pkg_left_element).append(pkg_consult_heading);
-                       pkg_count_var++;
-                 	 }//else consultheading
-                      	
-                 for(var i=0;i<data.packageDetails.Consultations.length;i++)
-                 {
-                    
-                    if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
-                     { 
-                        var pkg_consult_data = document.createElement('div');
-                        $(pkg_consult_data).addClass("package_contents");
-                        $(pkg_consult_data).html(data.packageDetails.Consultations[i]);
-                        $(pkg_consult_data).css('textIndent','20pt');
-                        $(pkg_right_element).append(pkg_consult_data); 
-                        $(pkg_left_element).css('float','left');
-                        pkg_count_var++;
-                     }//if consultdata
-                   else 
-                    {
-                    	  var pkg_consult_data = document.createElement('div');
-                       $(pkg_consult_data).addClass("package_contents");
-                       $(pkg_consult_data).html(data.packageDetails.Consultations[i]);
-                       $(pkg_consult_data).css('textIndent','20pt');
-                   	 $(pkg_left_element).append(pkg_consult_data);
-                   	 pkg_count_var++;        
-                    }//else consultdata
-                 }//for Consultations   
-              }//if dataconsultationslength
-               
-                if((pkg_totalcount >20) && ((pkg_totalcount%2) !=0))  
-                {
-                var pkg_empty_element = document.createElement('div');
-                $(pkg_empty_element).addClass("package_contents");
-                $(pkg_empty_element).html("-");
-                $(pkg_empty_element).css('textIndent','20pt')
-                //$(pkg_right_element).append(pkg_empty_element);
-                }//if odd*/
-                var pkg_count_var = 1;
+               // var pkg_count_var = 0;
                  var pkg_counter_element = document.createElement('div');
                  $(pkg_counter_element).addClass("pkg_tests-list");
                  $(pkg_counter_element).css('marginRight','20px');
                  var pkg_left_element = document.createElement('div');
                  $(pkg_left_element).addClass("pkg_left_list");
+                 //$(pkg_left_element).css('fontSize','12px');
                  var pkg_right_element = document.createElement('div');
                  $(pkg_right_element).addClass("pkg_right_list");
+                 //$(pkg_right_element).css('fontSize','12px');
+                 
                  var pkg_totalcount =0;
                  for(var i=0;i<data.packageDetails.GroupsInfo.length;i++)
                  {
                  	  var pkg_new_str  =  data.packageDetails.GroupsInfo[i].testsInGroup;
                  	  var pkg_temp_str = pkg_new_str.split(",");
-                    console.log(pkg_temp_str);
+                    //console.log(pkg_temp_str);
                  	  pkg_totalcount = pkg_totalcount+pkg_temp_str.length+1;
                   }//for groupsinfo
                  if(data.packageDetails.TestsInfo.length !=0)
@@ -984,14 +714,20 @@
                  {
                     pkg_totalcount = data.packageDetails.Consultations.length+1+pkg_totalcount;                 
                  }//if consultationslength
-                
+             if ((pkg_totalcount%2) =="0") 
+             {
+             	 var pkg_count_var = 1;
+             }
+             if ((pkg_totalcount%2) !="0") 
+             {
+             	 var pkg_count_var = 0;
+             }
+             
               if(data.packageDetails.GroupsInfo.length !=0)
                {
+               	console.log(data.packageDetails.GroupsInfo.length);
                 for(var i=0;i<data.packageDetails.GroupsInfo.length;i++)
                  {
-                 	   var pkg_new_str = data.packageDetails.GroupsInfo[i].testsInGroup;
-                   var pkg_temp_str = pkg_new_str.split(",");
-                   console.log(pkg_temp_str); 
                     if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
                     {  
                         var pkg_group_heading = document.createElement('div');
@@ -1000,6 +736,7 @@
                         $(pkg_group_heading).css('fontWeight', 'bold');
                         $(pkg_right_element).append(pkg_group_heading);
                         $(pkg_left_element).css('float','left');
+                        $(pkg_left_element).css('width','260px');
                         pkg_count_var++;
                     }//if groupheading
                   else 
@@ -1011,36 +748,39 @@
                    	 $(pkg_left_element).append(pkg_group_heading);
                 	    pkg_count_var++;
                 	 }//else groupheading
-                	 
+                	 console.log("Group name"+data.packageDetails.GroupsInfo[i].groupName);
+                	
                    var pkg_new_str = data.packageDetails.GroupsInfo[i].testsInGroup;
                    var pkg_temp_str = pkg_new_str.split(",");
-                   console.log(pkg_temp_str.length);
-                    for(i=0;i<pkg_temp_str.length;i++)
+                   
+                    for(var j=0;j<pkg_temp_str.length;j++)
                     {
-                      
+                       
                        if((pkg_totalcount > 20)&& (pkg_count_var>(pkg_totalcount/2)))
                        { 
+                       
                          var pkg_group_data = document.createElement('div');
                          $(pkg_group_data).addClass("pkg_data");
-                         $(pkg_group_data).html(pkg_temp_str[i]);
-                         $(pkg_group_data).css('textIndent','20pt');
+                         $(pkg_group_data).html(pkg_temp_str[j]);
+                         $(pkg_group_data).css('textIndent','10pt');
                          $(pkg_right_element).append(pkg_group_data);
                          $(pkg_left_element).css('float','left');
+                          $(pkg_left_element).css('width','260px');
                          pkg_count_var++;  
                        }//if groupdata
                        else 
                         { 
                            var pkg_group_data = document.createElement('div');
                            $(pkg_group_data).addClass("pkg_data");
-                           $(pkg_group_data).html(pkg_temp_str[i]);
-                           $(pkg_group_data).css('textIndent','20pt');
+                           $(pkg_group_data).html(pkg_temp_str[j]);
+                           $(pkg_group_data).css('textIndent','10pt');
                            $(pkg_left_element).append(pkg_group_data);
                            pkg_count_var++;
                         }//else groupdata
+                        console.log(pkg_temp_str[i]);
                     }//for strlength 
-                   
-                 } //for groupslength 
-                }//if groupsinfolength
+                   }//for
+                  }//if
               if(data.packageDetails.TestsInfo.length != 0)
               {
                 if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
@@ -1051,6 +791,7 @@
                     $(pkg_tests_heading).css('fontWeight','bold');
                     $(pkg_right_element).append(pkg_tests_heading);
                     $(pkg_left_element).css('float','left');
+                     $(pkg_left_element).css('width','260px');
                     pkg_count_var++;
                  }//if testsheading
                else 
@@ -1063,17 +804,18 @@
                    pkg_count_var++;               	
                }//else testsheading
                  
-                for(var  i=0;i<data.packageDetails.TestsInfo.length;i++)
+                for(var i=0;i<data.packageDetails.TestsInfo.length;i++)
                  {
                     
                      if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
                       {
-                      	  var pkg_content_data = document.createElement('div');
+                          var pkg_content_data = document.createElement('div');
                           $(pkg_content_data).addClass("pkg_data");
                           $(pkg_content_data).html(data.packageDetails.TestsInfo[i]);
-                          $(pkg_content_data).css('textIndent','20pt');
+                          $(pkg_content_data).css('textIndent','10pt');
                           $(pkg_right_element).append(pkg_content_data);
                           $(pkg_left_element).css('float','left');
+                           $(pkg_left_element).css('width','260px');
                           pkg_count_var++;
                       }//if contentdata
                     else 
@@ -1081,13 +823,13 @@
                      	var pkg_content_data = document.createElement('div');
                         $(pkg_content_data).addClass("pkg_data");
                         $(pkg_content_data).html(data.packageDetails.TestsInfo[i]);
-                        $(pkg_content_data).css('textIndent','20pt');
+                        $(pkg_content_data).css('textIndent','10pt');
                     	   $(pkg_left_element).append(pkg_content_data);
                     	   pkg_count_var++;
-                    	}//else contentdata
+                     	}//else contentdata
                  }//for TestsInfo
                 }//if testsinfolength
-              if(data.packageDetails.Consultations.length !=0)
+             if(data.packageDetails.Consultations.length !=0)
               {
                 if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
                    {
@@ -1097,6 +839,7 @@
                         $(pkg_consult_heading).css('fontWeight','bold');
                         $(pkg_right_element).append(pkg_consult_heading);
                         $(pkg_left_element).css('float','left');
+                         $(pkg_left_element).css('width','260px');
                        pkg_count_var++;
                    }//if consultheading
                  else  
@@ -1117,9 +860,10 @@
                         var pkg_consult_data = document.createElement('div');
                         $(pkg_consult_data).addClass("pkg_data");
                         $(pkg_consult_data).html(data.packageDetails.Consultations[i]);
-                        $(pkg_consult_data).css('textIndent','20pt');
+                        $(pkg_consult_data).css('textIndent','10pt');
                         $(pkg_right_element).append(pkg_consult_data); 
                         $(pkg_left_element).css('float','left');
+                         $(pkg_left_element).css('width','260px');
                         pkg_count_var++;
                      }//if consultdata
                    else 
@@ -1127,39 +871,39 @@
                     	  var pkg_consult_data = document.createElement('div');
                        $(pkg_consult_data).addClass("pkg_data");
                        $(pkg_consult_data).html(data.packageDetails.Consultations[i]);
-                       $(pkg_consult_data).css('textIndent','20pt');
+                       $(pkg_consult_data).css('textIndent','10pt');
                    	 $(pkg_left_element).append(pkg_consult_data);
                    	 pkg_count_var++;        
                     }//else consultdata
                  }//for Consultations   
-              }//if dataconsultationslength
-               console.log(pkg_totalcount);
+              }//if dataconsultationslength 
                 if((pkg_totalcount >20) && ((pkg_totalcount%2) !=0))  
                 {
+                	console.log(pkg_totalcount);
                 var pkg_empty_element = document.createElement('div');
                 $(pkg_empty_element).addClass("pkg_data");
                 $(pkg_empty_element).html("-");
                 $(pkg_empty_element).css('textIndent','20pt')
                 $(pkg_right_element).append(pkg_empty_element);
-                }//if odd
+                }//if odd 
                  var pkg_back_btn = document.createElement('button');
                  $(pkg_back_btn).html("Back");
                  $(pkg_back_btn).css('float','left');
                  $(pkg_back_btn).css('background', '#ea494f');
                  $(pkg_back_btn).css('marginTop','16px');
                  $(pkg_back_btn).css('color','white');
-                 //$(pkg_back_btn).css('width','50px');
+                 $(pkg_back_btn).css('width','60px');
                  $(pkg_back_btn).css('borderRadius','6px');
                  //$(pkg_back_btn).css('paddingLeft','6px');
                  $(pkg_back_btn).css('border','0px');
                   var pkg_next_btn = document.createElement('button');
                  $(pkg_next_btn).html("Book");
                  $(pkg_next_btn).css('marginTop','16px');
-                 $(pkg_next_btn).css('marginRight','10px');
+                 $(pkg_next_btn).css('marginRight','20px');
                  $(pkg_next_btn).css('float','right');
                  $(pkg_next_btn).css('background', '#ea494f');
                  $(pkg_next_btn).css('color','white');
-                 //$(pkg_next_btn).css('width','50px');
+                 $(pkg_next_btn).css('width','60px');
                  $(pkg_next_btn).css('borderRadius','6px');
                  //$(pkg_next_btn).css('paddingLeft','6px');
                  $(pkg_next_btn).css('border','0px');
@@ -1171,7 +915,7 @@
                  	});
                  	$(pkg_next_btn).on('click',function () 
                  	{
-                 		alert("book");
+                 		//alert("book");
                  		});
                  $(pkg_mrp_info).append(pkg_mrp_data);
                  $(pkg_mrp_info).append(pkg_Mrp_element);
@@ -1198,12 +942,14 @@
 
                 $(package_test_modal).append(pkg_contents_head);
                 $(package_test_modal).append(pkg_counter_element);
-                if (data.packageDetails.TestsInfo.length ==0) 
+                console.log(document.getElementsByClassName("pkg_data")[0]);
+                //if (data.packageDetails.TestsInfo.length ==0) 
+               $(package_test_modal).append(pkg_back_btn);
+                $(pkg_next_btn).on('click',function () 
                 {
-                	 
-                }
-                //$(package_test_modal).append(pkg_back_btn);
-                //$(package_test_modal).append(pkg_next_btn);
+                      pkg_form_handler(package_name,package_labname,package_slug,package_consultation);                	
+                	});
+                $(package_test_modal).append(pkg_next_btn);
                 $(pkg_test_close).on('click',function () 
                  {
                  	 
@@ -1223,7 +969,7 @@
                $(local_package_list_modal).css('position','relative');
                $(local_package_list_modal).css('backgroundColor','#fff');
                $(local_package_list_modal).css('paddingRight','0px');
-               $(local_package_list_modal).css('width','960px');
+               $(local_package_list_modal).css('width','818px');
                var local_close_element = document.createElement('a');
                $(local_close_element).addClass("close");
                $(local_close_element).attr('href','#');
@@ -1403,10 +1149,10 @@
               var local_book_th = document.createElement('th');
               $(local_book_th).html("Details");
               $(local_book_th).css('textAlign','center');
+              $(local_book_th).css('padding','10px');
                $(local_labs_tr).append(local_labname_th);
               $(local_labs_tr).append(local_labarea_th);
               $(local_labs_tr).append(local_labtests_th);
-              $(local_labs_tr).append(local_labconsultations_th);
               $(local_labs_tr).append(local_labprice_th);
               $(local_labs_tr).append(local_labdiscount_th);
               $(local_labs_tr).append(local_book_th);
@@ -1444,6 +1190,10 @@
               	 $(local_price_td).css('border', '1px solid #ddd');
               	 $(local_div_td).css('float','left');
               	 $(local_price_td).css('padding-left',	'9px');
+              	  if(pkg_localData[i].labFinalPrice.length == "3")
+              	  {
+              	    $(local_price_td).css('padding-left',	'24px');
+              	  }  
               	 var local_fp = document.createElement('div');
               	 var local_finalprice = document.createElement('div');
               	 $(local_finalprice).html(pkg_localData[i].labMRP);
@@ -1481,7 +1231,6 @@
               	 $(local_lab_details_tr).append(local_labname_td);
                 $(local_lab_details_tr).append(local_labarea_td);
                 $(local_lab_details_tr).append(local_labtests_td);
-                $(local_lab_details_tr).append(local_consultations_td);
                 $(local_lab_details_tr).append(local_price_td);
                 $(local_lab_details_tr).append(local_discount_td);
                 $(local_lab_details_tr).append(local_book_td);
@@ -1505,6 +1254,7 @@
                $(local_close_button).css('marginTop','16px');
                $(local_close_button).css('marginRight','23px');
                $(local_close_button).css('borderRadius','5px');
+               $(local_close_button).css('width','60px');
                $(local_package_list_modal).append(local_close_element);
                $(local_package_list_modal).append(local_head_name);
                $(local_package_list_modal).append(local_offer_labs);
@@ -1523,11 +1273,11 @@
                 $(local_package_list_modal).modal().open();
  }
  
-  function pkg_form_handler(dataid,labname,labslug,dealname,deal_slug,deal_mrp,deal_discount,deal_finalprice,labarea)
+  function pkg_form_handler(package_name,package_labname,package_slug,package_consultation)
       {
                   var pkg_booking_page = document.createElement('div');
                   $(pkg_booking_page).addClass("modal");
-                  $(pkg_booking_page).attr('id','modal_secondpage');
+                  $(pkg_booking_page).attr('id','pkg_modal_secondpage');
                   $(pkg_booking_page).css('backgroundColor','#fff');
                   $(pkg_booking_page).css('height','578px');
                   $(pkg_booking_page).css('paddingRight','0px');
@@ -1547,291 +1297,292 @@
                   $(pkg_contact_heading).css('fontWeight','bold');
                   $(pkg_contact_heading).css('color','#5cb0cf');
                   var pkg_lab_details = document.createElement('div');
-                  $(pkg_lab_details).html(labname);
+                  $(pkg_lab_details).html(package_labname);
                   $(pkg_lab_details).css('textAlign' ,'right');
                   $(pkg_lab_details).css('paddingRight','17px');
                   $(pkg_lab_details).css('fontWeight','bold');
                   $(pkg_lab_details).css('marginTop','6px');  
                   $(pkg_lab_details).css('marginRight','20px');
                   var pkg_deal_name  = document.createElement('div');
-                  $(pkg_deal_name).html(dealname);
+                  $(pkg_deal_name).html(package_name);
                   $(pkg_deal_name).css('textAlign' ,'right');
                   $(pkg_deal_name).css('paddingRight','14px');
                   $(pkg_deal_name).css('fontWeight','bold');
-                  $(deal_name).css('marginTop','6px');
-                  $(deal_name).css('marginRight','20px');
-                  var parent_wizard = document.createElement('div');
-                  $(parent_wizard).attr('id','tmm-form-wizard');
-                  $(parent_wizard).addClass('container substrate');
-                  $(parent_wizard).css('width','100%');
-                  $(parent_wizard).css('paddingTop','1px');
-                  var form_element = document.createElement('form');
-                  $(form_element).attr('method','post');
-                  $(form_element).attr('id','patient_info'); 
-                  $(form_element).attr('name','patient_info');
-                  $(form_element).attr('action','#');
-                  $(form_element).attr('role','form');
-                  $(form_element).css('marginRight','20px');
-                  var wizard_element = document.createElement('div');
-                  $(wizard_element).addClass("form-wizard");
-                  $(wizard_element).css('padding-top','0px');
-                  var row_element = document.createElement('div');
-                  $(row_element).addClass("row");
-                  var col_element = document.createElement('div');
-                  $(col_element).addClass("col-md-12 no-pad");
-                  var form_class = document.createElement('form-wizard');
-                  $(form_class).addClass("form-wizard");
-                  $(form_class).css('border','0px');
-                  $(form_class).css('paddingTop','4px');
-                  var second_row = document.createElement('div');
-                  $(second_row).addClass("row");
-                   var col_class_element = document.createElement('div');
-                  $(col_class_element).addClass("col-md-12 col-sm-12");
-                  $(col_class_element).css('paddingTop','5px');
-                  var name_row = document.createElement('div');
-                  $(name_row).addClass("row");
-                  var name_col_class = document.createElement('div');
-                  $(name_col_class).addClass("col-md-12 col-sm-12");
-                  var fieldset_element = document.createElement('fieldset');
-                  $(fieldset_element).addClass("input-block");
-                  var label_ptntname = document.createElement('label');
-                  $(label_ptntname).attr('for','patient_name');
-                  $(label_ptntname).html("Full Name");
-                  var input_element = document.createElement('input');
-                  $(input_element).attr('type','text');
-                  $(input_element).attr('id', 'patient_name');
-                  $(input_element).attr('name','patient_name');
-                  $(input_element).attr('value','');
-                  $(input_element).addClass("form-icon form-icon-user");
-                  $(input_element).attr('placeholder','Please enter your name');
-                  $(input_element).attr('required','');
-                  var email_row = document.createElement('div');
-                  $(email_row).addClass("row");
-                  var email_col_class = document.createElement('div');
-                  $(email_col_class).addClass("col-md-12 col-sm-12");
-                  var fieldset_email = document.createElement('fieldset');
-                  $(fieldset_email).addClass("input-block");
-                  var label_email = document.createElement('label');
-                  $(label_email).attr('for','email');
-                  $(label_email).html("Email");
-                  var input_email = document.createElement('input');
-                  $(input_email).attr('type','text');
-                  $(input_email).attr('id','email');
-                  $(input_email).attr('name','patient_email');
-                  $(input_email).attr('value','');
-                  $(input_email).addClass('form-icon form-icon-mail');
-                  $(input_email).attr('placeholder','Please enter your email ID');
-                  $(input_email).attr('required','required');
-                  var phno_row = document.createElement('div');
-                  $(phno_row).addClass("row");
-                  var phno_col_class = document.createElement('div');
-                  $(phno_col_class).addClass("col-md-6 col-sm-12");
-                  var fieldset_phno = document.createElement('fieldset');
-                  $(fieldset_phno).addClass("input-block");
-                  var label_phno = document.createElement('label');
-                  $(label_phno).attr('for','phone1');
-                  $(label_phno).html('Mobile No:');
-                  var input_phno = document.createElement('input');
-                  $(input_phno).attr('type','text');
-                  $(input_phno).attr('id','phone');
-                  $(input_phno).attr('name','patient_mobile');
-                  $(input_phno).attr('value','');
-                  $(input_phno).addClass('form-icon form-icon-phone');
-                  $(input_phno).attr('placeholder','Number');
-                  $(input_phno).attr('required','required');
-                  var apptime_col_class = document.createElement('div');
-                  $(apptime_col_class).addClass('col-md-6 col-sm-12');
-                  var fieldset_booking = document.createElement('fieldset');
-                  $(fieldset_booking).addClass("input-block");
-                  var label_booking = document.createElement('label');
-                  $(label_booking).attr('for','app_time');
-                  $(label_booking).html('Appointment Timing:');
-                  var input_booking = document.createElement('input');
-                  $(input_booking).attr('type','text');
-                  $(input_booking).attr('id','app_time');
-                  $(input_booking).attr('name','appointment_time');
-                  $(input_booking).attr('value','');
-                  $(input_booking).attr('placeholder','Select Timeslot');
-                  $(input_booking).addClass("form_datetime");
-                  $(input_booking).attr('required','required');
-                  var information_row = document.createElement('row');
-                  $(information_row).addClass("row");
-                  var note_col_class = document.createElement('div');
-                  $(note_col_class).addClass("col-md-12 col-sm-12");
-                  var font_element = document.createElement('font');
-                  $(font_element).html("*Note: Patient Information is kept confidential and is used only for booking appointments and to improve the service.");
-                  $(font_element).css('fontSize','10px');
-                  var prevbtn_element = document.createElement('div');
-                  $(prevbtn_element).css('marginLeft','30px');
-                  $(prevbtn_element).addClass('prev');
-                  var backbtn = document.createElement('button');
-                  $(backbtn).attr('id','step2_back_btn');
-                  $(backbtn).addClass("button button-control");
-                  $(backbtn).attr('type','button');
-                  var span_backbtn = document.createElement('span');
-                  $(span_backbtn).html("Back");
-                  $(backbtn).append(span_backbtn);
-                  var backbtn_divider = document.createElement('div');
-                  $(backbtn_divider).addClass("button-divider");
-                  var nextbtn_element = document.createElement('div');
-                  $(nextbtn_element).css('marginLeft','50px');
-                  $(nextbtn_element).addClass('next');
-                  var nextbtn = document.createElement('button');
-                  $(nextbtn).attr('id','step2_next_btn');
-                  $(nextbtn).addClass("button button-control");
-                  $(nextbtn).attr('type','button');
-                  var span_nextbtn = document.createElement('span');
-                  $(span_nextbtn).html("Next");
-                  $(nextbtn).append(span_nextbtn);
-                  var nextbtn_divider = document.createElement('div');
-                  $(nextbtn_divider).addClass("button-divider");
-                  $(fieldset_element).append(label_ptntname);
-                  $(fieldset_element).append(input_element);
-                  $(fieldset_email).append(label_email);
-                  $(fieldset_email).append(input_email);
-                  $(fieldset_phno).append(label_phno);
-                  $(fieldset_phno).append(input_phno);
-                  $(fieldset_booking).append(label_booking);
-                  $(fieldset_booking).append(input_booking);
-                  $(name_col_class).append(fieldset_element);
-                  $(email_col_class).append(fieldset_email);
-                  $(phno_col_class).append(fieldset_phno);
-                  $(apptime_col_class).append(fieldset_booking);
-                  $(note_col_class).append(font_element);
-                  $(name_row).append(name_col_class);
-                  $(email_row).append(email_col_class);
-                  $(phno_row).append(phno_col_class);
-                  $(phno_row).append(apptime_col_class);
-                  $(information_row).append(note_col_class);
-                  $(col_class_element).append(name_row);
-                  $(col_class_element).append(email_row);
-                  $(col_class_element).append(phno_row);
-                  $(col_class_element).append(information_row);
-                  $(second_row).append(col_class_element);
-                  $(form_class).append(second_row);
-                  $(col_element).append(form_class);
-                  $(row_element).append(col_element);
-                  $(prevbtn_element).append(backbtn);
-                  $(prevbtn_element).append(backbtn_divider);
-                  $(row_element).append(prevbtn_element);
-                  $(nextbtn_element).append(nextbtn);
-                  $(nextbtn_element).append(nextbtn_divider);
-                  $(row_element).append(nextbtn_element);
-                  $(wizard_element).append(row_element);
-                  $(form_element).append(wizard_element);
-                  $(parent_wizard).append(form_element);
-                  var error_display = document.createElement('div');
-                  $(error_display).addClass("display_error");
-                 var name_element = document.createElement('div');
-                 $(name_element).addClass("err_msg");
-                 $(name_element).attr('id','err_name');
-                 $(name_element).css('color','rgb(236,73,73)');
-                 $(name_element).css('textAlign','left');
-                 $(name_element).css('marginLeft','16px');
-                 $(name_element).css('display','none');
-                  var star_element = document.createElement('span');
-                  $(star_element).addClass('star');
-                  $(star_element).html("&#x2605");
-                  $(star_element).css('float','left');
-                  var error_name_element = document.createElement('div');
-                  $(error_name_element).html('Enter Full Name');
-                  $(name_element).append(star_element);
-                  $(name_element).append(error_name_element);
-                  var email_element = document.createElement('div');
-               	$(email_element).addClass("err_msg");
-                  $(email_element).attr('id','err_email');
-                  $(email_element).css('color','rgb(236,73,73)');
-                  $(email_element).css('textAlign','left');
-                  $(email_element).css('marginLeft','16px');
-                  $(email_element).css('display','none');
-                  var star_email = document.createElement('span');
-                  $(star_email).addClass('star');
-                  $(star_email).html("&#x2605");
-                  $(star_email).css('float','left');
-                  var error_email_element = document.createElement('div');
-                  $(error_email_element).html('Enter valid e-mail id');
-                 	$(email_element).append(star_email);
-                 	$(email_element).append(error_email_element);
-                  var mbno_element = document.createElement('div');
-                 	$(mbno_element).addClass("err_msg");
-                 	$(mbno_element).attr('id','err_mbno');
-                  $(mbno_element).css('color','rgb(236,73,73)');
-                  $(mbno_element).css('textAlign','left');
-                 	$(mbno_element).css('marginLeft','16px');
-                  $(mbno_element).css('display','none');
-                  var star_mbno = document.createElement('span');
-                  $(star_mbno).addClass('star');
-                  $(star_mbno).html("&#x2605");
-                  $(star_mbno).css('float','left');
-                  var error_mbno_element = document.createElement('div');
-                  $(error_mbno_element).html('Enter correct mobile number');
-                  $(mbno_element).append(star_mbno);
-                  $(mbno_element).append(error_mbno_element);
-                  var phno_element = document.createElement('div');
-                  $(phno_element).addClass("err_msg");
-                  $(phno_element).css('color','rgb(236,73,73)');
-                  $(phno_element).css('textAlign','left');
-                  $(phno_element).css('marginLeft','16px');
-                  $(phno_element).css('display','none');
-                  var star_phno = document.createElement('span');
-                  $(star_phno).addClass('star');
-                  $(star_phno).html("&#x2605");
-                  $(star_phno).css('float','left');
-                  var error_phno_element = document.createElement('div');
-                  $(error_phno_element).html('Mobile number is not valid');
-                  $(phno_element).append(star_phno);
-                  $(phno_element).append(error_phno_element);
-                  var apptime_element = document.createElement('div');
-                 	$(apptime_element).attr('id','err_apptime');
-                 	$(apptime_element).addClass("err_msg");
-                  $(apptime_element).css('color','rgb(236,73,73)');
-                 	$(apptime_element).css('textAlign','left');
-                 	$(apptime_element).css('marginLeft','16px');
-                 	$(apptime_element).css('display','none');
-                 	var star_apptime = document.createElement('span');
-                 	$(star_apptime).addClass('star');
-                 	$(star_apptime).html("&#x2605");
-                 	$(star_apptime).css('float','left');
-                  var error_apptime_element = document.createElement('div');
-                  $(error_apptime_element).html('Please select Appointment Time');
-               	 $(apptime_element).append(star_apptime);
-                   $(apptime_element).append(error_apptime_element);
-                  var app_time_element = document.createElement('div');
-                   $(app_time_element).attr('id','err_app_time');
-                   $(app_time_element).addClass("err_msg");
-                   $(app_time_element).css('color','rgb(236,73,73)');
-                   $(app_time_element).css('textAlign','left');
-                   $(app_time_element).css('marginLeft','16px');
-                 	 $(app_time_element).css('display','none');
-                   var star_app_time = document.createElement('span');
-                    $(star_app_time).addClass('star');
-                    $(star_app_time).html("&#x2605");
-                    $(star_app_time).css('float','left');
-                    var error_app_time_element = document.createElement('div');
-                     $(error_app_time_element).html('You have given past time.Give future time');
-                     $(app_time_element).append(star_app_time);
-                     $(app_time_element).append(error_app_time_element);
-                     $(error_display).append(name_element);
-                     $(error_display).append(email_element);
-                     $(error_display).append(mbno_element);
-                     $(error_display).append(apptime_element);
-                     $(error_display).append(app_time_element);
-                     $("#modal_secondpage").append(close_element);
-                     $("#modal_secondpage").append(contact_heading);
-                     $("#modal_secondpage").append(lab_details);
-                     $("#modal_secondpage").append(deal_name);
-                     $("#modal_secondpage").append(error_display);
-                     $("#modal_secondpage").append(parent_wizard);
+                  $(pkg_deal_name).css('marginTop','6px');
+                  $(pkg_deal_name).css('marginRight','20px');
+                  var pkg_parent_wizard = document.createElement('div');
+                  $(pkg_parent_wizard).attr('id','tmm-form-wizard');
+                  $(pkg_parent_wizard).addClass('container substrate');
+                  $(pkg_parent_wizard).css('width','100%');
+                  $(pkg_parent_wizard).css('paddingTop','1px');
+                  var pkg_form_element = document.createElement('form');
+                  $(pkg_form_element).attr('method','post');
+                  $(pkg_form_element).attr('id','patient_info'); 
+                  $(pkg_form_element).attr('name','patient_info');
+                  $(pkg_form_element).attr('action','#');
+                  $(pkg_form_element).attr('role','form');
+                  $(pkg_form_element).css('marginRight','20px');
+                  var pkg_wizard_element = document.createElement('div');
+                  $(pkg_wizard_element).addClass("form-wizard");
+                  $(pkg_wizard_element).css('padding-top','0px');
+                  var pkg_row_element = document.createElement('div');
+                  $(pkg_row_element).addClass("row");
+                  var pkg_col_element = document.createElement('div');
+                  $(pkg_col_element).addClass("col-md-12 no-pad");
+                  var pkg_form_class = document.createElement('form-wizard');
+                  $(pkg_form_class).addClass("form-wizard");
+                  $(pkg_form_class).css('border','0px');
+                  $(pkg_form_class).css('paddingTop','4px');
+                  var pkg_second_row = document.createElement('div');
+                  $(pkg_second_row).addClass("row");
+                   var pkg_col_class_element = document.createElement('div');
+                  $(pkg_col_class_element).addClass("col-md-12 col-sm-12");
+                  $(pkg_col_class_element).css('paddingTop','5px');
+                  var pkg_name_row = document.createElement('div');
+                  $(pkg_name_row).addClass("row");
+                  var pkg_name_col_class = document.createElement('div');
+                  $(pkg_name_col_class).addClass("col-md-12 col-sm-12");
+                  var pkg_fieldset_element = document.createElement('fieldset');
+                  $(pkg_fieldset_element).addClass("input-block");
+                  var pkg_label_ptntname = document.createElement('label');
+                  $(pkg_label_ptntname).attr('for','patient_name');
+                  $(pkg_label_ptntname).html("Full Name");
+                  var pkg_input_element = document.createElement('input');
+                  $(pkg_input_element).attr('type','text');
+                  $(pkg_input_element).attr('id', 'pkg_patient_name');
+                  $(pkg_input_element).attr('name','patient_name');
+                  $(pkg_input_element).attr('value','');
+                  $(pkg_input_element).addClass("form-icon form-icon-user");
+                  $(pkg_input_element).attr('placeholder','Please enter your name');
+                  $(pkg_input_element).attr('required','');
+                  var pkg_email_row = document.createElement('div');
+                  $(pkg_email_row).addClass("row");
+                  var pkg_email_col_class = document.createElement('div');
+                  $(pkg_email_col_class).addClass("col-md-12 col-sm-12");
+                  var pkg_fieldset_email = document.createElement('fieldset');
+                  $(pkg_fieldset_email).addClass("input-block");
+                  var pkg_label_email = document.createElement('label');
+                  $(pkg_label_email).attr('for','email');
+                  $(pkg_label_email).html("Email");
+                  var pkg_input_email = document.createElement('input');
+                  $(pkg_input_email).attr('type','text');
+                  $(pkg_input_email).attr('id','pkg_email');
+                  $(pkg_input_email).attr('name','patient_email');
+                  $(pkg_input_email).attr('value','');
+                  $(pkg_input_email).addClass('form-icon form-icon-mail');
+                  $(pkg_input_email).attr('placeholder','Please enter your email ID');
+                  $(pkg_input_email).attr('required','required');
+                  var pkg_phno_row = document.createElement('div');
+                  $(pkg_phno_row).addClass("row");
+                  var pkg_phno_col_class = document.createElement('div');
+                  $(pkg_phno_col_class).addClass("col-md-6 col-sm-12");
+                  var pkg_fieldset_phno = document.createElement('fieldset');
+                  $(pkg_fieldset_phno).addClass("input-block");
+                  var pkg_label_phno = document.createElement('label');
+                  $(pkg_label_phno).attr('for','phone1');
+                  $(pkg_label_phno).html('Mobile No:');
+                  var pkg_input_phno = document.createElement('input');
+                  $(pkg_input_phno).attr('type','text');
+                  $(pkg_input_phno).attr('id','pkg_phone');
+                  $(pkg_input_phno).attr('name','patient_mobile');
+                  $(pkg_input_phno).attr('value','');
+                  $(pkg_input_phno).addClass('form-icon form-icon-phone');
+                  $(pkg_input_phno).attr('placeholder','Number');
+                  $(pkg_input_phno).attr('required','required');
+                  var pkg_apptime_col_class = document.createElement('div');
+                  $(pkg_apptime_col_class).addClass('col-md-6 col-sm-12');
+                  var pkg_fieldset_booking = document.createElement('fieldset');
+                  $(pkg_fieldset_booking).addClass("input-block");
+                  var pkg_label_booking = document.createElement('label');
+                  $(pkg_label_booking).attr('for','app_time');
+                  $(pkg_label_booking).html('Appointment Timing:');
+                  var pkg_input_booking = document.createElement('input');
+                  $(pkg_input_booking).attr('type','text');
+                  $(pkg_input_booking).attr('id','pkg_app_time');
+                  $(pkg_input_booking).attr('name','appointment_time');
+                  $(pkg_input_booking).attr('value','');
+                  $(pkg_input_booking).attr('placeholder','Select Timeslot');
+                  $(pkg_input_booking).addClass("form_datetime");
+                  $(pkg_input_booking).attr('required','required');
+                  var pkg_information_row = document.createElement('row');
+                  $(pkg_information_row).addClass("row");
+                  var pkg_note_col_class = document.createElement('div');
+                  $(pkg_note_col_class).addClass("col-md-12 col-sm-12");
+                  var pkg_font_element = document.createElement('font');
+                  $(pkg_font_element).html("*Note: Patient Information is kept confidential and is used only for booking appointments and to improve the service.");
+                  $(pkg_font_element).css('fontSize','10px');
+                  var pkg_prevbtn_element = document.createElement('div');
+                  $(pkg_prevbtn_element).css('marginLeft','30px');
+                  $(pkg_prevbtn_element).addClass('prev');
+                  var pkg_backbtn = document.createElement('button');
+                  $(pkg_backbtn).attr('id','step2_back_btn');
+                  $(pkg_backbtn).addClass("button button-control");
+                  $(pkg_backbtn).attr('type','button');
+                  var pkg_span_backbtn = document.createElement('span');
+                  $(pkg_span_backbtn).html("Back");
+                  $(pkg_backbtn).append(pkg_span_backbtn);
+                  var pkg_backbtn_divider = document.createElement('div');
+                  $(pkg_backbtn_divider).addClass("button-divider");
+                  var pkg_nextbtn_element = document.createElement('div');
+                  $(pkg_nextbtn_element).css('marginLeft','50px');
+                  $(pkg_nextbtn_element).addClass('next');
+                  var pkg_nextbtn = document.createElement('button');
+                  $(pkg_nextbtn).attr('id','step2_next_btn');
+                  $(pkg_nextbtn).addClass("button button-control");
+                  $(pkg_nextbtn).attr('type','button');
+                  var pkg_span_nextbtn = document.createElement('span');
+                  $(pkg_span_nextbtn).html("Next");
+                  $(pkg_nextbtn).append(pkg_span_nextbtn);
+                  var pkg_nextbtn_divider = document.createElement('div');
+                  $(pkg_nextbtn_divider).addClass("button-divider");
+                  $(pkg_fieldset_element).append(pkg_label_ptntname);
+                  $(pkg_fieldset_element).append(pkg_input_element);
+                  $(pkg_fieldset_email).append(pkg_label_email);
+                  $(pkg_fieldset_email).append(pkg_input_email);
+                  $(pkg_fieldset_phno).append(pkg_label_phno);
+                  $(pkg_fieldset_phno).append(pkg_input_phno);
+                  $(pkg_fieldset_booking).append(pkg_label_booking);
+                  $(pkg_fieldset_booking).append(pkg_input_booking);
+                  $(pkg_name_col_class).append(pkg_fieldset_element);
+                  $(pkg_email_col_class).append(pkg_fieldset_email);
+                  $(pkg_phno_col_class).append(pkg_fieldset_phno);
+                  $(pkg_apptime_col_class).append(pkg_fieldset_booking);
+                  $(pkg_note_col_class).append(pkg_font_element);
+                  $(pkg_name_row).append(pkg_name_col_class);
+                  $(pkg_email_row).append(pkg_email_col_class);
+                  $(pkg_phno_row).append(pkg_phno_col_class);
+                  $(pkg_phno_row).append(pkg_apptime_col_class);
+                  $(pkg_information_row).append(pkg_note_col_class);
+                  $(pkg_col_class_element).append(pkg_name_row);
+                  $(pkg_col_class_element).append(pkg_email_row);
+                  $(pkg_col_class_element).append(pkg_phno_row);
+                  $(pkg_col_class_element).append(pkg_information_row);
+                  $(pkg_second_row).append(pkg_col_class_element);
+                  $(pkg_form_class).append(pkg_second_row);
+                  $(pkg_col_element).append(pkg_form_class);
+                  $(pkg_row_element).append(pkg_col_element);
+                  $(pkg_prevbtn_element).append(pkg_backbtn);
+                  $(pkg_prevbtn_element).append(pkg_backbtn_divider);
+                  $(pkg_row_element).append(pkg_prevbtn_element);
+                  $(pkg_nextbtn_element).append(pkg_nextbtn);
+                  $(pkg_nextbtn_element).append(pkg_nextbtn_divider);
+                  $(pkg_row_element).append(pkg_nextbtn_element);
+                  $(pkg_wizard_element).append(pkg_row_element);
+                  $(pkg_form_element).append(pkg_wizard_element);
+                  $(pkg_parent_wizard).append(pkg_form_element);
+                  var pkg_error_display = document.createElement('div');
+                  $(pkg_error_display).addClass("display_error");
+                  $(pkg_error_display).css('height','30px');
+                 var pkg_name_element = document.createElement('div');
+                 $(pkg_name_element).addClass("err_msg");
+                 $(pkg_name_element).attr('id','err_name');
+                 $(pkg_name_element).css('color','rgb(236,73,73)');
+                 $(pkg_name_element).css('textAlign','left');
+                 $(pkg_name_element).css('marginLeft','16px');
+                 $(pkg_name_element).css('display','none');
+                  var pkg_star_element = document.createElement('span');
+                  $(pkg_star_element).addClass('star');
+                  $(pkg_star_element).html("&#x2605");
+                  $(pkg_star_element).css('float','left');
+                  var pkg_error_name_element = document.createElement('div');
+                  $(pkg_error_name_element).html('Enter Full Name');
+                  $(pkg_name_element).append(pkg_star_element);
+                  $(pkg_name_element).append(pkg_error_name_element);
+                  var pkg_email_element = document.createElement('div');
+               	$(pkg_email_element).addClass("err_msg");
+                  $(pkg_email_element).attr('id','err_email');
+                  $(pkg_email_element).css('color','rgb(236,73,73)');
+                  $(pkg_email_element).css('textAlign','left');
+                  $(pkg_email_element).css('marginLeft','16px');
+                  $(pkg_email_element).css('display','none');
+                  var pkg_star_email = document.createElement('span');
+                  $(pkg_star_email).addClass('star');
+                  $(pkg_star_email).html("&#x2605");
+                  $(pkg_star_email).css('float','left');
+                  var pkg_error_email_element = document.createElement('div');
+                  $(pkg_error_email_element).html('Enter valid e-mail id');
+                 	$(pkg_email_element).append(pkg_star_email);
+                 	$(pkg_email_element).append(pkg_error_email_element);
+                  var pkg_mbno_element = document.createElement('div');
+                 	$(pkg_mbno_element).addClass("err_msg");
+                 	$(pkg_mbno_element).attr('id','err_mbno');
+                  $(pkg_mbno_element).css('color','rgb(236,73,73)');
+                  $(pkg_mbno_element).css('textAlign','left');
+                 	$(pkg_mbno_element).css('marginLeft','16px');
+                  $(pkg_mbno_element).css('display','none');
+                  var pkg_star_mbno = document.createElement('span');
+                  $(pkg_star_mbno).addClass('star');
+                  $(pkg_star_mbno).html("&#x2605");
+                  $(pkg_star_mbno).css('float','left');
+                  var pkg_error_mbno_element = document.createElement('div');
+                  $(pkg_error_mbno_element).html('Enter correct mobile number');
+                  $(pkg_mbno_element).append(pkg_star_mbno);
+                  $(pkg_mbno_element).append(pkg_error_mbno_element);
+                  var pkg_phno_element = document.createElement('div');
+                  $(pkg_phno_element).addClass("err_msg");
+                  $(pkg_phno_element).css('color','rgb(236,73,73)');
+                  $(pkg_phno_element).css('textAlign','left');
+                  $(pkg_phno_element).css('marginLeft','16px');
+                  $(pkg_phno_element).css('display','none');
+                  var pkg_star_phno = document.createElement('span');
+                  $(pkg_star_phno).addClass('star');
+                  $(pkg_star_phno).html("&#x2605");
+                  $(pkg_star_phno).css('float','left');
+                  var pkg_error_phno_element = document.createElement('div');
+                  $(pkg_error_phno_element).html('Mobile number is not valid');
+                  $(pkg_phno_element).append(pkg_star_phno);
+                  $(pkg_phno_element).append(pkg_error_phno_element);
+                  var pkg_apptime_element = document.createElement('div');
+                 	$(pkg_apptime_element).attr('id','err_apptime');
+                 	$(pkg_apptime_element).addClass("err_msg");
+                  $(pkg_apptime_element).css('color','rgb(236,73,73)');
+                 	$(pkg_apptime_element).css('textAlign','left');
+                 	$(pkg_apptime_element).css('marginLeft','16px');
+                 	$(pkg_apptime_element).css('display','none');
+                 	var pkg_star_apptime = document.createElement('span');
+                 	$(pkg_star_apptime).addClass('star');
+                 	$(pkg_star_apptime).html("&#x2605");
+                 	$(pkg_star_apptime).css('float','left');
+                  var pkg_error_apptime_element = document.createElement('div');
+                  $(pkg_error_apptime_element).html('Please select Appointment Time');
+               	 $(pkg_apptime_element).append(pkg_star_apptime);
+                   $(pkg_apptime_element).append(pkg_error_apptime_element);
+                  var pkg_app_time_element = document.createElement('div');
+                   $(pkg_app_time_element).attr('id','err_app_time');
+                   $(pkg_app_time_element).addClass("err_msg");
+                   $(pkg_app_time_element).css('color','rgb(236,73,73)');
+                   $(pkg_app_time_element).css('textAlign','left');
+                   $(pkg_app_time_element).css('marginLeft','16px');
+                 	 $(pkg_app_time_element).css('display','none');
+                   var pkg_star_app_time = document.createElement('span');
+                    $(pkg_star_app_time).addClass('star');
+                    $(pkg_star_app_time).html("&#x2605");
+                    $(pkg_star_app_time).css('float','left');
+                    var pkg_error_app_time_element = document.createElement('div');
+                     $(pkg_error_app_time_element).html('You have given past time.Give future time');
+                     $(pkg_app_time_element).append(pkg_star_app_time);
+                     $(pkg_app_time_element).append(pkg_error_app_time_element);
+                     $(pkg_error_display).append(pkg_name_element);
+                     $(pkg_error_display).append(pkg_email_element);
+                     $(pkg_error_display).append(pkg_mbno_element);
+                     $(pkg_error_display).append(pkg_apptime_element);
+                     $(pkg_error_display).append(pkg_app_time_element);
+                     $("#pkg_modal_secondpage").append(pkg_form_close_element);
+                     $("#pkg_modal_secondpage").append(pkg_contact_heading);
+                     $("#pkg_modal_secondpage").append(pkg_lab_details);
+                     $("#pkg_modal_secondpage").append(pkg_deal_name);
+                     $("#pkg_modal_secondpage").append(pkg_error_display);
+                     $("#pkg_modal_secondpage").append(pkg_parent_wizard);
                          
-                   $(input_booking).on('keyup' ,function (event)
+                   $(pkg_input_booking).on('keyup' ,function (event)
                       { 
                          event.preventDefault();
                     	 });//keyup
-                   $(input_booking).on('keypress' ,function (event)
+                   $(pkg_input_booking).on('keypress' ,function (event)
                       {
                     	    event.preventDefault();
                       });//keypress	
-                   $(input_booking).on('keydown' ,function (event) 
+                   $(pkg_input_booking).on('keydown' ,function (event) 
                      {
                    	  event.preventDefault();
                   	});//keydown
@@ -1840,33 +1591,34 @@
                      {
                      	 if(typeof(Storage)!=="undefined")
                           {
-                            datastore_handler();
+                            pkg_datastore_handler();
                           }//if
                	    $("#modal_secondpage").modal().close(); 
                      });//click
-                  var body_element = document.getElementsByClassName("themodal-lock")[0];
-                    	 $(body_element).on('keyup' ,function (event)
+                  var pkg_body_element = document.getElementsByClassName("themodal-lock")[0];
+                    	 $(pkg_body_element).on('keyup' ,function (event)
                     	 {
                              if(event.keyCode == 27)
                              {
+                             	 
                         	    if(typeof(Storage)!=="undefined")
                                {
-                                 datastore_handler();
+                                 pkg_datastore_handler();
                                 }//if storage
                               }//if keycode
                          });//key fnctn
                           
-                  var today = new Date();  
-                 var minutes = today.getMinutes();
+                  var pkg_today = new Date();  
+                 var pkg_minutes = pkg_today.getMinutes();
                  
-                 if((minutes >= '0'))  
+                 if((pkg_minutes >= '0'))  
                 {
                      
                	 $('.form_datetime').datetimepicker
                    ({ 
                      
                      format:'dd/M/yyyy HH:ii P',
-                     startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(),today.getHours()+1,today.getMinutes()-today.getMinutes()),
+                     startDate: new Date(pkg_today.getFullYear(), pkg_today.getMonth(), pkg_today.getDate(),pkg_today.getHours()+1,pkg_today.getMinutes()-pkg_today.getMinutes()),
                      weekStart: 1,
                      todayBtn:  0,
                      autoclose: 1,
@@ -1879,36 +1631,37 @@
               
                   $('.form_datetime').datetimepicker('setHoursDisabled', '0,1,2,3,4,5,22,23,24'); 
                    
-                 var pat_name = $("#patient_name").val();
-                 var pat_email = $("#email").val();
-                 var pat_phno = $("#phone").val();
-                 var pat_apptime = $("#app_time").val();
-                       if ((pat_name == "") && (pat_email =="") && (pat_phno == "") && (pat_apptime == ""))
+                 var pkg_pat_name = $("#pkg_patient_name").val();
+                 var pkg_pat_email = $("#pkg_email").val();
+                 var pkg_pat_phno = $("#pkg_phone").val();
+                 var pkg_pat_apptime = $("#pkg_app_time").val();
+                      if ((pkg_pat_name == "") && (pkg_pat_email =="") && (pkg_pat_phno == "") && (pkg_pat_apptime == ""))
                      {
-                       Filling_localdata(); 
-                     }//if
+                       pkg_Filling_localdata(); 
+                     }//
                     $('#step2_back_btn').on('click',function () 
                     {
-                    	  form_backbtn(dataid,labname,labslug,dealname,deal_slug,deal_mrp,deal_discount,deal_finalprice,labarea);
+                    	 package_list(package_slug,package_name,package_consultation) 
+                    	  //form_backbtn(dataid,labname,labslug,dealname,deal_slug,deal_mrp,deal_discount,deal_finalprice,labarea);
                     	});//back btn click
                     $('#step2_next_btn').on('click', function()
                     {
-                     		 	if(typeof(Storage)!=="undefined")
+                     			if(typeof(Storage)!=="undefined")
                        { 
-                     	 datastore_handler();
+                     	 pkg_datastore_handler();
                        }//if  
-                        var patient_name = $('#patient_name').val();
-                         var patient_email = $('#email').val();
+                        var pkg_patient_name = $('#pkg_patient_name').val();
+                         var pkg_patient_email = $('#pkg_email').val();
                        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                        var mobile_number = $('#phone').val();
-                         var patient_apptime =  $('#app_time').val();
+                        var pkg_mobile_number = $('#pkg_phone').val();
+                         var pkg_patient_apptime =  $('#pkg_app_time').val();
                          if(typeof(Storage)!=="undefined")
                        { 
-                     	 datastore_handler();
+                     	 pkg_datastore_handler();
                        }//if
                       
-                   var appt_time = localStorage.getItem("app_time");
-                   var  tday = new Date();
+                   var pkg_appt_time = localStorage.getItem("pkg_app_time");
+                   var  pkg_tday = new Date();
                      
                    var i;
                    function addZero(i) 
@@ -1919,28 +1672,28 @@
                            }//if i
                        return i;
                       }//fnctn
-                          var year = tday.getFullYear();
-                          var date = addZero(tday.getDate());
-                          var month = addZero(tday.getMonth()+1);
-                          var hours = addZero(tday.getHours());
-                          var mnt = addZero(tday.getMinutes());
-                          var sec =  addZero(tday.getSeconds());
-                          var selected_time =year+"-"+month+"-"+date+" "+hours +":"+ mnt+":"+sec;
+                          var pkg_year = pkg_tday.getFullYear();
+                          var pkg_date = addZero(pkg_tday.getDate());
+                          var pkg_month = addZero(pkg_tday.getMonth()+1);
+                          var pkg_hours = addZero(pkg_tday.getHours());
+                          var pkg_mnt = addZero(pkg_tday.getMinutes());
+                          var pkg_sec =  addZero(pkg_tday.getSeconds());
+                          var pkg_selected_time =pkg_year+"-"+pkg_month+"-"+pkg_date+" "+pkg_hours +":"+ pkg_mnt+":"+pkg_sec;
                          
                           
-                          var currenttime = new Date();
-                          var current_year = currenttime.getFullYear();
-                          var current_month = addZero(currenttime.getMonth()+1);
+                          var pkg_currenttime = new Date();
+                          var pkg_current_year = pkg_currenttime.getFullYear();
+                          var pkg_current_month = addZero(pkg_currenttime.getMonth()+1);
                           
-                          var current_date = addZero(currenttime.getDate());
-                          var current_hours = addZero(currenttime.getHours());
-                          var current_minutes = addZero(currenttime.getMinutes());
-                          var current_time = current_year+"-"+current_month+"-"+current_date+" "+current_hours+":"+current_minutes;
+                          var pkg_current_date = addZero(pkg_currenttime.getDate());
+                          var pkg_current_hours = addZero(pkg_currenttime.getHours());
+                          var pkg_current_minutes = addZero(pkg_currenttime.getMinutes());
+                          var pkg_current_time = pkg_current_year+"-"+pkg_current_month+"-"+pkg_current_date+" "+pkg_current_hours+":"+pkg_current_minutes;
                      if((document.getElementById("err_email").style.display ='none') && (document.getElementById('err_mbno').style.display = 'none') &&(document.getElementById('err_apptime').style.display = 'none') &&(document.getElementById('err_app_time').style.display = 'none'))
                     { 
-                      if ( !(patient_name.length >= 6 && patient_name.length <= 26) || patient_name.match(/[^a-zA-Z ]/)  )
+                      if ( !(pkg_patient_name.length >= 6 && pkg_patient_name.length <= 26) || pkg_patient_name.match(/[^a-zA-Z ]/)  )
                         {
-                           $(name_element).css('display','block');
+                           $(pkg_name_element).css('display','block');
                           return false;
                         
                         }//if patient name
@@ -1952,9 +1705,9 @@
                       }//if 
                      if((document.getElementById("err_name").style.display ='none') && (document.getElementById('err_mbno').style.display = 'none') &&(document.getElementById('err_apptime').style.display = 'none') &&(document.getElementById('err_app_time').style.display = 'none')) 
                     {
-                    	 if(!filter.test(patient_email))
+                    	 if(!filter.test(pkg_patient_email))
                        {
-                         $(email_element).css('display','block');
+                         $(pkg_email_element).css('display','block');
                         return false;
                        }//if email
                      if(document.getElementById('err_email').style.display = 'block')
@@ -1965,9 +1718,9 @@
                        }//if
                        if((document.getElementById("err_email").style.display ='none') && (document.getElementById('err_name').style.display = 'none') &&(document.getElementById('err_apptime').style.display = 'none') &&(document.getElementById('err_app_time').style.display = 'none'))
                        {
-                       	 if((mobile_number.match(/[^0-9]/) || mobile_number.length != 10) || (!(mobile_number.charAt(0)=="9" || mobile_number.charAt(0)=="8" || mobile_number.charAt(0)=="7")))
+                       	 if((pkg_mobile_number.match(/[^0-9]/) || pkg_mobile_number.length != 10) || (!(pkg_mobile_number.charAt(0)=="9" || pkg_mobile_number.charAt(0)=="8" || pkg_mobile_number.charAt(0)=="7")))
                        {
-                       	 $(mbno_element).css('display','block');
+                       	 $(pkg_mbno_element).css('display','block');
                        	 return false;
                        }//if mble
                         if(document.getElementById('err_mbno').style.display = 'block')
@@ -1981,145 +1734,145 @@
                        if((document.getElementById("err_email").style.display ='none') && (document.getElementById('err_mbno').style.display = 'none') &&(document.getElementById('err_name').style.display = 'none') &&(document.getElementById('err_app_time').style.display = 'none'))
                      {
                      	
-                     	if(! ($('#app_time').val()))   
+                     	if(! ($('#pkg_app_time').val()))   
                        {
-                         	$(apptime_element).css('display','block');
+                         	$(pkg_apptime_element).css('display','block');
                            return false;
                        }//if app_time
                        
-                       var val_time = date+"-"+month+"-"+year+" "+hours +":"+ mnt+":"+sec;
+                       var pkg_val_time = pkg_date+"-"+pkg_month+"-"+pkg_year+" "+pkg_hours +":"+ pkg_mnt+":"+pkg_sec;
                       //var appt_time = localStorage.getItem("app_time");
                          
-                          var sel_month_name = appt_time.substr(3,3);
+                          var pkg_sel_month_name = pkg_appt_time.substr(3,3);
     
     
-    if (sel_month_name == 'Jan') 
+    if (pkg_sel_month_name == 'Jan') 
      {
-    	 var sel_month = '01';
+    	 var pkg_sel_month = '01';
     	 
      }//if mnth 1
-    if (sel_month_name == 'Feb') 
+    if (pkg_sel_month_name == 'Feb') 
      {
-        var  sel_month = '02';
+        var  pkg_sel_month = '02';
      }//if mnth 2
-    if (sel_month_name == 'Mar') 
+    if (pkg_sel_month_name == 'Mar') 
      {
-    	 var sel_month = '03';
+    	 var pkg_sel_month = '03';
      }//if mnth 3
-    if (sel_month_name == 'Apr') 
+    if (pkg_sel_month_name == 'Apr') 
      {
-    	var sel_month = '04';
+    	var pkg_sel_month = '04';
   	  }//if mnth 4
-    if (sel_month_name == 'May') 
+    if (pkg_sel_month_name == 'May') 
   	  {
-    		var sel_month = '05';
+    		var pkg_sel_month = '05';
     	}//if mnth 5
-    if (sel_month_name == 'Jun') 
+    if (pkg_sel_month_name == 'Jun') 
   	  {
-    		var sel_month = '06';
+    		var pkg_sel_month = '06';
      }//if mnth 6
-    if (sel_month_name == 'Jul') 
+    if (pkg_sel_month_name == 'Jul') 
      {
-    		var sel_month = '07';
+    		var pkg_sel_month = '07';
      }//if mnth 7
-    if (sel_month_name == 'Aug') 
+    if (pkg_sel_month_name == 'Aug') 
      {
-    		var sel_month = '08';
+    		var pkg_sel_month = '08';
      	}//if mnth 8
-     if (sel_month_name == 'Sep') 
+     if (pkg_sel_month_name == 'Sep') 
     	{
-    		var sel_month = '09';
+    		var pkg_sel_month = '09';
     	}//if mnth 9
-    	if (sel_month_name == 'Oct') 
+    	if (pkg_sel_month_name == 'Oct') 
     	{
-    		var sel_month = '10';
+    		var pkg_sel_month = '10';
     	}//if mnth 10
-    	if (sel_month_name == 'Nov') 
+    	if (pkg_sel_month_name == 'Nov') 
     	{
-    			var sel_month = '11';
+    			var pkg_sel_month = '11';
     	}//if mnth 11
-    	if (sel_month_name == 'Dec') 
+    	if (pkg_sel_month_name == 'Dec') 
     	{
-    		var sel_month = '12';
+    		var pkg_sel_month = '12';
     	}//if mnth 12
-    	 var tday = new Date();
-    	       var sel_year = appt_time.substr(7,4);
-             var sel_date = appt_time.substr(0,2);
-             var sel_hours = appt_time.substr(12,2);
-             var sel_minutes = appt_time.substr(15,2);
-             var sel_sec = addZero(tday.getSeconds());
-             var sel_meridian = appt_time.substr(18,2);
-             var sel_hours_meridian = sel_hours +" "+ sel_meridian;
-             if (sel_meridian == "AM") 
+    	 var pkg_tday = new Date();
+    	       var pkg_sel_year = pkg_appt_time.substr(7,4);
+             var pkg_sel_date = pkg_appt_time.substr(0,2);
+             var pkg_sel_hours = pkg_appt_time.substr(12,2);
+             var pkg_sel_minutes = pkg_appt_time.substr(15,2);
+             var pkg_sel_sec = addZero(pkg_tday.getSeconds());
+             var pkg_sel_meridian = pkg_appt_time.substr(18,2);
+             var pkg_sel_hours_meridian = pkg_sel_hours +" "+ pkg_sel_meridian;
+             if (pkg_sel_meridian == "AM") 
              {
-             	 var sel_time = sel_year+"-"+sel_month+"-"+sel_date+" "+sel_hours+":"+sel_minutes+":"+sel_sec;
+             	 var pkg_sel_time = pkg_sel_year+"-"+pkg_sel_month+"-"+pkg_sel_date+" "+pkg_sel_hours+":"+pkg_sel_minutes+":"+pkg_sel_sec;
              	
               }//if AM
-              if (sel_hours_meridian == "12 PM")
+              if (pkg_sel_hours_meridian == "12 PM")
               {
-              	   var sel_hours = "12";
-              	 var sel_time = sel_year+"-"+sel_month+"-"+sel_date+" "+sel_hours+":"+sel_minutes+":"+sel_sec;
+              	   var pkg_sel_hours = "12";
+              	 var pkg_sel_time = pkg_sel_year+"-"+pkg_sel_month+"-"+pkg_sel_date+" "+pkg_sel_hours+":"+pkg_sel_minutes+":"+pkg_sel_sec;
                  
               	}//if 12
-             if (sel_hours_meridian == "01 PM")
+             if (pkg_sel_hours_meridian == "01 PM")
               {
-              	   var sel_hours = "13";
-              	 var sel_time = sel_year+"-"+sel_month+"-"+sel_date+" "+sel_hours+":"+sel_minutes+":"+sel_sec;
+              	   var pkg_sel_hours = "13";
+              	 var pkg_sel_time = pkg_sel_year+"-"+pkg_sel_month+"-"+pkg_sel_date+" "+pkg_sel_hours+":"+pkg_sel_minutes+":"+pkg_sel_sec;
                  
               	}//if 01
-              	if (sel_hours_meridian == "02 PM")
+              	if (pkg_sel_hours_meridian == "02 PM")
                {
-              	   var sel_hours = "14";
-                  var sel_time = sel_year+"-"+sel_month+"-"+sel_date+" "+sel_hours+":"+sel_minutes+":"+sel_sec;
+              	   var pkg_sel_hours = "14";
+                  var pkg_sel_time = pkg_sel_year+"-"+pkg_sel_month+"-"+pkg_sel_date+" "+pkg_sel_hours+":"+pkg_sel_minutes+":"+pkg_sel_sec;
                  
                 }//if 02
-               	if (sel_hours_meridian == "03 PM")
+               	if (pkg_sel_hours_meridian == "03 PM")
                   {
-              	      var sel_hours = "15";
-                      var sel_time = sel_year+"-"+sel_month+"-"+sel_date+" "+sel_hours+":"+sel_minutes+":"+sel_sec;
+              	      var pkg_sel_hours = "15";
+                      var pkg_sel_time = pkg_sel_year+"-"+pkg_sel_month+"-"+pkg_sel_date+" "+pkg_sel_hours+":"+pkg_sel_minutes+":"+pkg_sel_sec;
                      
                  }//if 03
-                 if (sel_hours_meridian == "04 PM")
+                 if (pkg_sel_hours_meridian == "04 PM")
                  {
-              	    var sel_hours = "16";
-                   var sel_time = sel_year+"-"+sel_month+"-"+sel_date+" "+sel_hours+":"+sel_minutes+":"+sel_sec;
+              	    var pkg_sel_hours = "16";
+                   var pkg_sel_time = pkg_sel_year+"-"+pkg_sel_month+"-"+pkg_sel_date+" "+pkg_sel_hours+":"+pkg_sel_minutes+":"+pkg_sel_sec;
                   
                   }// if 04
-                  if (sel_hours_meridian == "05 PM")
+                  if (pkg_sel_hours_meridian == "05 PM")
                  {
-              	    var sel_hours = "17";
-                   var sel_time = sel_year+"-"+sel_month+"-"+sel_date+" "+sel_hours+":"+sel_minutes+":"+sel_sec;
+              	    var pkg_sel_hours = "17";
+                   var pkg_sel_time = pkg_sel_year+"-"+pkg_sel_month+"-"+pkg_sel_date+" "+pkg_sel_hours+":"+pkg_sel_minutes+":"+pkg_sel_sec;
                   
                   }// if 05
-                   if (sel_hours_meridian == "06 PM")
+                   if (pkg_sel_hours_meridian == "06 PM")
                  {
-              	    var sel_hours = "18";
-                   var sel_time = sel_year+"-"+sel_month+"-"+sel_date+" "+sel_hours+":"+sel_minutes+":"+sel_sec;
+              	    var pkg_sel_hours = "18";
+                   var pkg_sel_time = pkg_sel_year+"-"+pkg_sel_month+"-"+pkg_sel_date+" "+pkg_sel_hours+":"+pkg_sel_minutes+":"+pkg_sel_sec;
                   
                   }// if 06
-                   if (sel_hours_meridian == "07 PM")
+                   if (pkg_sel_hours_meridian == "07 PM")
                  {
-              	    var sel_hours = "19";
-                   var sel_time = sel_year+"-"+sel_month+"-"+sel_date+" "+sel_hours+":"+sel_minutes+":"+sel_sec;
+              	    var pkg_sel_hours = "19";
+                   var pkg_sel_time = pkg_sel_year+"-"+pkg_sel_month+"-"+pkg_sel_date+" "+pkg_sel_hours+":"+pkg_sel_minutes+":"+pkg_sel_sec;
                    
                   }// if 07
-                   if (sel_hours_meridian == "08 PM")
+                   if (pkg_sel_hours_meridian == "08 PM")
                  {
-              	    var sel_hours = "20";
-                   var sel_time = sel_year+"-"+sel_month+"-"+sel_date+" "+sel_hours+":"+sel_minutes+":"+sel_sec;
+              	    var pkg_sel_hours = "20";
+                   var pkg_sel_time = pkg_sel_year+"-"+pkg_sel_month+"-"+pkg_sel_date+" "+pkg_sel_hours+":"+pkg_sel_minutes+":"+pkg_sel_sec;
                    
                   }// if 08
-                   if (sel_hours_meridian == "09 PM")
+                   if (pkg_sel_hours_meridian == "09 PM")
                  {
-              	    var sel_hours = "21";
-                   var sel_time = sel_year+"-"+sel_month+"-"+sel_date+" "+sel_hours+":"+sel_minutes+":"+sel_sec;
+              	    var pkg_sel_hours = "21";
+                   var pkg_sel_time = pkg_sel_year+"-"+pkg_sel_month+"-"+pkg_sel_date+" "+pkg_sel_hours+":"+pkg_sel_minutes+":"+pkg_sel_sec;
                    
                   }// if 09
-                       if(!(sel_time.match(/\d{4}\-\d{2}\-\d{2} \d{2}:\d{2}:\d{2}/)))
+                       if(!(pkg_sel_time.match(/\d{4}\-\d{2}\-\d{2} \d{2}:\d{2}:\d{2}/)))
                      
                         {
                        	  
-                         $(apptime_element).css('display','block');
+                         $(pkg_apptime_element).css('display','block');
                         
                          return false;
                        }//if val time 
@@ -2131,10 +1884,10 @@
                        }//if
                           if((document.getElementById("err_email").style.display ='none') && (document.getElementById('err_mbno').style.display = 'none') &&(document.getElementById('err_name').style.display = 'none') &&(document.getElementById('err_apptime').style.display = 'none'))
                          {
-                          if(current_time > selected_time) 
+                          if(pkg_current_time > pkg_selected_time) 
                           {
                           	
-                          	$(app_time_element).css('display','block');
+                          	$(pkg_app_time_element).css('display','block');
                           	return false;
                           	}//if time
                          if (document.getElementById('err_app_time').style.display = 'block') 
@@ -2151,4 +1904,26 @@
                     
                 
           }//form_handler
+            function pkg_datastore_handler()
+    {
+   	  var pkg_ptnt_name = document.getElementById("pkg_patient_name");
+        var pkg_ptnt_email = document.getElementById("pkg_email");
+        var pkg_ptnt_phone = document.getElementById("pkg_phone");
+        var pkg_ptnt_apptime = document.getElementById("pkg_app_time");
+       
+        localStorage.setItem("pkg_patient_name",pkg_ptnt_name.value);
+        localStorage.setItem("pkg_email" ,pkg_ptnt_email.value);
+        localStorage.setItem("pkg_phone" ,pkg_ptnt_phone.value);
+        localStorage.setItem("pkg_app_time" ,pkg_ptnt_apptime.value);
+       
+    } //fnctn handler
+    function pkg_Filling_localdata()
+    {
+     	    document.getElementById("pkg_patient_name").value = localStorage.getItem("pkg_patient_name");
+          document.getElementById("pkg_email").value = localStorage.getItem("pkg_email");
+          document.getElementById("pkg_phone").value = localStorage.getItem("pkg_phone");
+          document.getElementById("pkg_app_time").value = localStorage.getItem("pkg_app_time");
+           
+    }//fnctn handler
+     
      
