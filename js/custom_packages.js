@@ -334,28 +334,6 @@
               var labconsultations_th = document.createElement('th');
                $(labconsultations_th).css('border', '1px solid #ddd');
                $(labconsultations_th).css('width','165px');
-               var pkg_labconsultations = document.createElement('div');
-              $(pkg_labconsultations).html("Dr"+"&nbsp"+"Consultations");
-              $(pkg_labconsultations).css('float', 'left');
-              $(pkg_labconsultations).css('textAlign','center');
-              $(pkg_labconsultations).css('padding','10px');
-              var pkg_consultations_imgs = document.createElement('div');
-              $(pkg_consultations_imgs).css('float','right');
-              var pkg_consultations_asc = document.createElement('div');
-              var pkg_consultations_img_asc = document.createElement('img');
-              $(pkg_consultations_img_asc).attr('src','images/table_sorter_asc.png');
-              $(pkg_consultations_img_asc).css('paddingBottom','14px');
-              $(pkg_consultations_img_asc).css('paddingLeft','1px');
-             var pkg_consultations_desc = document.createElement('div');
-             var pkg_consultations_img_desc = document.createElement('img');
-             $(pkg_consultations_img_desc).attr('src','images/table_sorter_desc.png');
-             $(pkg_consultations_img_desc).css('paddingTop','13px');
-             $(pkg_consultations_desc).append(pkg_consultations_img_desc);
-             $(pkg_consultations_asc).append(pkg_consultations_img_asc);
-             $(pkg_consultations_imgs).append(pkg_consultations_desc);
-             $(pkg_consultations_imgs).append(pkg_consultations_asc);
-             //$(labconsultations_th).append(pkg_labconsultations);
-             //$(labconsultations_th).append(pkg_consultations_imgs);
               var labprice_th = document.createElement('th');
               $(labprice_th).css('border', '1px solid #ddd');
               var pkg_labprice = document.createElement('div');
@@ -411,7 +389,6 @@
                $(labs_tr).append(labname_th);
               $(labs_tr).append(labarea_th);
               $(labs_tr).append(labtests_th);
-              //$(labs_tr).append(labconsultations_th);
               $(labs_tr).append(labprice_th);
               $(labs_tr).append(labdiscount_th);
               $(labs_tr).append(book_th);
@@ -423,6 +400,10 @@
               	  $(lab_details_tr).attr('id','deal_data');
               	 $(lab_details_tr).attr('data-package_labslug',data[i].labSlug);
               	 $(lab_details_tr).attr('data-package_selectedlabname',data[i].labName);
+              	 $(lab_details_tr).attr('data-package_selectedlabarea',data[i].labArea);
+              	 $(lab_details_tr).attr('data-package_selectedprice',data[i].labFinalPrice);
+              	 $(lab_details_tr).attr('data-package_selectedmrp',data[i].labMRP);
+              	 $(lab_details_tr).attr('data-package_selecteddiscount',data[i].labDiscount);
               	 var labname_td = document.createElement('td');
               	 $(labname_td).html(data[i].labName);
               	 $(labname_td).css('border', '1px solid #ddd');
@@ -438,12 +419,6 @@
               	 $(labtests_td).css('textAlign','right');
               	 $(labtests_td).css('padding-left','6px');
               	 $(labtests_td).css('paddingRight','6px');
-              	 var consultations_td = document.createElement('td');
-              	 $(consultations_td).html(package_consultation);
-              	 $(consultations_td).css('border', '1px solid #ddd');
-              	 $(consultations_td).css('textAlign','right');
-              	 $(consultations_td).css('padding-left','6px');
-              	 $(consultations_td).css('paddingRight','6px');
               	 var price_td = document.createElement('td');
               	 var div_td = document.createElement('div');
                 $(div_td).html(data[i].labFinalPrice+"&nbsp"+"(");
@@ -507,7 +482,6 @@
               	 $(lab_details_tr).append(labname_td);
                 $(lab_details_tr).append(labarea_td);
                 $(lab_details_tr).append(labtests_td);
-                //$(lab_details_tr).append(consultations_td);
                 $(lab_details_tr).append(price_td);
                 $(lab_details_tr).append(discount_td);
                 $(lab_details_tr).append(book_td);
@@ -518,7 +492,11 @@
                  	 loadingimage_handler();
                  	 var package_labslug = $(this).data('package_labslug');
                  	 var package_labname = $(this).data('package_selectedlabname');
-                 	 pkg_test_details(package_labslug,package_slug,package_name,package_consultation,package_labname);
+                 	 var package_finalprice = $(this).data('package_selectedprice');
+                 	 var package_discount = $(this).data('package_selecteddiscount');
+                 	 var package_mrp = $(this).data('package_selectedmrp');
+                 	 var package_labarea = $(this).data('package_selectedlabarea');
+                 	 pkg_test_details(package_labslug,package_slug,package_name,package_consultation,package_labname,package_finalprice,package_discount,package_labarea,package_mrp);
                  	});//click
               	}//for data length  
                 $(labs_tr).on('click',function () 
@@ -554,7 +532,8 @@
  });//ajax
  }//fnctn handler
  
- function pkg_test_details(package_labslug,package_slug,package_name,package_consultation,package_labname)
+ 
+ function pkg_test_details(package_labslug,package_slug,package_name,package_consultation,package_labname,package_finalprice,package_discount,package_labarea,package_mrp)
  {
  	 $.ajax({
          url:"http://beta.zotey.com/m-api/d-packages/lab-package-info",
@@ -589,7 +568,6 @@
                $(pkg_labinfo_price).css('color','white');
                $(pkg_labinfo_price).css('fontWeight','bold');
                $(pkg_labinfo_price).css('paddingLeft','6px');
-              //$(pkg_labinfo_price).css('textAlign','center');
                $(pkg_labinfo_price).css('marginTop','16px');
                $(pkg_labinfo_price).css('marginRight','10px');
                var pkg_lab_mrp  = document.createElement('div');
@@ -597,7 +575,7 @@
                var pkg_labname_info = document.createElement('div');
                 $(pkg_labname_info).html(data.labName);
                $(pkg_labname_info).css('float','left');
-               $(pkg_labname_info).css('width','477px');
+               $(pkg_labname_info).css('width','376px');
                var pkg_mrp_info = document.createElement('div');
                $(pkg_mrp_info).css('float','right'); 
                var pkg_mrp_data = document.createElement('div');
@@ -607,21 +585,17 @@
                $(pkg_Mrp).addClass("fa fa-inr");
                $(pkg_Mrp).css('color','rgb(236,73,73)');
                $(pkg_Mrp).css('paddingTop','3px');
-               //$(pkg_Mrp).html("MRP"+"&nbsp"+"&nbsp");
                $(pkg_Mrp).css('float','left');
-               $(pkg_Mrp).css('paddingRight','39px');
+               $(pkg_Mrp).css('paddingRight','46px');
                $(pkg_Mrp).css('width','27px');
                $(pkg_mrp_data).append(pkg_Mrp);
-               var pkg_Mrp_element = document.createElement('div');
-               //$(pkg_Mrp_element).html(data.packageMRP); 
-               $(pkg_Mrp_element).html("&nbsp"+"&nbsp"+"&nbsp"+"("+"MRP"+")");
-               //$(pkg_Mrp_element).css('textDecoration','line-through');
-              	//$(pkg_Mrp_element).css('color','rgb(236,73,73)');
+               var pkg_Mrp_element = document.createElement('div'); 
+               $(pkg_Mrp_element).html("("+"MaxRetailPrice"+")");
               	$(pkg_Mrp_element).css('fontSize','12px');
               	$(pkg_Mrp_element).css('float','right');
               	 var pkg_address_finalprice  = document.createElement('div');
                $(pkg_address_finalprice).css('marginRight','10px');
-               //$(pkg_address_finalprice).css('float','left');
+               
                var pkg_address_location =document.createElement('div');
                $(pkg_address_location).css('float','left'); 
                var pkg_address_img = document.createElement('div');
@@ -631,51 +605,36 @@
                $(pkg_address_img_loc).css('height','17px');
                $(pkg_address_img).append(pkg_address_img_loc);
                $(pkg_address_location).append(pkg_address_img);
-               var pkg_labaddress_info = document.createElement('div');
+               var pkg_labaddress_info = document.createElement('p');
                $(pkg_labaddress_info).css('float','right');
-                $(pkg_labaddress_info).html("&nbsp"+data.labAddress);
-                $(pkg_labaddress_info).css('width','423px');
+                $(pkg_labaddress_info).html("&nbsp"+data.labAddress+","+data.labArea+","+data.labPincode);
+                $(pkg_labaddress_info).css('width','224px');
                var pkg_labaddress_element = document.createElement('div');
                $(pkg_labaddress_element).html(data.labAddress);
                var pkg_finalprice_info = document.createElement('div');
                $(pkg_finalprice_info).css('float','right'); 
+               $(pkg_finalprice_info).css('width','135px');
                var pkg_finalprice = document.createElement('div');
-              // $(pkg_finalprice).html("Final Price"+"&nbsp"+"&nbsp"+":"+"&nbsp");
-              $(pkg_finalprice).html("&nbsp"+data.packageDiscount+"%");
-              //$(pkg_finalprice).html("Discount"+"&nbsp"+"&nbsp"+"&nbsp");
+               $(pkg_finalprice).html(data.packageDiscount+"%"+"&nbsp"+"&nbsp"+"&nbsp"+"("+"Discount"+")");
                $(pkg_finalprice).css('float','left');
+               if (data.packageMRP.length == "4") 
+               {
+               	  $(pkg_finalprice_info).css('width','141px');
+               	  
+               }
+               $(pkg_finalprice).css('width','126px');
+               
                var pkg_finalprice_element = document.createElement('div');
-               //$(pkg_finalprice_element).html(data.packageFinalPrice); 
-               //$(pkg_finalprice_element).html("&nbsp"+data.packageDiscount+"%");
-               $(pkg_finalprice_element).html("&nbsp"+"&nbsp"+"("+"Discount"+")");
+               $(pkg_finalprice_element).html(data.packageFinalPrice+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"("+"Final Price"+")");
               	$(pkg_finalprice_element).css('float','right');
-              	//$(pkg_finalprice_element).css('fontSize','12px');
-              	 var pkg_area_discount  = document.createElement('div');
-               $(pkg_area_discount).css('marginRight','10px');
-               var pkg_area_pincode = document.createElement('div');
-               $(pkg_area_pincode).css('float','left');
-                $(pkg_area_pincode).html(data.labArea+","+data.labPincode);
-                $(pkg_area_pincode).css('width','426px');
-                //$(pkg_area_pincode).css('marginBottom','16px');
-               var pkg_discount_info = document.createElement('div');
-               $(pkg_discount_info).css('float','right'); 
-               //$(pkg_discount_info).css('marginBottom','16px');
-               var pkg_discount = document.createElement('div');
-               //$(pkg_discount).html("Discount"+"&nbsp"+"&nbsp"+"&nbsp");
-               //$(pkg_discount).html("Final Price"+"&nbsp"+"&nbsp"+"&nbsp");
-               $(pkg_discount).addClass("fa fa-inr");
-               $(pkg_discount).html(data.packageFinalPrice);
-               $(pkg_discount).css('float','left');
-               $(pkg_discount).css('paddingTop','4px');
-               //$(pkg_discount).css('paddingRight','1px');s
-               var pkg_discount_element = document.createElement('div');
-               //$(pkg_discount_element).html("&nbsp"+":"+data.packageDiscount+"%"); 
-               //$(pkg_discount_element).addClass("fa fa-inr");
-               //$(pkg_discount_element).html(data.packageFinalPrice);
-               $(pkg_discount_element).html("&nbsp"+"&nbsp"+"("+"Final Price"+")");
-              	$(pkg_discount_element).css('float','right');
-              	//$(pkg_discount_element).css('paddingTop','5px');
-              	//$(pkg_discount_element).css('fontSize','12px');
+              	if (data.packageMRP.length == "4") 
+               {
+               	 
+               	  $(pkg_finalprice_element).css('width','138px');
+               }
+              	$(pkg_finalprice_element).css('width','137px');
+               
+              
                var pkg_contents_head = document.createElement('div');
                $(pkg_contents_head).css('marginTop','93px');
                $(pkg_contents_head).css('marginRight','20px');
@@ -687,7 +646,6 @@
                  $(pkg_contents_head_element).css('height','19px');
                  $(pkg_contents_head_element).css('paddingTop','1px');
                  $(pkg_contents_head).append(pkg_contents_head_element);
-               // var pkg_count_var = 0;
                  var pkg_counter_element = document.createElement('div');
                  $(pkg_counter_element).addClass("pkg_tests-list");
                  $(pkg_counter_element).css('marginRight','20px');
@@ -725,7 +683,7 @@
              
               if(data.packageDetails.GroupsInfo.length !=0)
                {
-               	console.log(data.packageDetails.GroupsInfo.length);
+               	
                 for(var i=0;i<data.packageDetails.GroupsInfo.length;i++)
                  {
                     if((pkg_totalcount >20) && (pkg_count_var >(pkg_totalcount/2)) ) 
@@ -748,7 +706,6 @@
                    	 $(pkg_left_element).append(pkg_group_heading);
                 	    pkg_count_var++;
                 	 }//else groupheading
-                	 console.log("Group name"+data.packageDetails.GroupsInfo[i].groupName);
                 	
                    var pkg_new_str = data.packageDetails.GroupsInfo[i].testsInGroup;
                    var pkg_temp_str = pkg_new_str.split(",");
@@ -777,7 +734,7 @@
                            $(pkg_left_element).append(pkg_group_data);
                            pkg_count_var++;
                         }//else groupdata
-                        console.log(pkg_temp_str[i]);
+                        
                     }//for strlength 
                    }//for
                   }//if
@@ -879,7 +836,7 @@
               }//if dataconsultationslength 
                 if((pkg_totalcount >20) && ((pkg_totalcount%2) !=0))  
                 {
-                	console.log(pkg_totalcount);
+                	
                 var pkg_empty_element = document.createElement('div');
                 $(pkg_empty_element).addClass("pkg_data");
                 $(pkg_empty_element).html("-");
@@ -909,9 +866,9 @@
                  $(pkg_next_btn).css('border','0px');
                  $(pkg_back_btn).on('click',function () 
                  {
-                 	  //package_list(package_slug,package_name,package_consultation);
                  	   loadingimage_handler();
-                 	  pkg_test_details_back(package_slug,package_name,package_consultation)
+                 	  //pkg_test_details_back(package_slug,package_name,package_consultation)
+                 	  pkg_test_details_back(package_slug,package_name,package_consultation,package_labname,package_finalprice,package_discount,package_labarea,package_mrp);
                  	});
                  	$(pkg_next_btn).on('click',function () 
                  	{
@@ -923,14 +880,11 @@
                  $(pkg_lab_mrp).append(pkg_mrp_info);
                  $(pkg_finalprice_info).append(pkg_finalprice);
                  $(pkg_finalprice_info).append(pkg_finalprice_element);
-                 $(pkg_discount_info).append(pkg_discount);
-                 $(pkg_discount_info).append(pkg_discount_element);
-                 //$(pkg_address_finalprice).append(pkg_labaddress_info);
+                
                  $(pkg_address_location).append(pkg_labaddress_info);
                  $(pkg_address_finalprice).append(pkg_address_location);
                  $(pkg_address_finalprice).append(pkg_finalprice_info);
-                 $(pkg_area_discount).append(pkg_area_pincode);
-                 $(pkg_area_discount).append(pkg_discount_info);
+                 
                  $(pkg_counter_element).append(pkg_left_element);
                 $(pkg_counter_element).append(pkg_right_element);
                  $(package_test_modal).append(pkg_test_close);
@@ -938,16 +892,15 @@
                 $(package_test_modal).append(pkg_labinfo_price);
                 $(package_test_modal).append(pkg_lab_mrp);
                 $(package_test_modal).append(pkg_address_finalprice);
-                $(package_test_modal).append(pkg_area_discount);
+               
 
                 $(package_test_modal).append(pkg_contents_head);
                 $(package_test_modal).append(pkg_counter_element);
-                console.log(document.getElementsByClassName("pkg_data")[0]);
                 //if (data.packageDetails.TestsInfo.length ==0) 
                $(package_test_modal).append(pkg_back_btn);
                 $(pkg_next_btn).on('click',function () 
                 {
-                      pkg_form_handler(package_name,package_labname,package_slug,package_consultation);                	
+                      pkg_form_handler(package_name,package_labname,package_slug,package_consultation,package_labslug,package_finalprice,package_discount,package_labarea,package_mrp);                	
                 	});
                 $(package_test_modal).append(pkg_next_btn);
                 $(pkg_test_close).on('click',function () 
@@ -960,7 +913,7 @@
             });//ajax
  }//fnctn handler 
  
- function pkg_test_details_back(package_slug,package_name,package_consultation)
+ function pkg_test_details_back(package_slug,package_name,package_consultation,package_labname,package_finalprice,package_discount,package_labarea,package_mrp)
  {
      var pkg_localData = JSON.parse(localStorage.getItem('pkg_someData')); 
      var local_package_list_modal = document.createElement('div');
@@ -1217,7 +1170,7 @@
               	 $(local_book_td).css('paddingLeft','6px');
               	 $(local_book_td).css('paddingRight','6px');
               	 $(local_book_td).css('border', '1px solid #ddd');
-              	 var local_book_div = document.createElement('div');
+              	 /*var local_book_div = document.createElement('div');
               	 $(local_book_div).html("View");
               	 $(local_book_div).css("background","#ea494f");
               	 $(local_book_div).css('borderRadius','5px');
@@ -1227,6 +1180,29 @@
               	 $(local_book_div).css("paddingLeft","5px");
               	 $(local_book_div).css("paddingRight","5px");
               	 $(local_book_div).css('border','0px');
+              	 $(local_book_td).append(local_book_div);*/
+              	 var local_book_div = document.createElement('div');
+              	 //$(book_div).html("View");
+              	 $(local_book_div).addClass("view_btn");
+              	 $(local_book_div).css("background","#ea494f");
+              	 $(local_book_div).css('borderRadius','5px');
+              	 $(local_book_div).css("color","white");
+              	 //$(book_div).css("fontSize","11px");
+              	 //$(book_div).css('width','36px');
+              	 //$(book_div).css("paddingLeft","5px");
+              	 //$(book_div).css("paddingRight","5px");
+              	 $(local_book_div).css('border','0px');
+              	 $(local_book_div).css('height','18px');
+              	 $(local_book_div).css('width','32px');
+              	 $(local_book_div).css('marginLeft','10px');
+              	 var local_book_view_div = document.createElement('div');
+              	 $(local_book_view_div).html("View");
+              	 $(local_book_view_div).css('fontSize','10px');
+              	 $(local_book_view_div).css('height','16px');
+              	 $(local_book_view_div).css('paddingTop','2px');
+              	 $(local_book_view_div).css('paddingLeft','5px');
+              	 $(local_book_view_div).css('paddingRight','5px');
+              	 $(local_book_div).append(local_book_view_div);
               	 $(local_book_td).append(local_book_div);
               	 $(local_lab_details_tr).append(local_labname_td);
                 $(local_lab_details_tr).append(local_labarea_td);
@@ -1239,7 +1215,7 @@
                  {
                  	 
                  	 var local_package_labslug = $(this).data('package_labslug');
-                 	 pkg_test_details(local_package_labslug,package_slug,package_name,package_consultation);
+                 	 pkg_test_details(local_package_labslug,package_slug,package_name,package_consultation,package_labname,package_finalprice,package_discount,package_labarea,package_mrp);
                  	});//click
               	}  
                 $(local_labs_tr).on('click',function () 
@@ -1273,7 +1249,7 @@
                 $(local_package_list_modal).modal().open();
  }
  
-  function pkg_form_handler(package_name,package_labname,package_slug,package_consultation)
+  function pkg_form_handler(package_name,package_labname,package_consultation,package_slug,package_labslug,package_finalprice,package_discount,package_labarea,package_mrp)
       {
                   var pkg_booking_page = document.createElement('div');
                   $(pkg_booking_page).addClass("modal");
@@ -1641,8 +1617,8 @@
                      }//
                     $('#step2_back_btn').on('click',function () 
                     {
-                    	 package_list(package_slug,package_name,package_consultation) 
-                    	  //form_backbtn(dataid,labname,labslug,dealname,deal_slug,deal_mrp,deal_discount,deal_finalprice,labarea);
+                    	 //package_list(package_slug,package_name,package_consultation) 
+                    	 pkg_test_details(package_labslug,package_slug,package_name,package_consultation,package_slug,package_labslug,package_labname,package_finalprice,package_discount,package_labarea,package_mrp)
                     	});//back btn click
                     $('#step2_next_btn').on('click', function()
                     {
@@ -1896,7 +1872,7 @@
                           	  
                            }//if err_time
                          }//if
-                         
+                       pkg_preview_handler(package_name,package_labname,package_slug,package_labslug,package_finalprice,package_discount,package_labarea,package_mrp) 
                        
                        //preview_handler(dataid,labname,labslug,dealname,deal_slug,deal_mrp,deal_discount,deal_finalprice,labarea);
                  
@@ -1926,4 +1902,208 @@
            
     }//fnctn handler
      
+     //function preview_handler(dataid,labname,labslug,dealname,deal_slug,deal_mrp,deal_discount,deal_finalprice,labarea)
+      function pkg_preview_handler(package_name,package_labname,package_slug,package_labslug,package_finalprice,package_discount,package_labarea,package_mrp) 
+   {
+   	            
+   	            var pkg_order_page = document.createElement('div');
+                  $(pkg_order_page).addClass("modal");
+                  $(pkg_order_page).attr('id','pkg_modal_thirdpage');
+                  $(pkg_order_page).css('backgroundColor','#fff');
+                  $(pkg_order_page).css('position','relative');
+                  $(pkg_order_page).css('paddingRight','0px');
+                  $(pkg_order_page).modal().open();
+                  var pkg_closing_element = document.createElement('a');
+                  $(pkg_closing_element).addClass("close");
+                  $(pkg_closing_element).attr('href','#');
+                  $(pkg_closing_element).html("&times;");
+                  $(pkg_closing_element).css('marginTop' ,'-19px');
+                  $(pkg_closing_element).css('fontSize','26px');
+                  $(pkg_closing_element).css('marginRight','7px');
+                  $(pkg_closing_element).attr('id','modal_close');
+                  var pkg_preview_box = document.createElement('div');
+                  $(pkg_preview_box).addClass("preview_details");
+                  $(pkg_preview_box).css('height','364px')
+                  $(pkg_preview_box).css('padding','10px');
+                  $(pkg_preview_box).css('marginRight','20px');
+                  var pkg_preview_div_element = document.createElement('div');
+                  var pkg_preview_heading = document.createElement('h4');
+                  $(pkg_preview_heading).html("Order Preview");
+                  $(pkg_preview_heading).css('textAlign','center');
+                  $(pkg_preview_heading).css('fontSize','18px');
+                  $(pkg_preview_heading).css('fontWeight','bold');
+                  $(pkg_preview_heading).css('color','#5cb0cf');
+                  var pkg_time_error = document.createElement('div');
+                  var pkg_table_dealname = document.createElement('table');
+                  $(pkg_table_dealname).css('float','left');
+                  $(pkg_table_dealname).css('marginBottom','15px');
+                  $(pkg_table_dealname).css('marginTop','21px');
+                  var pkg_deal_th = document.createElement('th');
+                  $(pkg_deal_th).html("Package Information");
+                  $(pkg_table_dealname).append(pkg_deal_th);
+                   var pkg_tr_dealname = document.createElement('tr');
+                  var pkg_td_dealname = document.createElement('td');
+                  $(pkg_td_dealname).html("&nbsp"+"&nbsp"+"&nbsp"+package_name);
+                  $(pkg_td_dealname).css('paddingTop','3px');
+                  var pkg_tr_labname = document.createElement('tr');
+                  var pkg_td_labname = document.createElement('td');
+                  $(pkg_td_labname).html("&nbsp"+"&nbsp"+"&nbsp"+"Lab"+"&nbsp"+":"+"&nbsp"+package_labname+"&nbsp"+"&nbsp"+"("+package_labarea+")");
+                  var pkg_td_labarea = document.createElement('td');
+                  var pkg_price_table = document.createElement('table');
+                  $(pkg_price_table).css('float','right');
+                  $(pkg_price_table).css('marginBottom','15px');
+                  $(pkg_price_table).css('marginTop','44px');
+                  var pkg_tr_price = document.createElement('tr');
+                  var pkg_td_price = document.createElement('td');
+                  $(pkg_td_price).html("Price");
+                  var pkg_td_fp = document.createElement('td');
+                  $(pkg_td_fp).html(":"+"&nbsp"+"Rs."+package_finalprice);
+                  $(pkg_td_fp).css('paddingLeft','11px');
+                  var pkg_td_mrp_openbracket = document.createElement('td');
+                  $(pkg_td_mrp_openbracket).html("&nbsp"+"(");
+                  var pkg_td_mrp_price = document.createElement('td');
+                  $(pkg_td_mrp_price).html(package_mrp);
+                  $(pkg_td_mrp_price).css('textDecoration','line-through');
+                  $(pkg_td_mrp_price).css('color','rgb(236,73,73)');
+                  var pkg_td_mrp_closebracket = document.createElement('td');
+                  $(pkg_td_mrp_closebracket).html(")");
+                  var pkg_tr_discount = document.createElement('tr');
+                  var pkg_td_dealdiscount = document.createElement('td');
+                  $(pkg_td_dealdiscount).html("Discount");
+                  var pkg_td_deal_discount = document.createElement('td');
+                  $(pkg_td_deal_discount).html(":"+"&nbsp"+package_discount+"%");
+                  $(pkg_td_deal_discount).css('paddingLeft','11px');
+                  var pkg_patient_details_table = document.createElement('table');
+                  $(pkg_patient_details_table).css('marginBottom','30px');
+                  var pkg_tr_ptntinfo_head = document.createElement('tr');
+                  $(pkg_tr_ptntinfo_head).css('fontWeight' ,'bold');
+                  var pkg_th_ptntinfo_head = document.createElement('th');
+                  $(pkg_th_ptntinfo_head).html("Patient Information");
+                  $(pkg_tr_ptntinfo_head).append(pkg_th_ptntinfo_head);
+                  var pkg_tr_patient = document.createElement('tr');
+                   $(pkg_tr_patient).css('lineHeight','2');
+                  var pkg_td_patientname = document.createElement('td');
+                  $(pkg_td_patientname).html("&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"Name");
+                  var pkg_td_patient_name = document.createElement('td');
+                  $(pkg_td_patient_name).html(":"+"&nbsp"+localStorage.getItem("pkg_patient_name"));
+                  var pkg_tr_email = document.createElement('tr');
+                  $(pkg_tr_email).css('lineHeight','2');
+                  var pkg_td_emailheading = document.createElement('td');
+                  $(pkg_td_emailheading).html("&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"Email");
+                  var pkg_td_email_heading = document.createElement('td');
+                  $(pkg_td_email_heading).html(":"+"&nbsp"+localStorage.getItem("pkg_email"));
+                  var pkg_tr_phno = document.createElement('tr');
+                  $(pkg_tr_phno).css('lineHeight','2');
+                  var pkg_td_phnoheading = document.createElement('td');
+                  $(pkg_td_phnoheading).html("&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"Mobile No");
+                  var pkg_td_phno_heading = document.createElement('td');
+                  $(pkg_td_phno_heading).html(":"+"&nbsp"+localStorage.getItem("pkg_phone"));
+                  var pkg_tr_apptime = document.createElement('tr');
+                  $(pkg_tr_apptime).css('lineHeight','2');
+                  var pkg_td_apptimeheading = document.createElement('td');
+                  $(pkg_td_apptimeheading).html("&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"Appointment Timing");
+                  var pkg_td_apptime_heading = document.createElement('td');
+                  $(pkg_td_apptime_heading).html(":"+"&nbsp"+localStorage.getItem("pkg_app_time"));
+                  var pkg_back_button = document.createElement('button');
+                  $(pkg_back_button).html("Back");
+                  $(pkg_back_button).css('float','left');
+                  $(pkg_back_button).css('backgroundColor','#ec4949');
+                  $(pkg_back_button).css('width','98px');
+                  $(pkg_back_button).css('borderRadius','3px');
+                  $(pkg_back_button).css('border','0px');
+                  $(pkg_back_button).css('marginTop','11px');
+                  var pkg_order_button = document.createElement('button');
+                  $(pkg_order_button).html("Order");
+                  $(pkg_order_button).css('float','right');
+                  $(pkg_order_button).css('backgroundColor','#ec4949');
+                  $(pkg_order_button).css('width','98px');
+                  $(pkg_order_button).css('borderRadius','3px');
+                  $(pkg_order_button).css('border','0px');
+                  $(pkg_order_button).css('marginTop','11px');
+                  var pkg_tmm_form_element = document.createElement('div');
+                  $(pkg_tmm_form_element).attr('id','tmm-form-wizard');
+                  var pkg_prevbtn_element = document.createElement('div');
+                  $(pkg_prevbtn_element).css('margin','0px');
+                  $(pkg_prevbtn_element).addClass('prev');
+                  var pkg_backbtn = document.createElement('button');
+                  $(pkg_backbtn).attr('id','step2_back_btn');
+                  $(pkg_backbtn).addClass("button button-control");
+                  $(pkg_backbtn).attr('type','button');
+                  var pkg_span_backbtn = document.createElement('span');
+                  $(pkg_span_backbtn).html("Back");
+                  var pkg_backbtn_divider = document.createElement('div');
+                  $(pkg_backbtn_divider).addClass("button-divider");
+                  var pkg_orderbtn_element = document.createElement('div');
+                  $(pkg_orderbtn_element).css('margin','0px');
+                  $(pkg_orderbtn_element).addClass('next');
+                  var pkg_nextbtn = document.createElement('button');
+                  $(pkg_nextbtn).attr('id','step2_next_btn');
+                  $(pkg_nextbtn).addClass("button button-control");
+                  $(pkg_nextbtn).attr('type','button');
+                  var pkg_span_nextbtn = document.createElement('span');
+                  $(pkg_span_nextbtn).html("Order");
+                  var pkg_nextbtn_divider = document.createElement('div');
+                  $(pkg_nextbtn_divider).addClass("button-divider");
+                  $(pkg_backbtn).append(pkg_span_backbtn);
+                  $(pkg_prevbtn_element).append(pkg_backbtn);
+                  $(pkg_prevbtn_element).append(pkg_backbtn_divider);
+                   $(pkg_nextbtn).append(pkg_span_nextbtn);
+                   $(pkg_orderbtn_element).append(pkg_nextbtn);
+                   $(pkg_orderbtn_element).append(pkg_nextbtn_divider);
+                  $(pkg_tr_labname).append(pkg_td_labname);
+                  $(pkg_tr_dealname).append(pkg_td_dealname);
+                  $(pkg_table_dealname).append(pkg_tr_dealname);
+                  $(pkg_table_dealname).append(pkg_tr_labname);
+                  $(pkg_tr_price).append(pkg_td_price);
+                  $(pkg_tr_price).append(pkg_td_fp);
+                  $(pkg_tr_price).append(pkg_td_mrp_openbracket);
+                  $(pkg_tr_price).append(pkg_td_mrp_price);
+                  $(pkg_tr_price).append(pkg_td_mrp_closebracket);
+                  $(pkg_tr_discount).append(pkg_td_dealdiscount);
+                  $(pkg_tr_discount).append(pkg_td_deal_discount);
+                  $(pkg_price_table).append(pkg_tr_price);
+                  $(pkg_price_table).append(pkg_tr_discount);
+                  $(pkg_tr_patient).append(pkg_td_patientname);
+                  $(pkg_tr_patient).append(pkg_td_patient_name);
+                  $(pkg_tr_email).append(pkg_td_emailheading);
+                  $(pkg_tr_email).append(pkg_td_email_heading);
+                  $(pkg_tr_phno).append(pkg_td_phnoheading);
+                  $(pkg_tr_phno).append(pkg_td_phno_heading);
+                  $(pkg_tr_apptime).append(pkg_td_apptimeheading);
+                  $(pkg_tr_apptime).append(pkg_td_apptime_heading);
+                  $(pkg_patient_details_table).append(pkg_tr_ptntinfo_head);
+                  $(pkg_patient_details_table).append(pkg_tr_patient);
+                  $(pkg_patient_details_table).append(pkg_tr_email);
+                  $(pkg_patient_details_table).append(pkg_tr_phno);
+                  $(pkg_patient_details_table).append(pkg_tr_apptime);
+                  $(pkg_tmm_form_element).append(pkg_prevbtn_element);
+                  $(pkg_tmm_form_element).append(pkg_orderbtn_element);
+                  $(pkg_preview_div_element).append(pkg_preview_heading);
+                  $("#pkg_modal_thirdpage").append(pkg_closing_element);
+                  $(pkg_preview_box).append(pkg_preview_div_element);
+                  $(pkg_preview_box).append(pkg_time_error);
+                  $(pkg_preview_box).append(pkg_table_dealname); 
+                  $(pkg_preview_box).append(pkg_price_table);
+                  $(pkg_preview_box).append(pkg_patient_details_table);
+                  $(pkg_preview_box).append(pkg_tmm_form_element);
+                  $(".close").on('click',function () 
+                 {
+               	  $(order_page).modal().close(); 
+                 });//click
+                   $("#pkg_modal_thirdpage").append(pkg_preview_box);  
+                    
+                     /*$(prevbtn_element).on('click', function ()
+                      {
+                      	 
+                          form_handler(dataid,labname,labslug,dealname,deal_slug,deal_mrp,deal_discount,deal_finalprice,labarea);
+                     	});//click fnctn  
+                     	$(orderbtn_element).on('click',function ()
+                     	 {
+                            loadingimage_page();                    		
+                             confirm_pagehandler(labname,labslug,dealname,deal_slug,deal_mrp,deal_discount,deal_finalprice,labarea)                     		
+                     	      
+                     		});//click  */        
+                 
+   }//fnctn handler
+   
      

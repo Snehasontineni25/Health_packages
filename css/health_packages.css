@@ -116,6 +116,11 @@
  box-shadow: 2px 2px 5px #ccc;
  border-radius: 10px;
 }
+.preview_details
+{
+   border: 1px solid #d0dde1 !important;
+    margin-top: 6px !important;
+ }
 .package_contents
 {
       border: 1px solid #ddd !important;
