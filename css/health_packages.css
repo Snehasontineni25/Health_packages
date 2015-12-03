@@ -148,3 +148,11 @@
 {
   width:300px
 }*/
+.pkg_order_class:nth-child(2n)
+{
+  background:rgba(236,246,248,0.99) !important;
+ }
+  .pkg_order_class
+ {
+  border:1px solid #ddd !important;
+}
