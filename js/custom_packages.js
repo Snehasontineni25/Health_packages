@@ -558,7 +558,7 @@
                  	   var local_package_homevisit = $(this).data('package_homevisit');
                  	  
                  	  //pkg_form_backbtn(package_slug,package_name,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount) 
-
+                    loadingimage_handler();
                  	  pkg_test_details(package_slug,package_name,local_package_onlinereport,local_package_homevisit,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount);
                  	  
                  	});//click
