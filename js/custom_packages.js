@@ -460,7 +460,7 @@
               	 $(local_lab_details_tr).attr('data-package_localselectedprice',pkg_localData[i].labFinalPrice);
               	 $(local_lab_details_tr).attr('data-package_localselectedmrp',pkg_localData[i].labMRP);
               	 $(local_lab_details_tr).attr('data-package_localselecteddiscount',pkg_localData[i].labDiscount);
-              	 $(local_lab_details_tr).attr('data-package_homevisit',pkg_localData[i].homeVisit);
+              	 $(local_lab_details_tr).attr('data-package_homevisit',pkg_localData[i].visitType);
               	 $(local_lab_details_tr).attr('data-package_onlinereport',pkg_localData[i].onlineReports);
               	 var local_labname_td = document.createElement('td');
               	 $(local_labname_td).html(pkg_localData[i].labName);
@@ -595,6 +595,7 @@
  }
    function  pkg_form_backbtn(package_slug,package_name,local_package_onlinereport,local_package_homevisit,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount) 
  {
+ 	  
    var pkg_lablocalData = JSON.parse(localStorage.getItem('pkg_labData'));
    var local_package_test_modal = document.createElement('div');
                $(local_package_test_modal).addClass("modal");
@@ -1131,7 +1132,7 @@
   
     function  pkg_form_handler(package_slug,package_name,local_package_onlinereport,local_package_homevisit,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount)     
       {
-      	   
+      	         
                   var pkg_booking_page = document.createElement('div');
                   $(pkg_booking_page).addClass("modal");
                   $(pkg_booking_page).attr('id','pkg_modal_secondpage');
@@ -1248,7 +1249,7 @@
                   //$(pkg_input_address).addClass('form-icon form-icon-lock');
                   $(pkg_input_address).attr('placeholder','Please enter your Address');
                   $(pkg_input_address).attr('required','required');
-                 
+                   
                   //$(pkg_input_address).attr('maxlength','56');
                   $(pkg_input_address).css('paddingRight','11px');
                   var pkg_phno_row = document.createElement('div');
@@ -1418,6 +1419,7 @@
                   $(pkg_phno_element).append(pkg_error_phno_element);
                   var pkg_address_element = document.createElement('div');
                   $(pkg_address_element).addClass("err_msg");
+                  $(pkg_address_element).attr('id','pkg_err_address');
                   $(pkg_address_element).css('color','rgb(236,73,73)');
                   $(pkg_address_element).css('textAlign','left');
                   $(pkg_address_element).css('marginLeft','16px');
@@ -1430,6 +1432,20 @@
                   $(pkg_error_address_element).html('Enter your address');
                   $(pkg_address_element).append(pkg_star_address);
                   $(pkg_address_element).append(pkg_error_address_element);
+                 /* var pkg_address_element = document.createElement('div');
+                  $(pkg_address_element).addClass("err_msg");
+                  $(pkg_address_element).css('color','rgb(236,73,73)');
+                  $(pkg_address_element).css('textAlign','left');
+                  $(pkg_address_element).css('marginLeft','16px');
+                  $(pkg_address_element).css('display','none');
+                  var pkg_star_address = document.createElement('span');
+                  $(pkg_star_address).addClass('star');
+                  $(pkg_star_address).html("&#x2605");
+                  $(pkg_star_address).css('float','left');
+                  var pkg_error_address_element = document.createElement('div');
+                  $(pkg_error_address_element).html('Enter your address');
+                  $(pkg_address_element).append(pkg_star_address);
+                  $(pkg_address_element).append(pkg_error_address_element); */
                   var pkg_apptime_element = document.createElement('div');
                  	$(pkg_apptime_element).attr('id','pkg_err_apptime');
                  	$(pkg_apptime_element).addClass("err_msg");
@@ -1465,7 +1481,7 @@
                      $(pkg_error_display).append(pkg_mbno_element);
                      $(pkg_error_display).append(pkg_apptime_element);
                      $(pkg_error_display).append(pkg_app_time_element);
-                     //$(pkg_error_display).append(pkg_address_element);
+                     $(pkg_error_display).append(pkg_address_element);
                      $("#pkg_modal_secondpage").append(pkg_form_close_element);
                      $("#pkg_modal_secondpage").append(pkg_contact_heading);
                      $("#pkg_modal_secondpage").append(pkg_lab_details);
@@ -1509,7 +1525,7 @@
                           
                   var pkg_today = new Date();  
                  var pkg_minutes = pkg_today.getMinutes();
-                 
+                 console.log(local_package_homevisit);
                  if((pkg_minutes >= '0'))  
                 {
                      
@@ -1527,7 +1543,7 @@
                      minuteStep: 30,
                  }); //datetimepicker	
                 }//if
-              
+                 
                   $('.form_datetime').datetimepicker('setHoursDisabled', '0,1,2,3,4,5,22,23,24'); 
                    
                  var pkg_pat_name = $("#pkg_patient_name").val();
@@ -1588,7 +1604,7 @@
                           var pkg_current_hours = addZero(pkg_currenttime.getHours());
                           var pkg_current_minutes = addZero(pkg_currenttime.getMinutes());
                           var pkg_current_time = pkg_current_year+"-"+pkg_current_month+"-"+pkg_current_date+" "+pkg_current_hours+":"+pkg_current_minutes;
-                     if((document.getElementById("pkg_err_email").style.display ='none') && (document.getElementById('pkg_err_mbno').style.display = 'none') &&(document.getElementById('pkg_err_apptime').style.display = 'none') &&(document.getElementById('pkg_err_app_time').style.display = 'none'))
+                     if((document.getElementById("pkg_err_email").style.display ='none') && (document.getElementById('pkg_err_mbno').style.display = 'none') &&(document.getElementById('pkg_err_apptime').style.display = 'none') &&(document.getElementById('pkg_err_app_time').style.display = 'none') &&(document.getElementById('pkg_err_address').style.display = 'none'))  
                     { 
                       if ( !(pkg_patient_name.length >= 6 && pkg_patient_name.length <= 26) || pkg_patient_name.match(/[^a-zA-Z ]/)  )
                         {
@@ -1603,7 +1619,7 @@
                            
                         }//if err_name
                       }//if 
-                     if((document.getElementById("pkg_err_name").style.display ='none') && (document.getElementById('pkg_err_mbno').style.display = 'none') &&(document.getElementById('pkg_err_apptime').style.display = 'none') &&(document.getElementById('pkg_err_app_time').style.display = 'none')) 
+                     if((document.getElementById("pkg_err_name").style.display ='none') && (document.getElementById('pkg_err_mbno').style.display = 'none') &&(document.getElementById('pkg_err_apptime').style.display = 'none') &&(document.getElementById('pkg_err_app_time').style.display = 'none') &&(document.getElementById('pkg_err_address').style.display = 'none')) 
                     {
                     	 if(!filter.test(pkg_patient_email))
                        {
@@ -1616,7 +1632,7 @@
                           
                        }//if err_email
                        }//if
-                       if((document.getElementById("pkg_err_email").style.display ='none') && (document.getElementById('pkg_err_name').style.display = 'none') &&(document.getElementById('pkg_err_apptime').style.display = 'none') &&(document.getElementById('pkg_err_app_time').style.display = 'none'))
+                       if((document.getElementById("pkg_err_email").style.display ='none') && (document.getElementById('pkg_err_name').style.display = 'none') &&(document.getElementById('pkg_err_apptime').style.display = 'none') &&(document.getElementById('pkg_err_app_time').style.display = 'none') &&(document.getElementById('pkg_err_address').style.display = 'none'))
                        {
                        	 if((pkg_mobile_number.match(/[^0-9]/) || pkg_mobile_number.length != 10) || (!(pkg_mobile_number.charAt(0)=="9" || pkg_mobile_number.charAt(0)=="8" || pkg_mobile_number.charAt(0)=="7")))
                        {
@@ -1631,7 +1647,7 @@
                        }//if err_mbno
                        }//if
                       
-                       if((document.getElementById("pkg_err_email").style.display ='none') && (document.getElementById('pkg_err_mbno').style.display = 'none') &&(document.getElementById('pkg_err_name').style.display = 'none') &&(document.getElementById('pkg_err_app_time').style.display = 'none'))
+                       if((document.getElementById("pkg_err_email").style.display ='none') && (document.getElementById('pkg_err_mbno').style.display = 'none') &&(document.getElementById('pkg_err_name').style.display = 'none') &&(document.getElementById('pkg_err_app_time').style.display = 'none') &&(document.getElementById('pkg_err_address').style.display = 'none'))
                      {
                      	
                      	if(! ($('#pkg_app_time').val()))   
@@ -1782,7 +1798,7 @@
                           
                        }
                        }//if
-                          if((document.getElementById("pkg_err_email").style.display ='none') && (document.getElementById('pkg_err_mbno').style.display = 'none') &&(document.getElementById('pkg_err_name').style.display = 'none') &&(document.getElementById('pkg_err_apptime').style.display = 'none'))
+                          if((document.getElementById("pkg_err_email").style.display ='none') && (document.getElementById('pkg_err_mbno').style.display = 'none') &&(document.getElementById('pkg_err_name').style.display = 'none') &&(document.getElementById('pkg_err_apptime').style.display = 'none') &&(document.getElementById('pkg_err_address').style.display = 'none')) 
                          {
                           if(pkg_current_time > pkg_sel_time)
                           {
@@ -1794,12 +1810,29 @@
                           {
                           	  document.getElementById('pkg_err_app_time').style.display = 'none';
                           	  
-                           }//if err_time
+                           }//if err_time    
                          }//if
-                         
+                         if(local_package_homevisit.length == "13")
+                      {
+                       if((document.getElementById('pkg_err_name').style.display = 'none') && (document.getElementById("pkg_err_email").style.display ='none') && (document.getElementById('pkg_err_mbno').style.display = 'none') &&(document.getElementById('pkg_err_apptime').style.display = 'none') &&(document.getElementById('pkg_err_app_time').style.display = 'none'))
+                       {
+                            if(! ($('#pkg_address').val()))  
+                          {
+                             $(pkg_address_element).css('display','block');
+                              return false;
+                          }// if visit type
+                       
+                         if (document.getElementById('pkg_err_address').style.display = 'block') 
+                          {
+                          	  document.getElementById('pkg_err_address').style.display = 'none';
+                          	  
+                           }//if err_visittype
+                       }//if display
+                      }// if length
                        //pkg_preview_handler(package_name,package_consultation,package_labname,package_slug,package_labslug,package_finalprice,package_discount,package_labarea,package_mrp) 
                        //pkg_preview_handler(package_slug,package_name,local_package_onlinereport,local_package_homevisit,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount);
-                        console.log(local_package_homevisit);
+                        //console.log(local_package_homevisit);
+                        
                  	   console.log(local_package_onlinereport);
                  pkg_preview_handler(package_slug,package_name,local_package_onlinereport,local_package_homevisit,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount);
                     });//btn onclick handler
@@ -1896,36 +1929,31 @@
                   $(pkg_ptnt_info_heading).css('color','white');
                   $(pkg_ptnt_info_heading).css('background','rgb(65, 167, 179)');
                   $(pkg_ptnt_info_heading).css('fontWeight','bold');
-                  if (local_package_homevisit== "no" &&  local_package_onlinereport== "no") 
+                 
+                 if (local_package_onlinereport == "yes") 
                 {
-                	  //alert("no home visit");
-                	  console.log(local_package_homevisit);
-                 	   console.log(local_package_onlinereport);
-                 	 var pkg_homevisit_tr = document.createElement('tr');
-                   var pkg_homevisit_element = document.createElement('td');
-               	$(pkg_homevisit_element).addClass("err_msg");
-                  $(pkg_homevisit_element).attr('id','pkg_reports_msg');
-                  $(pkg_homevisit_element).css('color','rgb(236,73,73)');
-                  $(pkg_homevisit_element).css('textAlign','left');
-                  //$(pkg_homevisit_element).css('width','248px');
-                  $(pkg_homevisit_element).css('fontSize','10px');
-                  //$(pkg_homevisit_element).css('float','right');
-                  $(pkg_homevisit_element).css('display','block');
-                  var pkg_star_homevisit = document.createElement('span');
-                  $(pkg_star_homevisit).addClass('star');
-                  $(pkg_star_homevisit).html("&nbsp"+"&nbsp"+"&nbsp"+"&#x2605");
-                  $(pkg_star_homevisit).css('float','left');
-                  var pkg_error_homevisit_element = document.createElement('div');
-                  $(pkg_error_homevisit_element).html("Home visit is available"+","+"&nbsp"+"Online reports are available");
-                 	$(pkg_homevisit_element).append(pkg_star_homevisit);
-                 	$(pkg_homevisit_element).append(pkg_error_homevisit_element);
-                  //$(local_package_test_modal).append(pkg_homevisit_element);
-                   $(pkg_homevisit_tr).append(pkg_homevisit_element);
-                   $(pkg_table_dealname).append(pkg_homevisit_tr);
+                 	 var pkg_onlinereports_tr = document.createElement('tr');
+                   var pkg_onlinereports_element = document.createElement('td');
+               	$(pkg_onlinereports_element).addClass("err_msg");
+                  $(pkg_onlinereports_element).attr('id','pkg_reports_msg');
+                  $(pkg_onlinereports_element).css('color','rgb(236,73,73)');
+                  $(pkg_onlinereports_element).css('textAlign','left');
+                  $(pkg_onlinereports_element).css('fontSize','10px');
+                  $(pkg_onlinereports_element).css('display','block');
+                  var pkg_star_onlinereports = document.createElement('span');
+                  $(pkg_star_onlinereports).addClass('star');
+                  $(pkg_star_onlinereports).html("&nbsp"+"&nbsp"+"&nbsp"+"&#x2605");
+                  $(pkg_star_onlinereports).css('float','left');
+                  var pkg_error_onlinereports_element = document.createElement('div');
+                  $(pkg_error_onlinereports_element).html("Online reports  available");
+                 	$(pkg_onlinereports_element).append(pkg_star_onlinereports);
+                 	$(pkg_onlinereports_element).append(pkg_error_onlinereports_element);
+                   $(pkg_onlinereports_tr).append(pkg_onlinereports_element);
+                   $(pkg_table_dealname).append(pkg_onlinereports_tr);
                     $(pkg_ptnt_info_heading).css('marginTop','72px');
-                	}// if hme_vst , online rpts 
+                	}
                 	
-                   if (local_package_homevisit != "no" && local_package_onlinereport == "no")
+                	  if(local_package_homevisit.length == "13")
                    {
                    	   var pkg_homevisit_tr_one_element = document.createElement('tr');
                       var pkg_homevisit_one_element = document.createElement('td');
@@ -1933,46 +1961,53 @@
                       $(pkg_homevisit_one_element).attr('id','pkg_reports_msg');
                        $(pkg_homevisit_one_element).css('color','rgb(236,73,73)');
                      $(pkg_homevisit_one_element).css('textAlign','left');
-                     //$(pkg_homevisit_one_element).css('width','248px');
+                     
                     $(pkg_homevisit_one_element).css('fontSize','10px');
-                    //$(pkg_homevisit_one_element).css('float','right');
+                    
                     $(pkg_homevisit_one_element).css('display','block');
                     var pkg_star_homevisit_one = document.createElement('span');
                     $(pkg_star_homevisit_one).addClass('star');
                     $(pkg_star_homevisit_one).html("&nbsp"+"&nbsp"+"&nbsp"+"&#x2605");
                     $(pkg_star_homevisit_one).css('float','left');
                     var pkg_error_homevisit_one_element = document.createElement('div');
-                    $(pkg_error_homevisit_one_element).html('Home visit is available');
+                    $(pkg_error_homevisit_one_element).html('Home visit only');
                  	  $(pkg_homevisit_one_element).append(pkg_star_homevisit_one);
                  	  $(pkg_homevisit_one_element).append(pkg_error_homevisit_one_element);
                   $(pkg_homevisit_tr_one_element).append(pkg_homevisit_one_element);   
                   $(pkg_table_dealname).append(pkg_homevisit_tr_one_element); 
                    $(pkg_ptnt_info_heading).css('marginTop','72px');       
                   }//if home visit
-                 if (local_package_onlinereport != "no" && local_package_homevisit == "no") 
-                 { 
-                     var pkg_onlinereports_tr_one_element = document.createElement('tr');
-                     var pkg_onlinereports_one_element = document.createElement('td');
-               	    $(pkg_onlinereports_one_element).addClass("err_msg");
-                      $(pkg_onlinereports_one_element).attr('id','pkg_reports_msg');
-                       $(pkg_onlinereports_one_element).css('color','rgb(236,73,73)');
-                     $(pkg_onlinereports_one_element).css('textAlign','left');
-                     //$(pkg_onlinereports_one_element).css('width','248px');
-                    $(pkg_onlinereports_one_element).css('fontSize','10px');
-                    //$(pkg_onlinereports_one_element).css('float','right');
-                    $(pkg_onlinereports_one_element).css('display','block');
-                    var pkg_star_onlinereports_one = document.createElement('span');
-                    $(pkg_star_onlinereports_one).addClass('star');
-                    $(pkg_star_onlinereports_one).html("&nbsp"+"&nbsp"+"&nbsp"+"&#x2605");
-                    $(pkg_star_onlinereports_one).css('float','left');
-                    var pkg_error_onlinereports_one_element = document.createElement('div');
-                    $(pkg_error_onlinereports_one_element).html('Online reports are available');
-                 	  $(pkg_onlinereports_one_element).append(pkg_star_onlinereports_one);
-                 	  $(pkg_onlinereports_one_element).append(pkg_error_onlinereports_one_element);
-                  $(pkg_onlinereports_tr_one_element).append(pkg_onlinereports_one_element);  
-                  $(pkg_table_dealname).append(pkg_onlinereports_tr_one_element); 
-                   $(pkg_ptnt_info_heading).css('marginTop','72px');        
-                 } 
+                  
+                   if(local_package_homevisit.length > "13")
+                   {
+                   	   var pkg_labvisit_homevisit_tr_one_element = document.createElement('tr');
+                      var pkg_labvisit_homevisit_one_element = document.createElement('td');
+               	    $(pkg_labvisit_homevisit_one_element).addClass("err_msg");
+                      $(pkg_labvisit_homevisit_one_element).attr('id','pkg_reports_msg');
+                       $(pkg_labvisit_homevisit_one_element).css('color','rgb(236,73,73)');
+                     $(pkg_labvisit_homevisit_one_element).css('textAlign','left');
+                     
+                    $(pkg_labvisit_homevisit_one_element).css('fontSize','10px');
+                    
+                    $(pkg_labvisit_homevisit_one_element).css('display','block');
+                    var pkg_star_labvisit_homevisit_one = document.createElement('span');
+                    $(pkg_star_labvisit_homevisit_one).addClass('star');
+                    $(pkg_star_labvisit_homevisit_one).html("&nbsp"+"&nbsp"+"&nbsp"+"&#x2605");
+                    $(pkg_star_labvisit_homevisit_one).css('float','left');
+                    var pkg_error_labvisit_homevisit_one_element = document.createElement('div');
+                    $(pkg_error_labvisit_homevisit_one_element).html('Home visit and lab visit available');
+                 	  $(pkg_labvisit_homevisit_one_element).append(pkg_star_labvisit_homevisit_one);
+                 	  $(pkg_labvisit_homevisit_one_element).append(pkg_error_labvisit_homevisit_one_element);
+                  $(pkg_labvisit_homevisit_tr_one_element).append(pkg_labvisit_homevisit_one_element);   
+                  $(pkg_table_dealname).append(pkg_labvisit_homevisit_tr_one_element); 
+                  $(pkg_ptnt_info_heading).css('marginTop','72px');  
+                          
+                  }//if home visit
+                  
+                   if ((local_package_onlinereport == "yes" && local_package_homevisit.length  == "13") || (local_package_onlinereport == "yes" && local_package_homevisit.length  > "13")) 
+                   {
+                      $(pkg_ptnt_info_heading).css('marginTop','86px');
+                   } 
 
                   var pkg_price_table = document.createElement('table');
                   $(pkg_price_table).css('float','right');
