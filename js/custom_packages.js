@@ -1243,10 +1243,13 @@
                   $(pkg_input_address).attr('id','pkg_address');
                   $(pkg_input_address).attr('name','patient_address');
                   $(pkg_input_address).attr('value','');
+                  $(pkg_input_address).css('width','468px');
+                  $(pkg_input_address).css('border','1px solid #c4cdcf');
                   //$(pkg_input_address).addClass('form-icon form-icon-lock');
                   $(pkg_input_address).attr('placeholder','Please enter your Address');
                   $(pkg_input_address).attr('required','required');
-                  $(pkg_input_address).attr('maxlength','56');
+                 
+                  //$(pkg_input_address).attr('maxlength','56');
                   $(pkg_input_address).css('paddingRight','11px');
                   var pkg_phno_row = document.createElement('div');
                   $(pkg_phno_row).addClass("row");
@@ -2016,7 +2019,7 @@
                    $(pkg_tr_patient).css('border' ,'1px solid rgb(221, 221, 221)');
                   var pkg_td_patientname = document.createElement('td');
                   $(pkg_td_patientname).html("&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"Name");
-                  $(pkg_td_patientname).css('width','40%');
+                  $(pkg_td_patientname).css('width','50%');
                   $(pkg_td_patientname).css('border','1px solid #ddd');
                   var pkg_td_patient_name = document.createElement('td');
                   $(pkg_td_patient_name).html("&nbsp"+localStorage.getItem("pkg_patient_name"));
@@ -2027,7 +2030,7 @@
                   $(pkg_tr_email).css('border' ,'1px solid rgb(221, 221, 221)');
                   var pkg_td_emailheading = document.createElement('td');
                   $(pkg_td_emailheading).html("&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"Email");
-                  $(pkg_td_emailheading).css('width','40%');
+                  $(pkg_td_emailheading).css('width','50%');
                   $(pkg_td_emailheading).css('border','1px solid #ddd');
                   var pkg_td_email_heading = document.createElement('td');
                   $(pkg_td_email_heading).html("&nbsp"+localStorage.getItem("pkg_email"));
@@ -2037,7 +2040,7 @@
                   $(pkg_tr_phno).css('border' ,'1px solid rgb(221, 221, 221)');
                   var pkg_td_phnoheading = document.createElement('td');
                   $(pkg_td_phnoheading).html("&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"Mobile No");
-                  $(pkg_td_phnoheading).css('width','40%');
+                  $(pkg_td_phnoheading).css('width','50%');
                   $(pkg_td_phnoheading).css('border','1px solid #ddd');
                   var pkg_td_phno_heading = document.createElement('td');
                   $(pkg_td_phno_heading).html("&nbsp"+localStorage.getItem("pkg_phone"));
@@ -2048,7 +2051,7 @@
                   var pkg_td_apptimeheading = document.createElement('td');
                   $(pkg_td_apptimeheading).html("&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"Appointment Timing");
                   $(pkg_td_apptimeheading).css('border','1px solid #ddd');
-                  $(pkg_td_apptimeheading).css('width','40%');
+                  $(pkg_td_apptimeheading).css('width','50%');
                   var pkg_td_apptime_heading = document.createElement('td');
                   $(pkg_td_apptime_heading).html("&nbsp"+localStorage.getItem("pkg_app_time"));
                   var pkg_tr_address = document.createElement('tr');
@@ -2057,7 +2060,7 @@
                   $(pkg_tr_address).css('border' ,'1px solid rgb(221, 221, 221)');
                   var pkg_td_address_heading = document.createElement('td');
                   $(pkg_td_address_heading).html("&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"Address");
-                  $(pkg_td_address_heading).css('width','40%');
+                  $(pkg_td_address_heading).css('width','50%');
                   $(pkg_td_address_heading).css('border','1px solid rgb(221, 221, 221)');
                   var pkg_td_address = document.createElement('td');
                   $(pkg_td_address).html("&nbsp"+localStorage.getItem("pkg_address"));
