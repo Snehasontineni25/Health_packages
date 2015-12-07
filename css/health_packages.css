@@ -92,7 +92,8 @@
     width: 136px;
     padding-left: 21px;
     padding-right: 21px;
-     margin-left: 146px;
+     /*margin-left: 146px;*/
+    /* margin-left: 663px;*/
    }
    .bv_cont a 
    {
@@ -160,9 +161,37 @@
 .health-pkg-head h4
 {
   float: left;
-  width: 600px;
+  width: 553px;
 }
 .cust-input
 {
  margin-top: 0px !important;
+}
+.pkgs_advt
+{
+  background:rgba(37, 135, 150, 0.99);
+  border-radius: 5px;
+  color: white;
+  font-size: 12px !important;
+  font-weight: bold;
+  width: 300px;
+  margin-top: 50px;
+  height: 226px;
+  /*position: fixed;*/
+}
+.right_pkgs_advt
+{
+  background:rgba(37, 135, 150, 0.99);
+  border-radius: 5px;
+  color: white;
+  font-size: 12px !important;
+  font-weight: bold;
+  width: 300px;
+  margin-top: 20px;
+  height: 226px;
+  
+}
+.pkgs_head
+{
+ position: fixed;
 }

@@ -142,6 +142,7 @@
            } 
            var div_pkg_details = document.createElement('div');
            $(div_pkg_details).addClass("col-md-8 pad0");
+           $(div_pkg_details).css('float','left');
            var pkg_details = document.createElement('div');
            $(pkg_details).addClass("pack_details");
            var pkg_name = document.createElement('p');
@@ -165,6 +166,7 @@
            }
            var details_btn = document.createElement('div');
            $(details_btn).addClass("col-md-2 pad0");
+           $(details_btn).css('float','right');
            var btn_cont = document.createElement('div');
            $(btn_cont).addClass("bv_cont");
            var view_btn = document.createElement('a');
@@ -183,6 +185,7 @@
            $(div_row).append(div_col_pkg);
            $(div_row).append(div_pkg_details);
            $(div_row).append(details_btn);
+           //$(div_row).append(btn_cont);
            $(div_cont).append(div_row);
            $(wrapper_element).append(div_cont);
            }//for loop
