@@ -275,14 +275,14 @@
              for (var j=0;j<data.length;j++) 
              {
              
-           	  //var x = [document.getElementById(data[j].packageName)];
-           	    var x= [];
+           	  var pkg_arry = document.getElementById(data[j].packageName);
+           	    //var x= [];
            	 //chkboxarray.push($(this).val());
            	 
            	 var pkg_package_name = $(div_cont).data('packagename');
-           	  var op = document.getElementById(data[j].packageSlug);
+           	  var pkg_search_op = document.getElementById(data[j].packageSlug);
            	  
-           	  search_handler(x,op,data);
+           	  search_handler(pkg_arry,pkg_search_op,data);
            	
            	   }//for
            	});//key event
@@ -290,35 +290,29 @@
  }//suc fntn
  });//ajax
  }//fnctn
- function search_handler(x,op,data)
+ function search_handler(pkg_arry,pkg_search_op,data)
  {
  	 var input_value = $("#search").val();
- 	  console.log(x);
- 	  console.log(op);
+ 	  console.log(pkg_arry);
+ 	  console.log(pkg_search_op);
  	  
  	  	
- 	 if (input_value.match(x)) 
+ 	 if (input_value.match(pkg_arry)) 
  	 {
- 	 	var val = input_value.match(x);
- 	 	//console.log(val);
  	 	console.log("m");
- 	 	//console.log(op);
- 	 	$(op).css('display','block');
+ 	 	$(pkg_search_op).css('display','block');
  	 	
  	 	
- 	 }
+ 	 }//if
  	 else 
  	 {
- 	 	//var val = input_value.match(x);
- 	 	//console.log(val);
  	 	console.log("nm");
- 	 	//console.log(op);
- 	 	$(op).css('display','none');
- 	 } 
+ 	 	$(pkg_search_op).css('display','none');
+ 	 } //else
  	 
   
  
- }
+ }//search fnctn 
  window.onload = packages_list();
   function loadingimage_handler() 
    {
