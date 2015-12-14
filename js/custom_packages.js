@@ -6,18 +6,86 @@
          type:'GET',
          dataType: 'json',
          success:function(data){
+         	
+         	 console.log(data);
          	var load = document.getElementById("loading");
          	$(load).css('display','none');
          	var wrapper_element = document.getElementsByClassName("cust-wrapper")[0];
+         	var health_row = document.createElement('div');
+         	$(health_row).addClass("row");
+         	var hlth_pkg_head = document.createElement('div');
+         	$(hlth_pkg_head).addClass('health_pkg_head');
+         	var pkgs_head = document.createElement('h4');
+         	$(pkgs_head).html("Health Packages");
+         	var pkgs_col = document.createElement('div');
+         	$(pkgs_col).addClass("col-md-3");
+         	var pkg_search = document.createElement('div');
+         	$(pkg_search).addClass('search-container');
+         	var pkg_search_form = document.createElement('div');
+         	$(pkg_search_form).addClass("form-group cust_input");
+         	$(pkg_search_form).css('width','138%');
+         	//$(div_cont).attr('data-packagename',data[i].packageName);
+         	  var pkg_search_ip_img = document.createElement('div');
+         	  $(pkg_search_ip_img).css('width','79%');
+         	var pkg_search_input = document.createElement('input');
+         	$(pkg_search_input).addClass("form-control");
+         	$(pkg_search_input).attr('id','search');
+         	$(pkg_search_input).attr('type','text');
+         	$(pkg_search_input).attr('placeholder','Search');
+         	//$(pkg_search_input).html("&#x2716");
+         	var search_div_img = document.createElement('div');
+         	$(search_div_img).css('float','right');
+         	$(search_div_img).css('position','relative');
+         	$(search_div_img).css('bottom','27px');
+         	var search_img = document.createElement('img');
+         	$(search_img).attr("src","images/bullet_cross.png");
+         	var pkg_search_span = document.createElement('span');
+         	var pkg_search_span_i = document.createElement('i');
+         	$(pkg_search_span_i).addClass('fa fa-search');
+         	$(pkg_search_span).append(pkg_search_span_i);
+         	//$(pkg_search_form).append(pkg_search_input);
+         	//$(pkg_search_form).append(search_img);
+         	$(pkg_search_ip_img).append(pkg_search_input);
+         	 $(search_div_img).append(search_img);
+         	$(pkg_search_ip_img).append(search_div_img);
+         	$(pkg_search_form).append(pkg_search_ip_img);
+         	$(pkg_search_form).append(pkg_search_span);
+         	$(pkg_search).append(pkg_search_form);
+         	$(pkgs_col).append(pkg_search);
+         	$(hlth_pkg_head).append(pkgs_head);
+         	$(hlth_pkg_head).append(pkgs_col);
+         	$(health_row).append(hlth_pkg_head); 
+         	 $(wrapper_element).append(health_row);
+         	  
+         	 /*for (i=0;i<data.length;i++) 
+         	{
+         	 
+         	}*/
+         	 
+         	 var   pkgs_list = document.createElement('div');
+         	 $(pkgs_list).addClass("packages_list");
+         	 //console.log(pkgs_list = data[m].packageName);
+         	
+         	//var arr = jQuery.makeArray( pkgs_list );
+         	//console.log(arr);
+         	//console.log(arr.reverse());
+         	//console.log(pkgs_list);
+         	
          	for (i=0;i<data.length;i++) 
          	{
-         	
-           var div_cont = document.createElement('div');
-           $(div_cont).addClass("two_cont");
-           $(div_cont).css('cursor','pointer');
-           $(div_cont).attr('data-packageid',data[i].packageSlug);
-           $(div_cont).attr('data-packagename',data[i].packageName);
-           $(div_cont).attr('data-packageconsultations',data[i].consultationsCount);
+           
+             var div_cont = document.createElement('div');
+             $(div_cont).addClass("two_cont");
+             $(div_cont).css('cursor','pointer');
+             $(div_cont).attr('id',data[i].packageSlug);
+             $(div_cont).attr('data-packageid',data[i].packageSlug);
+             $(div_cont).attr('data-packagename',data[i].packageName);
+             $(div_cont).attr('data-packageconsultations',data[i].consultationsCount);
+           //console.log(div_cont);
+           //var arr = jQuery.makeArray( div_cont );
+           //console.log(div_cont);
+           //$(pkgs_list).attr('data-searchpkgname',data[i].packageName);
+          
            $(div_cont).on('click',function () 
            {
            	 
@@ -145,8 +213,13 @@
            $(div_pkg_details).css('float','left');
            var pkg_details = document.createElement('div');
            $(pkg_details).addClass("pack_details");
+           
            var pkg_name = document.createElement('p');
            $(pkg_name).html(data[i].packageName);
+           //$(pkg_name).attr('id','health_package_details');
+           $(pkg_name).attr('id',data[i].packageName);
+          
+           //console.log($("#health_package_details").html());
            var pkg_tests = document.createElement('h6');
            $(pkg_tests).css('float','left');
            var pkg_span = document.createElement('span');
@@ -187,13 +260,65 @@
            $(div_row).append(details_btn);
            //$(div_row).append(btn_cont);
            $(div_cont).append(div_row);
-           $(wrapper_element).append(div_cont);
-           }//for loop
-
-                   
+           $(pkgs_list).append(div_cont);
+           $(wrapper_element).append(pkgs_list);
+            //console.log(pkg_name);
+           //$(wrapper_element).append(div_cont);
+           }//for loopconsole.log(pkgs_list);
+          //console.log(pkgs_list);
+           $(pkg_search_form).on('keyup',function () 
+           {
+           	
+           	var search_input = $("#search").val();
+           	//console.log(search_input);
+           	 
+             for (var j=0;j<data.length;j++) 
+             {
+             
+           	  //var x = [document.getElementById(data[j].packageName)];
+           	    var x= [];
+           	 //chkboxarray.push($(this).val());
+           	 
+           	 var pkg_package_name = $(div_cont).data('packagename');
+           	  var op = document.getElementById(data[j].packageSlug);
+           	  
+           	  search_handler(x,op,data);
+           	
+           	   }//for
+           	});//key event
+          //}        
  }//suc fntn
  });//ajax
  }//fnctn
+ function search_handler(x,op,data)
+ {
+ 	 var input_value = $("#search").val();
+ 	  console.log(x);
+ 	  console.log(op);
+ 	  
+ 	  	
+ 	 if (input_value.match(x)) 
+ 	 {
+ 	 	var val = input_value.match(x);
+ 	 	//console.log(val);
+ 	 	console.log("m");
+ 	 	//console.log(op);
+ 	 	$(op).css('display','block');
+ 	 	
+ 	 	
+ 	 }
+ 	 else 
+ 	 {
+ 	 	//var val = input_value.match(x);
+ 	 	//console.log(val);
+ 	 	console.log("nm");
+ 	 	//console.log(op);
+ 	 	$(op).css('display','none');
+ 	 } 
+ 	 
+  
+ 
+ }
  window.onload = packages_list();
   function loadingimage_handler() 
    {
@@ -264,7 +389,7 @@
                $(local_package_list_modal).css('position','relative');
                $(local_package_list_modal).css('backgroundColor','#fff');
                $(local_package_list_modal).css('paddingRight','0px');
-               $(local_package_list_modal).css('width','818px');
+               $(local_package_list_modal).css('width','64%');
                var local_close_element = document.createElement('a');
                $(local_close_element).addClass("close");
                $(local_close_element).attr('href','#');
@@ -296,7 +421,7 @@
               $(local_labs_tr).css("color","white");
               var local_labname_th = document.createElement('th');
               $(local_labname_th).css('border', '1px solid #ddd');
-              $(local_labname_th).css('width','227px');
+              $(local_labname_th).css('width','29%');
               var local_pkg_labname_th = document.createElement('div');
               $(local_pkg_labname_th).html("Lab Name");
               $(local_pkg_labname_th).css('padding','10px');
@@ -321,7 +446,7 @@
              $(local_labname_th).append(local_pkg_imgs);
               var local_labarea_th = document.createElement('th');
               $(local_labarea_th).css('border', '1px solid #ddd');
-              $(local_labarea_th).css('width','122px');
+              $(local_labarea_th).css('width','16%');
               var local_pkg_labarea = document.createElement('div');
               $(local_pkg_labarea).html("Location");
               $(local_pkg_labarea).css('textAlign','center');
@@ -1140,7 +1265,7 @@
                   $(pkg_booking_page).addClass("modal");
                   $(pkg_booking_page).attr('id','pkg_modal_secondpage');
                   $(pkg_booking_page).css('backgroundColor','#fff');
-                  $(pkg_booking_page).css('height','578px');
+                  $(pkg_booking_page).css('height','128%');
                   $(pkg_booking_page).css('paddingRight','0px');
                   $(pkg_booking_page).modal().open();
                   var pkg_form_close_element = document.createElement('a');
@@ -1164,6 +1289,7 @@
                   $(pkg_lab_details).css('fontWeight','bold');
                   $(pkg_lab_details).css('marginTop','6px');  
                   $(pkg_lab_details).css('marginRight','20px');
+                  $(pkg_lab_details).css('fontSize','12px');
                   var pkg_deal_name  = document.createElement('div');
                   $(pkg_deal_name).html(package_name);
                   $(pkg_deal_name).css('textAlign' ,'right');
@@ -1171,6 +1297,7 @@
                   $(pkg_deal_name).css('fontWeight','bold');
                   $(pkg_deal_name).css('marginTop','6px');
                   $(pkg_deal_name).css('marginRight','20px');
+                  $(pkg_deal_name).css('fontSize','12px');
                   var pkg_parent_wizard = document.createElement('div');
                   $(pkg_parent_wizard).attr('id','tmm-form-wizard');
                   $(pkg_parent_wizard).addClass('container substrate');
@@ -2198,7 +2325,8 @@
                   $(pkg_preview_box).append(pkg_tmm_form_element);
                   $(".close").on('click',function () 
                  {
-               	  $(order_page).modal().close(); 
+                 	  $(pkg_order_page).modal().close();
+               	  //$(order_page).modal().close(); 
                  });//click
                    $("#pkg_modal_thirdpage").append(pkg_preview_box);  
                     
