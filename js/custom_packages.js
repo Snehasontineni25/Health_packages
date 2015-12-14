@@ -61,7 +61,7 @@
          	{
          	 
          	}*/
-         	 
+         	 var pkgs_list =[];
          	 var   pkgs_list = document.createElement('div');
          	 $(pkgs_list).addClass("packages_list");
          	 //console.log(pkgs_list = data[m].packageName);
@@ -274,7 +274,7 @@
            	 
              for (var j=0;j<data.length;j++) 
              {
-             
+               var pkg_arry = [];
            	  var pkg_arry = document.getElementById(data[j].packageName);
            	    //var x= [];
            	 //chkboxarray.push($(this).val());
