@@ -67,18 +67,6 @@
      padding-top: 8px;
     
    }
-   
-   /*.pack_details div
-   {
-     
-     color:rgba(37,135,150,0.99);
-     font-size: 17px;
-     font-weight: 600;
-     vertical-align: middle;
-     text-align: left;
-     padding-top: 8px;
-    
-   }*/
    .cust_pack
    {
      border: 0px;
@@ -174,7 +162,7 @@
 .health_pkg_head h4 
 {
 	 float: left;
-    width: 68.9%;
+    width: 62.9%;
     font-weight: bold;
     font-size: 16px;
     color: rgb(65, 167, 179);
@@ -215,8 +203,6 @@
 .pkgs_head
 {
  position: fixed;
- width: 24%;
- height: 86%;
 }
 .cust_input input 
 {
@@ -249,4 +235,19 @@
 li
 {
  margin-bottom: 0px !important;
+}
+/*#left_img
+{
+  margin-bottom:9%;
+}*/
+.advt_imgs
+{
+  width: 100%;
+  height: 50%;
+  margin-bottom: 6%;
+}
+.pkgs_head
+{
+  width: 26%;
+  height: 100%;
 }

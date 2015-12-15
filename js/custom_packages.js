@@ -24,10 +24,10 @@
          	$(pkg_search).addClass('search-container');
          	var pkg_search_form = document.createElement('div');
          	$(pkg_search_form).addClass("form-group cust_input");
-         	$(pkg_search_form).css('width','138%');
+         	$(pkg_search_form).css('width','164%');
          	//$(div_cont).attr('data-packagename',data[i].packageName);
          	  var pkg_search_ip_img = document.createElement('div');
-         	  $(pkg_search_ip_img).css('width','79%');
+         	  $(pkg_search_ip_img).css('width','80%');
          	var pkg_search_input = document.createElement('input');
          	$(pkg_search_input).addClass("form-control");
          	$(pkg_search_input).attr('id','search');
@@ -276,10 +276,12 @@
            $(pkgs_list).append(div_cont);
            $(wrapper_element).append(pkgs_list);
            }//for loop
+           console.log(document.getElementsByClassName("inner-header section-one")[0]);
            $(pkg_search_form).on('keyup',function () 
            {
            	$(search_div_img).append(search_img);
            	var search_input = $("#search").val();
+           	$(search_div_img).css('display','block')
              for (var j=0;j<data.length;j++) 
              {
            	  var pkg_search_name = document.getElementById(data[j].packageName);
@@ -296,10 +298,10 @@
                    {
                    	 var pkg_input_click = document.getElementById(data[pkg].packageName);
                    	 $(pkg_input_click).css('display','block');
-                   	 console.log(pkg_input_click);
+                   	 //console.log(pkg_input_click);
                        var pkg_title = document.getElementById(data[pkg].packageSlug);
                        $(pkg_title).html(data[pkg].packageName);
-                         console.log(pkg_title);
+                        //console.log(pkg_title);
                       $(search_div_img).css('display','none');
                       
                    }//for loop	
@@ -318,25 +320,20 @@
  	 var inputs_value = new RegExp(input_value);
  	 var pkg_id = pkg_search_name.id;
  	 var pkg_id_lowercase = pkg_id.toLowerCase();
- 	   console.log(pkg_id);
- 	   console.log(pkg_id_lowercase);
  	 var pkg_id_lnth = pkg_id.length;
  	 	$(pkg_title).html('');
-  if (inputs_value.test(pkg_id)) 
+  if (inputs_value.test(pkg_id_lowercase)) 
   {
-  	   var pos_value = pkg_id.indexOf(input_value);
+  	   var pos_value = pkg_id_lowercase.indexOf(input_value);
       $(pkg_search_name).css('display','block');
       var pkg_lnth = input_value.length;
-      var pkg_index = pkg_id.indexOf(input_value);
+      var pkg_index = pkg_id_lowercase.indexOf(input_value);
       var pkg_str = pkg_id.substr(pkg_index,pkg_lnth);
       var left_pkg = pkg_id.substr(0,pkg_index);
       var substr_lnth = pkg_index+pkg_lnth;
       var right_pkg = pkg_id.substr(substr_lnth);
-       var pkgs_title = left_pkg+pkg_str+right_pkg;
        var pkg_left_name = document.createElement('div');
-       
-       $(pkg_left_name).html(left_pkg);
-       //$(pkg_left_name).html(pkg_left_upper);
+      //$(pkg_left_name).html(left_pkg);
        $(pkg_left_name).css('float','left');
        var pkg_str_name = document.createElement('div');
        $(pkg_str_name).html(pkg_str);
@@ -350,13 +347,33 @@
       var pkg_empty_str = document.createElement('div');
       $(pkg_empty_str).html("&nbsp");
        var pkg_right_name =document.createElement('div');
-       $(pkg_right_name).html(right_pkg); 
-       // $(pkg_title).html('');
+       $(pkg_right_name).css('float','left');
+       //console.log(input_value.indexOf(' '));
+       var pkg_text_ip = input_value;
+       var pkg_text_ip_lnth = input_value.length; 
+       //var pkg_space_str = input_value.indexOf(' ');
+       var pkg_empty_space = input_value.charAt(pkg_text_ip_lnth -1);
+        if ((right_pkg.charAt(0)==" ")  ||(input_value.charAt(pkg_text_ip_lnth -1)==" " ))   
+        {
+        	  $(pkg_right_name).html("&nbsp;"+right_pkg);
+        }//if char 
+        else 
+        {
+        	  $(pkg_right_name).html(right_pkg);
+        }//else
+        var pkg_left_length = left_pkg.length;
+        if (left_pkg.charAt(pkg_left_length -1)==" ") 
+        {
+        	    $(pkg_left_name).html(left_pkg+"&nbsp");
+        } // if left
+        else 
+        {
+                  $(pkg_left_name).html(left_pkg);
+         }//else
         $(pkg_title).append(pkg_left_name);
         $(pkg_title).append(pkg_str_name);
         $(pkg_title).append(pkg_right_name);
-        //$(pkg_title).append(pkg_empty_str);
-   }
+   }//if ip val
    else
     {
     	 $(pkg_search_name).css('display','none');
