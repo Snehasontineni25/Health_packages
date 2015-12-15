@@ -44,7 +44,9 @@
          	$(search_div_img).css('bottom','27px');
          	$(search_div_img).css('cursor','pointer');
          	var search_img = document.createElement('img');
-         	$(search_img).attr("src","images/bullet_cross.png");
+         	$(search_img).attr("src","images/Black_Remove.png");
+         	$(search_img).css('height','14px');
+         	$(search_img).css('width','15px');
          	var pkg_search_span = document.createElement('span');
          	var pkg_search_span_i = document.createElement('i');
          	$(pkg_search_span_i).addClass('fa fa-search');
