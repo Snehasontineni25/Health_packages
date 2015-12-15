@@ -305,32 +305,43 @@
  	 var input_value = $("#search").val();
  	  var inputs_value = new RegExp(input_value);
  	 var pkg_id = pkg_search_name.id;
+ 	   //console.log(pkg_id);
+ 	 var pkg_id_lowercase = pkg_id.toLowerCase();
+ 	 //console.log(pkg_id_lowercase);
  	  var pkg_id_lnth = pkg_id.length;
  	 	
-  if (inputs_value.test(pkg_id)) 
+  if (inputs_value.test(pkg_id_lowercase)) 
   {
-  	   var pos_value = pkg_id.indexOf(input_value);
+  	   var pos_value = pkg_id_lowercase.indexOf(input_value);
       $(pkg_search_name).css('display','block');
+       console.log(pos_value);
       var pkg_lnth = input_value.length;
-      var pkg_index = pkg_id.indexOf(input_value);
-      var pkg_str = pkg_id.substr(pkg_index,pkg_lnth);
-      var left_pkg = pkg_id.substr(0,pkg_index);
+      var pkg_index = pkg_id_lowercase.indexOf(input_value);
+      var pkg_str = pkg_id_lowercase.substr(pkg_index,pkg_lnth);
+      var left_pkg = pkg_id_lowercase.substr(0,pkg_index);
       var substr_lnth = pkg_index+pkg_lnth;
-      var right_pkg = pkg_id.substr(substr_lnth);
+      var right_pkg = pkg_id_lowercase.substr(substr_lnth);
        var pkgs_title = left_pkg+pkg_str+right_pkg;
        var pkg_left_name = document.createElement('div');
-       $(pkg_left_name).html(left_pkg);
+       console.log(left_pkg);
+       var left_pkg_upper = left_pkg;
+       var pkg_left_upper = left_pkg_upper.charAt(0).toUpperCase()+left_pkg_upper.slice(1).toLowerCase();
+       console.log(pkg_left_upper);
+       //$(pkg_left_name).html(left_pkg);
+       $(pkg_left_name).html(pkg_left_upper);
        $(pkg_left_name).css('float','left');
        var pkg_str_name = document.createElement('div');
        $(pkg_str_name).html(pkg_str);
        $(pkg_str_name).css('float','left');
        $(pkg_str_name).css('background','rgb(65,167,179)');
+       $(pkg_str_name).css('color','white');
        var pkg_right_name =document.createElement('div');
        $(pkg_right_name).html(right_pkg); 
         $(pkg_title).html('');
         $(pkg_title).append(pkg_left_name);
         $(pkg_title).append(pkg_str_name);
         $(pkg_title).append(pkg_right_name);
+       
    }
    else
     {

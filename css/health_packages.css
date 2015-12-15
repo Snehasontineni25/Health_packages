@@ -230,3 +230,11 @@
  {
    height: 30px !important; 
  }
+ html
+{
+  padding:0px !important;
+}
+li
+{
+ margin-bottom: 0px !important;
+}
