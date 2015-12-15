@@ -217,12 +217,10 @@
            
            var pkg_name = document.createElement('p');
            $(pkg_name).html(data[i].packageName);
-           //$(pkg_name).attr('id','health_package_details');
             $(pkg_name).attr('id',data[i].packageSlug);
-          var pkg_para = document.createElement('div');
+          var pkg_para = document.createElement('p');
            $(pkg_para).addClass("pkgs_name");
            $(pkg_para).attr('id',data[i].testCount);
-           //console.log($("#health_package_details").html());
            var pkg_tests = document.createElement('h6');
            $(pkg_tests).css('float','left');
            var pkg_span = document.createElement('span');
@@ -266,30 +264,19 @@
            $(div_cont).append(div_row);
            $(pkgs_list).append(div_cont);
            $(wrapper_element).append(pkgs_list);
-            //console.log(pkg_name);
-           //$(wrapper_element).append(div_cont);
-           }//for loopconsole.log(pkgs_list);
-          //console.log(pkgs_list);
+           }//for loop
            $(pkg_search_form).on('keyup',function () 
            {
            	$(search_div_img).append(search_img);
            	var search_input = $("#search").val();
-           	//console.log(search_input);
-           	//console.log(div_cont);
-           	 //search_handler(div_cont);
              for (var j=0;j<data.length;j++) 
              {
-           	  //var pkg_arry = document.getElementById(data[j].packageName);
-           	 //var pkg_package_name = $(div_cont).data('packagename');
            	  var pkg_search_name = document.getElementById(data[j].packageName);
            	  var pkg_title = document.getElementById(data[j].packageSlug);
-           	   //console.log(pkg_title);
-           	  //console.log(pkg_search_name.id);
            	  var pkg_search_id = pkg_search_name.id; 
-           	  //console.log(pkg_search_id.length);
-           	  //var pkg_par_class =document.getElementsByClassName("pack_details")[0];
+           	 
+           	  
            	  var pkg_par_class = document.getElementById(data[j].testCount);
-           	  console.log(pkg_par_class);
            	  search_handler(pkg_search_name,pkg_search_id,pkg_title,pkg_par_class);
            	   }//for
            	});//key event 
@@ -305,13 +292,9 @@
                       $(pkg_title).css('background','none');
                       $(search_div_img).css('display','none');
                    }//for loop	
-                             	//$(pkg_search_input).attr('autofocus','autofocus');
                              	$("#search").focus();	
            		});
-           		/*$(pkg_input_booking).on('keydown' ,function (event) 
-                     {
-                   	  event.preventDefault();
-                  	});//keydown */
+           		
                   	           		
           //}        
  }//suc fntn
@@ -319,81 +302,39 @@
  }//fnctn
  function search_handler(pkg_search_name,pkg_search_id,pkg_title,pkg_par_class)
  {
- 	   console.log(pkg_title);
- 	 //console.log(div_cont);
- 	  //console.log(pkg_search_name)
  	 var input_value = $("#search").val();
- 	  //console.log(pkg_search_id);
- 	  //console.log(pkg_search_name);
- 	  //var pkg_id = div_cont.id;
- 	  //console.log(pkg_id);
- 	  //console.log(input_value.length);
  	  var inputs_value = new RegExp(input_value);
- 	  //console.log(inputs_value);
- 	 // console.log(pkg_search_name.id);
  	 var pkg_id = pkg_search_name.id;
- 	  console.log(pkg_id);
  	  var pkg_id_lnth = pkg_id.length;
- 	 	console.log(pkg_id.length); 
  	 	
   if (inputs_value.test(pkg_id)) 
   {
   	   var pos_value = pkg_id.indexOf(input_value);
-  	   //console.log(pos_value);
       $(pkg_search_name).css('display','block');
-      //$(pos_value).css('background','red');
-      //var pkg_title_id = pkg_title.id;
-      //var pkg_title_id = $(pkg_title).html();
-      // var pkg_title_id =pkg_id;
-         //console.log(pkg_title_id);
       var pkg_lnth = input_value.length;
       var pkg_index = pkg_id.indexOf(input_value);
-      console.log(pkg_index);
-        var pkg_str = pkg_id.substr(pkg_index,pkg_lnth);
-        //	console.log(pkg_title_id);
-        //console.log(pkg_str);
-       //console.log(pkg_lnth);
-       //console.log(pkg_id.length);
-       var left_pkg = pkg_id.substr(0,pkg_index);
-       //console.log(left_pkg);
-        var substr_lnth = pkg_index+pkg_lnth;
-       var right_pkg = pkg_id.substr(substr_lnth);
-        //console.log(right_pkg);
-        console.log(left_pkg+pkg_str+right_pkg);
-        var pkgs_title = left_pkg+pkg_str+right_pkg;
-           console.log(pkgs_title.length);
-       $(pkg_title).css('background','#ea494f');
-       $(pkg_title).css('display','none');
-       //var pkg_new_title = document.createElement('p');
-       var pkg_new_title = document.createElement('div');
-        $(pkg_new_title).attr('id',"pkgs");
+      var pkg_str = pkg_id.substr(pkg_index,pkg_lnth);
+      var left_pkg = pkg_id.substr(0,pkg_index);
+      var substr_lnth = pkg_index+pkg_lnth;
+      var right_pkg = pkg_id.substr(substr_lnth);
+       var pkgs_title = left_pkg+pkg_str+right_pkg;
        var pkg_left_name = document.createElement('div');
        $(pkg_left_name).html(left_pkg);
-       
        $(pkg_left_name).css('float','left');
        var pkg_str_name = document.createElement('div');
        $(pkg_str_name).html(pkg_str);
        $(pkg_str_name).css('float','left');
-       //$(pkg_str_name).css('background','blue');
        $(pkg_str_name).css('background','rgb(65,167,179)');
        var pkg_right_name =document.createElement('div');
        $(pkg_right_name).html(right_pkg); 
-        $(pkg_new_title).append(pkg_left_name);
-        $(pkg_new_title).append(pkg_str_name);
-        $(pkg_new_title).append(pkg_right_name);
-       //$(pkg_new_title).html(left_pkg+pkg_str+right_pkg);
-       //var pkg_par_class =document.getElementsByClassName("pack_details")[0];
-         //$(pkg_par_class).append(pkg_new_title);
-         console.log(pkg_par_class);  
-         console.log(document.getElementsByClassName("pkgs_name")[0]);
-         var pkgs_title_name = document.getElementsByClassName("pkgs_name")[0];
-          $(pkgs_title_name).append(pkg_new_title);
-       //console.log("yes");
+        $(pkg_title).html('');
+        $(pkg_title).append(pkg_left_name);
+        $(pkg_title).append(pkg_str_name);
+        $(pkg_title).append(pkg_right_name);
    }
    else
     {
     	 $(pkg_search_name).css('display','none');
-    	 //console.log("no");
     }  
    
  }//search fnctn 
