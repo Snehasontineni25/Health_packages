@@ -214,14 +214,22 @@
            var div_pkg_details = document.createElement('div');
            $(div_pkg_details).addClass("col-md-8 pad0");
            $(div_pkg_details).css('float','left');
+           var pkg_details_row = document.createElement('div');
+           $(pkg_details_row).addClass("row");
            var pkg_details = document.createElement('div');
            $(pkg_details).addClass("pack_details");
            
            var pkg_name = document.createElement('p');
            $(pkg_name).html(data[i].packageName);
             $(pkg_name).attr('id',data[i].packageSlug);
+            var pkg_tst_conslt_row = document.createElement('div');
+            $(pkg_tst_conslt_row).addClass("row");
+            var pkg_tst_conslt = document.createElement('div');
+            $(pkg_tst_conslt).addClass("tst_consult");
+            $(pkg_tst_conslt).css('float','left');
            var pkg_tests = document.createElement('h6');
            $(pkg_tests).css('float','left');
+           $(pkg_tests).css('fontWeight','600');
            var pkg_span = document.createElement('span');
            $(pkg_span).html("Tests Available"+"&nbsp"+":"+data[i].testCount);
            $(pkg_span).css('paddingRight','6px');
@@ -230,7 +238,7 @@
            	  $(pkg_tests).css('display','none');
            }
            var pkg_consultation = document.createElement('h6');
-           //$(pkg_consultation).css('float','left');
+           $(pkg_consultation).css('fontWeight','600');
            var consult_span = document.createElement('span');
            $(consult_span).html("Consultations"+"&nbsp"+":"+data[i].consultationsCount);
            if (data[i].consultationsCount == "0") 
@@ -250,9 +258,14 @@
            $(pkg_tests).append(pkg_span);
            $(pkg_consultation).append(consult_span);
            $(pkg_details).append(pkg_name);
-           $(pkg_details).append(pkg_tests);
-           $(pkg_details).append(pkg_consultation);
-           $(div_pkg_details).append(pkg_details);
+           //$(pkg_details).append(pkg_tests);
+           //$(pkg_details).append(pkg_consultation);
+           $(pkg_tst_conslt).append(pkg_tests);
+           $(pkg_tst_conslt).append(pkg_consultation);
+           $(pkg_tst_conslt_row).append(pkg_tst_conslt);
+           $(pkg_details_row).append(pkg_details);
+           $(div_pkg_details).append(pkg_details_row);
+           $(div_pkg_details).append(pkg_tst_conslt_row);
            $(btn_cont).append(view_btn);
            $(details_btn).append(btn_cont);
            $(div_row).append(div_col_pkg);
@@ -272,9 +285,6 @@
            	  var pkg_search_name = document.getElementById(data[j].packageName);
            	  var pkg_title = document.getElementById(data[j].packageSlug);
            	  var pkg_search_id = pkg_search_name.id; 
-           	   
-           	  
-           	  //var pkg_par_class = document.getElementById(data[j].testCount);
            	  search_handler(pkg_search_name,pkg_search_id,pkg_title);
            	   }//for
            	});//key event 
@@ -290,15 +300,11 @@
                        var pkg_title = document.getElementById(data[pkg].packageSlug);
                        $(pkg_title).html(data[pkg].packageName);
                          console.log(pkg_title);
-                       //$(pkg_title).css('background','none');
                       $(search_div_img).css('display','none');
-                      //$(search_div_img).css('display','block');
-                      /*var pkg_str_list = document.getElementsByClassName("pkgs")[0];
-                      //$(pkg_str_list).css('background','none');
-                      //$(pkg_str_list).css('color','none');
-                      console.log(document.getElementsByClassName("pkgs")[0]); */
+                      
                    }//for loop	
-                             	$("#search").focus();	
+                             	$("#search").focus();
+                             	
            		});
            		
                   	           		
@@ -312,6 +318,8 @@
  	 var inputs_value = new RegExp(input_value);
  	 var pkg_id = pkg_search_name.id;
  	 var pkg_id_lowercase = pkg_id.toLowerCase();
+ 	   console.log(pkg_id);
+ 	   console.log(pkg_id_lowercase);
  	 var pkg_id_lnth = pkg_id.length;
  	 	$(pkg_title).html('');
   if (inputs_value.test(pkg_id)) 
@@ -326,8 +334,7 @@
       var right_pkg = pkg_id.substr(substr_lnth);
        var pkgs_title = left_pkg+pkg_str+right_pkg;
        var pkg_left_name = document.createElement('div');
-       //var left_pkg_upper = left_pkg;
-       //var pkg_left_upper = left_pkg_upper.charAt(0).toUpperCase()+left_pkg_upper.slice(1).toLowerCase();
+       
        $(pkg_left_name).html(left_pkg);
        //$(pkg_left_name).html(pkg_left_upper);
        $(pkg_left_name).css('float','left');
@@ -340,19 +347,15 @@
        $(pkg_str_name).css('padding','0px');
        $(pkg_str_name).css('lineHeight','1');
        $(pkg_str_name).css('marginTop','3px');
-     /*  var pkg_str_span = document.createElement('span');
-       $(pkg_str_span).html(pkg_str);
-        $(pkg_str_span).css('background','rgb(65,167,179)');
-       $(pkg_str_span).css('color','white');
-       $(pkg_str_span).css('padding','0px');
-       $(pkg_str_name).append(pkg_str_span);*/
+      var pkg_empty_str = document.createElement('div');
+      $(pkg_empty_str).html("&nbsp");
        var pkg_right_name =document.createElement('div');
        $(pkg_right_name).html(right_pkg); 
        // $(pkg_title).html('');
         $(pkg_title).append(pkg_left_name);
         $(pkg_title).append(pkg_str_name);
         $(pkg_title).append(pkg_right_name);
-       
+        //$(pkg_title).append(pkg_empty_str);
    }
    else
     {
