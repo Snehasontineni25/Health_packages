@@ -303,18 +303,15 @@
  function search_handler(pkg_search_name,pkg_search_id,pkg_title,pkg_par_class)
  {
  	 var input_value = $("#search").val();
- 	  var inputs_value = new RegExp(input_value);
+ 	 var inputs_value = new RegExp(input_value);
  	 var pkg_id = pkg_search_name.id;
- 	   //console.log(pkg_id);
  	 var pkg_id_lowercase = pkg_id.toLowerCase();
- 	 //console.log(pkg_id_lowercase);
- 	  var pkg_id_lnth = pkg_id.length;
+ 	 var pkg_id_lnth = pkg_id.length;
  	 	
   if (inputs_value.test(pkg_id_lowercase)) 
   {
   	   var pos_value = pkg_id_lowercase.indexOf(input_value);
       $(pkg_search_name).css('display','block');
-       console.log(pos_value);
       var pkg_lnth = input_value.length;
       var pkg_index = pkg_id_lowercase.indexOf(input_value);
       var pkg_str = pkg_id_lowercase.substr(pkg_index,pkg_lnth);
@@ -323,10 +320,8 @@
       var right_pkg = pkg_id_lowercase.substr(substr_lnth);
        var pkgs_title = left_pkg+pkg_str+right_pkg;
        var pkg_left_name = document.createElement('div');
-       console.log(left_pkg);
        var left_pkg_upper = left_pkg;
        var pkg_left_upper = left_pkg_upper.charAt(0).toUpperCase()+left_pkg_upper.slice(1).toLowerCase();
-       console.log(pkg_left_upper);
        //$(pkg_left_name).html(left_pkg);
        $(pkg_left_name).html(pkg_left_upper);
        $(pkg_left_name).css('float','left');
@@ -377,7 +372,6 @@
          data:{packageSlug:package_slug},
          success:function(data)
          {
-               console.log(data);
                 var pkg_dataToStore = JSON.stringify(data);
              localStorage.setItem('pkg_someData',pkg_dataToStore);
              
@@ -397,7 +391,6 @@
          data:{packageSlug:package_slug,labSlug:local_package_labslug},
          success:function(data)
          {
-         	  console.log(data);
          	  var pkg_lab_dataToStore = JSON.stringify(data);
              localStorage.setItem('pkg_labData',pkg_lab_dataToStore);
             
@@ -999,7 +992,7 @@
                  {
                  	  var local_pkg_new_str  =  pkg_lablocalData.packageDetails.GroupsInfo[i].testsInGroup;
                  	  var local_pkg_temp_str = local_pkg_new_str.split(",");
-                    //console.log(pkg_temp_str);
+                    
                  	  local_pkg_totalcount = local_pkg_totalcount+local_pkg_temp_str.length+1;
                   }//for groupsinfo
                  if(pkg_lablocalData.packageDetails.TestsInfo.length !=0)
@@ -1685,7 +1678,6 @@
                           
                   var pkg_today = new Date();  
                  var pkg_minutes = pkg_today.getMinutes();
-                 console.log(local_package_homevisit);
                  if((pkg_minutes >= '0'))  
                 {
                      
@@ -1989,11 +1981,9 @@
                            }//if err_visittype
                        }//if display
                       }// if length
-                       //pkg_preview_handler(package_name,package_consultation,package_labname,package_slug,package_labslug,package_finalprice,package_discount,package_labarea,package_mrp) 
-                       //pkg_preview_handler(package_slug,package_name,local_package_onlinereport,local_package_homevisit,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount);
-                        //console.log(local_package_homevisit);
                         
-                 	   console.log(local_package_onlinereport);
+                        
+                 	   
                  pkg_preview_handler(package_slug,package_name,local_package_onlinereport,local_package_homevisit,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount);
                     });//btn onclick handler
                     
@@ -2384,13 +2374,10 @@
     var pkg_mail = localStorage.getItem("pkg_email");
     var pkg_appt_time = localStorage.getItem("pkg_app_time");
     var pkg_address = localStorage.getItem("pkg_address");
-    console.log(pkg_address);
     /*if (pkg_address == "") 
     { 
        alert("s");
      }*/
-    console.log(local_package_labslug);
-    console.log(package_slug);
     var pkg_sel_month_name = pkg_appt_time.substr(3,3);
     
     
@@ -2527,14 +2514,14 @@
                    
                   }// if 09
                        
-         /*$.ajax({
+         $.ajax({
          url:pkg_host_api+"/m-checkout/book-order",
          type:'POST',
          dataType:'json',
          data:{labSlug:local_package_labslug,homeVisitAddress:pkg_address,packageSlugs:package_slug,patientName:pkg_pnt_name,patientMobile:pkg_pnt_mobileno,patientEmail:pkg_mail,apptTime:pkg_sel_time},
           success:function(data)
           {
-          	 console.log(data);
+          	
           	 if(data.error)
           	{
           	     var pkg_error_page = document.createElement('div');
@@ -2690,6 +2677,6 @@
                   }//else
                    }//success
                  
-                  });//ajax   */
+                  });//ajax   
  }//fnctn handler
  
