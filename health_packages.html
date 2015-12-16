@@ -5,19 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="shortcut icon" href="favicon.png" type="image/png" />	
 <title>Zotey</title>
-<!--<link rel="stylesheet" href="css/bootstrap.min.css" />
-<link rel="stylesheet" href="font_awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="css/master.css"/>
-<link rel="stylesheet" href="css/stylesheet.css"/>
-<link rel="stylesheet" href="css/newstyles.css"/>
-<link rel="stylesheet" href="css/demo-modals.css"/>
-<link rel="stylesheet" href="css/tmm_form_wizard_style_demo.css"/>
-<link rel="stylesheet" href="css//tmm_form_wizard_layout.css"/>
-<link rel="stylesheet" href="css/the-modal.css"/>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,700,800' rel='stylesheet' type='text/css'>
-<link href="css/sliderstyle.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="css/health_packages.css"/>-->
-<!--<section style="margin-top:1000px;" class="section-four">-->
 </head>
 <body>
 <section class="inner-header section-one">
@@ -115,26 +102,13 @@
 		</div>
   </div>
 </section>
-<div class="health_tests">
 <section class="hlth-pack-section">
     <div class="container-fluid">
 		<div class="cust-container">
 		<div class="row">
-		<div class="col-md-9 col-sm-3">
+		<div class="col-md-9 col-sm-3" id="pkgs_col">
 		<div class="cust-wrapper">
-		<!--<div class="row">
-			<div class="health_pkg_head">
-				<h4>Health Packages</h4>
-				<div class="col-md-3">
-				 <div class="search-container">
-				 <div class="form-group cust_input" style="width:244px">
-				<input type="text" id="search" class="form-control" placeholder="Search" onfocus="this.placeholder=' '" onblur="this.placeholder='Search' " onkeyup="search_handler()"><span><i class="fa fa-search"> </i></span></input>
- 			
-							</div>
-				</div>
-			</div>
-		</div>
-		</div> -->
+		
 		<img id="loading" src="images/default.gif">
 			
 		</div>
@@ -142,20 +116,11 @@
 		<div class="col-md-3 col-sm-3">
 		<div class="row">
 		<div class="pkgs_head">
-		<!--<div class="pkgs_head"> 
-		<div class="pkgs_advt">
-		<div> Packages Advertisment</div>
-		
-		</div>
-		<div class="right_pkgs_advt">
-		<div>Packages Advertisment</div>
-		</div> 
-		</div>-->
-		<div class="advt_imgs" id="first_advt">
-      <img  id="left_img" src="images/Master-with-button.jpg">		
+	  <div class="advt_imgs" id="first_advt">
+      <img  class="left_img" src="images/Master-with-button.jpg">		
 		</div>
 		<div class="advt_imgs" id="second_advt">
-		<img id="right_img" src="images/Master-with-button.jpg">
+		<img class="right_img" src="images/Master-with-button.jpg">
 		</div>
 		</div>
 		</div>
@@ -164,7 +129,7 @@
       </div>
       </div>
       </section>
-      </div>
+      
 <section  class="section-four">
 	<div class="bottom-menu-holder">
     	<div class="company-menu">

@@ -25,9 +25,8 @@
          	var pkg_search_form = document.createElement('div');
          	$(pkg_search_form).addClass("form-group cust_input");
          	$(pkg_search_form).css('width','164%');
-         	//$(div_cont).attr('data-packagename',data[i].packageName);
-         	  var pkg_search_ip_img = document.createElement('div');
-         	  $(pkg_search_ip_img).css('width','80%');
+         	var pkg_search_ip_img = document.createElement('div');
+         	$(pkg_search_ip_img).css('width','80%');
          	var pkg_search_input = document.createElement('input');
          	$(pkg_search_input).addClass("form-control");
          	$(pkg_search_input).attr('id','search');
@@ -35,9 +34,6 @@
          	$(pkg_search_input).attr('placeholder','Search');
          	$(pkg_search_input).css('borderRadius','5px 0px 0px 5px');
             $(pkg_search_input).attr('autofocus','autofocus'); 
-         	//$(pkg_search_input).attr('value',"");
-         	//$(pkg_search_input).html("&#x2716");
-         	//$("#search").select();
          	var search_div_img = document.createElement('div');
          	$(search_div_img).css('float','right');
          	$(search_div_img).css('position','relative');
@@ -51,10 +47,7 @@
          	var pkg_search_span_i = document.createElement('i');
          	$(pkg_search_span_i).addClass('fa fa-search');
          	$(pkg_search_span).append(pkg_search_span_i);
-         	//$(pkg_search_form).append(pkg_search_input);
-         	//$(pkg_search_form).append(search_img);
          	$(pkg_search_ip_img).append(pkg_search_input);
-         	 //$(search_div_img).append(search_img);
          	$(pkg_search_ip_img).append(search_div_img);
          	$(pkg_search_form).append(pkg_search_ip_img);
          	$(pkg_search_form).append(pkg_search_span);
@@ -64,15 +57,8 @@
          	$(hlth_pkg_head).append(pkgs_col);
          	$(health_row).append(hlth_pkg_head); 
          	 $(wrapper_element).append(health_row);
-         	  
-         	 /*for (i=0;i<data.length;i++) 
-         	{
-         	 
-         	}*/
-         	 var pkgs_list =[];
          	 var   pkgs_list = document.createElement('div');
          	 $(pkgs_list).addClass("packages_list");
-         	 //console.log(pkgs_list = data[m].packageName);
          	
          	for (i=0;i<data.length;i++) 
          	{
@@ -84,10 +70,6 @@
              $(div_cont).attr('data-packageid',data[i].packageSlug);
              $(div_cont).attr('data-packagename',data[i].packageName);
              $(div_cont).attr('data-packageconsultations',data[i].consultationsCount);
-           //console.log(div_cont);
-           //var arr = jQuery.makeArray( div_cont );
-           //console.log(div_cont);
-           //$(pkgs_list).attr('data-searchpkgname',data[i].packageName);
           
            $(div_cont).on('click',function () 
            {
@@ -218,15 +200,14 @@
            $(pkg_details_row).addClass("row");
            var pkg_details = document.createElement('div');
            $(pkg_details).addClass("pack_details");
-           
            var pkg_name = document.createElement('p');
            $(pkg_name).html(data[i].packageName);
-            $(pkg_name).attr('id',data[i].packageSlug);
-            var pkg_tst_conslt_row = document.createElement('div');
-            $(pkg_tst_conslt_row).addClass("row");
-            var pkg_tst_conslt = document.createElement('div');
-            $(pkg_tst_conslt).addClass("tst_consult");
-            $(pkg_tst_conslt).css('float','left');
+           $(pkg_name).attr('id',data[i].packageSlug);
+           var pkg_tst_conslt_row = document.createElement('div');
+           $(pkg_tst_conslt_row).addClass("row");
+           var pkg_tst_conslt = document.createElement('div');
+           $(pkg_tst_conslt).addClass("tst_consult");
+           $(pkg_tst_conslt).css('float','left');
            var pkg_tests = document.createElement('h6');
            $(pkg_tests).css('float','left');
            $(pkg_tests).css('fontWeight','600');
@@ -258,8 +239,6 @@
            $(pkg_tests).append(pkg_span);
            $(pkg_consultation).append(consult_span);
            $(pkg_details).append(pkg_name);
-           //$(pkg_details).append(pkg_tests);
-           //$(pkg_details).append(pkg_consultation);
            $(pkg_tst_conslt).append(pkg_tests);
            $(pkg_tst_conslt).append(pkg_consultation);
            $(pkg_tst_conslt_row).append(pkg_tst_conslt);
@@ -271,7 +250,6 @@
            $(div_row).append(div_col_pkg);
            $(div_row).append(div_pkg_details);
            $(div_row).append(details_btn);
-           //$(div_row).append(btn_cont);
            $(div_cont).append(div_row);
            $(pkgs_list).append(div_cont);
            $(wrapper_element).append(pkgs_list);
@@ -298,10 +276,8 @@
                    {
                    	 var pkg_input_click = document.getElementById(data[pkg].packageName);
                    	 $(pkg_input_click).css('display','block');
-                   	 //console.log(pkg_input_click);
                        var pkg_title = document.getElementById(data[pkg].packageSlug);
                        $(pkg_title).html(data[pkg].packageName);
-                        //console.log(pkg_title);
                       $(search_div_img).css('display','none');
                       
                    }//for loop	
@@ -333,7 +309,6 @@
       var substr_lnth = pkg_index+pkg_lnth;
       var right_pkg = pkg_id.substr(substr_lnth);
        var pkg_left_name = document.createElement('div');
-      //$(pkg_left_name).html(left_pkg);
        $(pkg_left_name).css('float','left');
        var pkg_str_name = document.createElement('div');
        $(pkg_str_name).html(pkg_str);
@@ -348,10 +323,8 @@
       $(pkg_empty_str).html("&nbsp");
        var pkg_right_name =document.createElement('div');
        $(pkg_right_name).css('float','left');
-       //console.log(input_value.indexOf(' '));
        var pkg_text_ip = input_value;
        var pkg_text_ip_lnth = input_value.length; 
-       //var pkg_space_str = input_value.indexOf(' ');
        var pkg_empty_space = input_value.charAt(pkg_text_ip_lnth -1);
         if ((right_pkg.charAt(0)==" ")  ||(input_value.charAt(pkg_text_ip_lnth -1)==" " ))   
         {
@@ -430,7 +403,7 @@
          	  var pkg_lab_dataToStore = JSON.stringify(data);
              localStorage.setItem('pkg_labData',pkg_lab_dataToStore);
             
-             //pkg_form_backbtn(package_slug,package_name,local_package_onlinereport,local_package_homevisit,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount);
+   
              pkg_form_backbtn(package_slug,package_name,local_package_onlinereport,local_package_homevisit,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount);
 
              }//success
@@ -665,7 +638,6 @@
               	 $(local_labtests_td).css('padding-left','6px');
               	 $(local_labtests_td).css('paddingRight','6px');
               	 var local_consultations_td = document.createElement('td');
-              	 //$(local_consultations_td).html(package_consultation);
               	 $(local_consultations_td).css('border', '1px solid #ddd');
               	 $(local_consultations_td).css('textAlign','right');
               	 $(local_consultations_td).css('padding-left','6px');
@@ -742,9 +714,7 @@
                  	  var local_package_mrp = $(this).data('package_localselectedmrp');
                  	  var local_package_discount = $(this).data('package_localselecteddiscount');
                  	   var local_package_onlinereport = $(this).data('package_onlinereport');
-                 	   var local_package_homevisit = $(this).data('package_homevisit');
-                 	  
-                 	  //pkg_form_backbtn(package_slug,package_name,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount) 
+                 	   var local_package_homevisit = $(this).data('package_homevisit'); 
                     loadingimage_handler();
                  	  pkg_test_details(package_slug,package_name,local_package_onlinereport,local_package_homevisit,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount);
                  	  
@@ -892,14 +862,8 @@
                 $(local_pkg_labaddress_info).append(local_pkg_labaddress_info_left);
                 var local_pkg_contents_head = document.createElement('div');
                $(local_pkg_contents_head).css('marginRight','20px');
-                /*var local_pkg_labaddress_info_right = document.createElement('div');
-                $(local_pkg_labaddress_info_right).html(pkg_lablocalData.labArea+","+"&nbsp"+"&nbsp"+pkg_lablocalData.labPincode);
-                $(local_pkg_labaddress_info_right).css('float','right');
-                $(local_pkg_labaddress_info_right).css('width','248px');*/
-                //if (pkg_lablocalData.homeVisit == "no" && pkg_lablocalData.onlineReports == "no") 
                 if (local_package_onlinereport == "no" &&local_package_homevisit == "no") 
                 {
-                	  //alert("no home visit");
                    var pkg_homevisit_element = document.createElement('div');
                	$(pkg_homevisit_element).addClass("err_msg");
                   $(pkg_homevisit_element).attr('id','pkg_reports_msg');
@@ -917,12 +881,9 @@
                   $(pkg_error_homevisit_element).html('Home visit is available'+","+"&nbsp"+"Online reports are available");
                  	$(pkg_homevisit_element).append(pkg_star_homevisit);
                  	$(pkg_homevisit_element).append(pkg_error_homevisit_element);
-                  //$(local_package_test_modal).append(pkg_homevisit_element);
                    $(local_pkg_labaddress_info).append(pkg_homevisit_element);
                    $(local_pkg_contents_head).css('marginTop','10px');
                 	}// if hme_vst , online rpts 
-                	
-                   //if (pkg_lablocalData.homeVisit != "no" && pkg_lablocalData.onlineReports == "no")
                    if (local_package_onlinereport == "no" && local_package_homevisit != "no") 
                    {
                       var pkg_homevisit_one_element = document.createElement('div');
@@ -944,8 +905,7 @@
                  	  $(pkg_homevisit_one_element).append(pkg_error_homevisit_one_element);
                   $(local_pkg_labaddress_info).append(pkg_homevisit_one_element); 
                   $(local_pkg_contents_head).css('marginTop','10px');          
-                  }//if home visit
-                 //if (pkg_lablocalData.onlineReports != "no" && pkg_lablocalData.homeVisit == "no") 
+                  }//if home visit 
                  if (local_package_onlinereport != "no" && local_package_homevisit == "no") 
                  { 
                      var pkg_onlinereports_one_element = document.createElement('div');
@@ -968,7 +928,6 @@
                   $(local_pkg_labaddress_info).append(pkg_onlinereports_one_element);    
                   $(local_pkg_contents_head).css('marginTop','10px');       
                  }
-                //$(local_pkg_labaddress_info).append(local_pkg_labaddress_info_right);
                   
                var local_pkg_finalprice_info = document.createElement('div');
                $(local_pkg_finalprice_info).css('float','right'); 
@@ -1218,7 +1177,6 @@
                  $(local_pkg_back_btn).css('color','white');
                  $(local_pkg_back_btn).css('width','60px');
                  $(local_pkg_back_btn).css('borderRadius','6px');
-                 //$(pkg_back_btn).css('paddingLeft','6px');
                  $(local_pkg_back_btn).css('border','0px');
                  $(local_pkg_back_btn).css('fontWeight','bold');
                   var local_pkg_next_btn = document.createElement('button');
@@ -1256,15 +1214,8 @@
                 $(local_pkg_test_details).append(local_pkg_lab_mrp);
                 $(local_pkg_test_details).append(local_pkg_address_finalprice);
                 $(local_package_test_modal).append(local_pkg_test_details);
-                //$(package_test_modal).append(pkg_details_table);
-                //$(package_test_modal).append(pkg_test_price_table);
-                /*if(document.getElementById('pkg_reports_msg').style.display = 'block')
-                  { 
-                     $(local_pkg_contents_head).css('marginTop','10px');
-                  } */
                 $(local_package_test_modal).append(local_pkg_contents_head);
                 $(local_package_test_modal).append(local_pkg_counter_element);
-                //if (data.packageDetails.TestsInfo.length ==0) 
                 if((pkg_lablocalData.packageDetails.Consultations.length == "0") && (pkg_lablocalData.packageDetails.GroupsInfo.length == "0") && (pkg_lablocalData.packageDetails.TestsInfo.length == "0"))
                 {
                    
@@ -1277,33 +1228,12 @@
                    $(local_package_test_modal).append(pkg_pkgdetails_name);
                 
                 }
-               /* if (pkg_lablocalData.homeVisit == "no" && pkg_lablocalData.onlineReports == "no") 
-                {
-                	  alert("no home visit");
-                   var pkg_homevisit_element = document.createElement('div');
-               	$(pkg_homevisit_element).addClass("err_msg");
-                  $(pkg_homevisit_element).attr('id','pkg_err_email');
-                  $(pkg_homevisit_element).css('color','rgb(236,73,73)');
-                  $(pkg_homevisit_element).css('textAlign','left');
-                  $(pkg_homevisit_element).css('marginLeft','16px');
-                  $(pkg_homevisit_element).css('fontSize','11px');
-                  //$(pkg_homevisit_element).css('display','none');
-                  var pkg_star_homevisit = document.createElement('span');
-                  $(pkg_star_homevisit).addClass('star');
-                  $(pkg_star_homevisit).html("&#x2605");
-                  $(pkg_star_homevisit).css('float','left');
-                  var pkg_error_homevisit_element = document.createElement('div');
-                  $(pkg_error_homevisit_element).html('Home visit is available'+","+"&nbsp"+"Online reports are available");
-                 	$(pkg_homevisit_element).append(pkg_star_homevisit);
-                 	$(pkg_homevisit_element).append(pkg_error_homevisit_element);
-                  //$(local_package_test_modal).append(pkg_homevisit_element);
-                	} */
                $(local_package_test_modal).append(local_pkg_back_btn);
                 $(local_pkg_next_btn).on('click',function () 
                 {
-                      //pkg_form_handler(package_name,package_slug,local_package_labslug); 
+                       
                       pkg_form_handler(package_slug,package_name,local_package_onlinereport,local_package_homevisit,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount);
-                      //pkg_form_handler(package_slug,package_name,local_package_onlinereport,local_package_homevisit,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount);               	
+                                     	
                 	});
                 $(local_package_test_modal).append(local_pkg_next_btn);
                 $(local_pkg_test_close).on('click',function () 
@@ -1435,11 +1365,11 @@
                   $(pkg_input_address).attr('value','');
                   $(pkg_input_address).css('width','468px');
                   $(pkg_input_address).css('border','1px solid #c4cdcf');
-                  //$(pkg_input_address).addClass('form-icon form-icon-lock');
+                  
                   $(pkg_input_address).attr('placeholder','Please enter your Address');
                   $(pkg_input_address).attr('required','required');
                    
-                  //$(pkg_input_address).attr('maxlength','56');
+                  
                   $(pkg_input_address).css('paddingRight','11px');
                   var pkg_phno_row = document.createElement('div');
                   $(pkg_phno_row).addClass("row");
@@ -1621,20 +1551,6 @@
                   $(pkg_error_address_element).html('Enter your address');
                   $(pkg_address_element).append(pkg_star_address);
                   $(pkg_address_element).append(pkg_error_address_element);
-                 /* var pkg_address_element = document.createElement('div');
-                  $(pkg_address_element).addClass("err_msg");
-                  $(pkg_address_element).css('color','rgb(236,73,73)');
-                  $(pkg_address_element).css('textAlign','left');
-                  $(pkg_address_element).css('marginLeft','16px');
-                  $(pkg_address_element).css('display','none');
-                  var pkg_star_address = document.createElement('span');
-                  $(pkg_star_address).addClass('star');
-                  $(pkg_star_address).html("&#x2605");
-                  $(pkg_star_address).css('float','left');
-                  var pkg_error_address_element = document.createElement('div');
-                  $(pkg_error_address_element).html('Enter your address');
-                  $(pkg_address_element).append(pkg_star_address);
-                  $(pkg_address_element).append(pkg_error_address_element); */
                   var pkg_apptime_element = document.createElement('div');
                  	$(pkg_apptime_element).attr('id','pkg_err_apptime');
                  	$(pkg_apptime_element).addClass("err_msg");
@@ -1744,7 +1660,6 @@
                      }//
                     $('#step2_back_btn').on('click',function () 
                     {
-                       // pkg_form_backbtn(package_slug,package_name,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount);
                           pkg_form_backbtn(package_slug,package_name,local_package_onlinereport,local_package_homevisit,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount);    
                      	});//back btn click
                     $('#step2_next_btn').on('click', function()
@@ -1803,7 +1718,6 @@
                       if(document.getElementById('pkg_err_name').style.display = 'block')
                         {
                             document.getElementById('pkg_err_name').style.display = 'none';
-                            //document.getElementById('pkg_address').style.display = 'none'
                            
                         }//if err_name
                       }//if 
@@ -1845,7 +1759,6 @@
                        }//if app_time
                        
                        var pkg_val_time = pkg_date+"-"+pkg_month+"-"+pkg_year+" "+pkg_hours +":"+ pkg_mnt+":"+pkg_sec;
-                      //var appt_time = localStorage.getItem("app_time");
                          
                           var pkg_sel_month_name = pkg_appt_time.substr(3,3);
     
@@ -2048,8 +1961,8 @@
     }//fnctn handler
      
    
-   function    pkg_preview_handler(package_slug,package_name,local_package_onlinereport,local_package_homevisit,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount)
-       //function pkg_preview_handler(package_slug,package_name,local_package_onlinereport,local_package_homevisit,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount) 
+   function pkg_preview_handler(package_slug,package_name,local_package_onlinereport,local_package_homevisit,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount)
+        
       {
     	           
       	      var pkg_ptnt_address = localStorage.getItem("pkg_address");
@@ -2092,19 +2005,16 @@
                   var pkg_table_dealname = document.createElement('table');
                   $(pkg_table_dealname).css('float','left');
                   $(pkg_table_dealname).css('marginBottom','15px');
-                  //$(pkg_table_dealname).css('marginTop','21px');
+                  
                   $(pkg_table_dealname).css('width','316px');
-                  /*var pkg_deal_th = document.createElement('th');
-                  $(pkg_deal_th).html("Package Information");
-                  $(pkg_table_dealname).append(pkg_deal_th);*/
-                   var pkg_tr_dealname = document.createElement('tr');
+                  var pkg_tr_dealname = document.createElement('tr');
                   var pkg_td_dealname = document.createElement('td');
                   $(pkg_td_dealname).html("&nbsp"+"&nbsp"+"&nbsp"+package_name);
                   $(pkg_td_dealname).css('paddingTop','3px');
                   var pkg_tr_labname = document.createElement('tr');
                   var pkg_td_labname = document.createElement('td');
                   $(pkg_td_labname).html("&nbsp"+"&nbsp"+"&nbsp"+"Lab"+"&nbsp"+":"+"&nbsp"+local_package_labname+"&nbsp"+"&nbsp"+"("+local_package_labarea+")");
-                  //var pkg_td_labarea = document.createElement('td');
+ 
                   $(pkg_tr_labname).append(pkg_td_labname);
                   $(pkg_tr_dealname).append(pkg_td_dealname);
                   $(pkg_table_dealname).append(pkg_tr_dealname);
@@ -2198,7 +2108,7 @@
                   var pkg_price_table = document.createElement('table');
                   $(pkg_price_table).css('float','right');
                   $(pkg_price_table).css('marginBottom','15px');
-                  //$(pkg_price_table).css('marginTop','44px');
+                  
                   var pkg_tr_price = document.createElement('tr');
                   var pkg_td_price = document.createElement('td');
                   $(pkg_td_price).html("Price");
@@ -2229,7 +2139,6 @@
                   $(pkg_tr_ptntinfo_head).css('fontWeight' ,'bold');
                   $(pkg_tr_ptntinfo_head).css('background','rgb(65, 167, 179)');
                   $(pkg_tr_ptntinfo_head).css('color','white');
-                  //$(pkg_tr_ptntinfo_head).addClass("ptnt_preview_info")
                   var pkg_th_ptntinfo_head = document.createElement('td');
                   $(pkg_th_ptntinfo_head).html("Patient Information");
                   $(pkg_th_ptntinfo_head).css('fontWeight','bold');
@@ -2353,7 +2262,7 @@
                   $(pkg_tr_phno).append(pkg_td_phno_heading);
                   $(pkg_tr_apptime).append(pkg_td_apptimeheading);
                   $(pkg_tr_apptime).append(pkg_td_apptime_heading);
-                  //$(pkg_details_table_head).append(pkg_tr_ptntinfo_head);
+                  
                   $(pkg_details_table_head).append(pkg_tr_patient);
                   $(pkg_details_table_head).append(pkg_tr_email);
                   $(pkg_details_table_head).append(pkg_tr_phno);
@@ -2368,10 +2277,8 @@
                   $(pkg_patient_details_table).append(pkg_details_table_head);
                   $(pkg_tmm_form_element).append(pkg_prevbtn_element);
                   $(pkg_tmm_form_element).append(pkg_orderbtn_element);
-                  //$(pkg_preview_div_element).append(pkg_preview_heading);
+                  
                   $("#pkg_modal_thirdpage").append(pkg_closing_element);
-                  //$(pkg_preview_box).append(pkg_preview_div_element);
-                  //$(pkg_preview_box).append(pkg_time_error);
                   $(pkg_preview_box).append(pkg_preview_heading);
                   $(pkg_preview_box).append(pkg_preview_pkg_info);
                   $(pkg_preview_box).append(pkg_table_dealname); 
@@ -2382,27 +2289,27 @@
                   $(".close").on('click',function () 
                  {
                  	  $(pkg_order_page).modal().close();
-               	  //$(order_page).modal().close(); 
+               	   
                  });//click
                    $("#pkg_modal_thirdpage").append(pkg_preview_box);  
                     
                      $(pkg_prevbtn_element).on('click', function ()
                       {
-                      	  //pkg_form_handler(package_slug,package_name,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount)
+                      	  
                             pkg_form_handler(package_slug,package_name,local_package_onlinereport,local_package_homevisit,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount);                  
                      	});//click fnctn  
                      	$(pkg_orderbtn_element).on('click',function ()
                      	 {
-                            //loadingimage_page();   
+                               
                             loadingimage_handler();
                             confirm_pagehandler(package_slug,package_name,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount);                 		
-                             //confirm_pagehandler(labname,labslug,dealname,deal_slug,deal_mrp,deal_discount,deal_finalprice,labarea)                     		
+                                                 		
                      	      
                      		});//click        
                  
    }//fnctn handler
    
-     //function confirm_pagehandler(labname,labslug,dealname,deal_slug,deal_mrp,deal_discount,deal_finalprice,labarea)
+     
       function confirm_pagehandler(package_slug,package_name,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount)
  {
  	 var pkg_pnt_name =localStorage.getItem("pkg_patient_name");
@@ -2410,10 +2317,7 @@
     var pkg_mail = localStorage.getItem("pkg_email");
     var pkg_appt_time = localStorage.getItem("pkg_app_time");
     var pkg_address = localStorage.getItem("pkg_address");
-    /*if (pkg_address == "") 
-    { 
-       alert("s");
-     }*/
+    
     var pkg_sel_month_name = pkg_appt_time.substr(3,3);
     
     
