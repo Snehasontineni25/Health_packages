@@ -421,7 +421,7 @@
                $(local_package_list_modal).css('position','relative');
                $(local_package_list_modal).css('backgroundColor','#fff');
                $(local_package_list_modal).css('paddingRight','0px');
-               $(local_package_list_modal).css('width','64%');
+               $(local_package_list_modal).css('width','814px');
                var local_close_element = document.createElement('a');
                $(local_close_element).addClass("close");
                $(local_close_element).attr('href','#');
