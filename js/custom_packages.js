@@ -207,7 +207,6 @@
            $(pkg_tst_conslt_row).addClass("row");
            var pkg_tst_conslt = document.createElement('div');
            $(pkg_tst_conslt).addClass("tst_consult");
-           $(pkg_tst_conslt).css('float','left');
            var pkg_tests = document.createElement('h6');
            $(pkg_tests).css('float','left');
            $(pkg_tests).css('fontWeight','600');
@@ -319,8 +318,6 @@
        $(pkg_str_name).css('padding','0px');
        $(pkg_str_name).css('lineHeight','1');
        $(pkg_str_name).css('marginTop','3px');
-      var pkg_empty_str = document.createElement('div');
-      $(pkg_empty_str).html("&nbsp");
        var pkg_right_name =document.createElement('div');
        $(pkg_right_name).css('float','left');
        var pkg_text_ip = input_value;
