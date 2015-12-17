@@ -1254,7 +1254,7 @@
                   $(pkg_booking_page).addClass("modal");
                   $(pkg_booking_page).attr('id','pkg_modal_secondpage');
                   $(pkg_booking_page).css('backgroundColor','#fff');
-                  $(pkg_booking_page).css('height','128%');
+                  $(pkg_booking_page).css('height','578px');
                   $(pkg_booking_page).css('paddingRight','0px');
                   $(pkg_booking_page).modal().open();
                   var pkg_form_close_element = document.createElement('a');
