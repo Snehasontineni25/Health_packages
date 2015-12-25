@@ -19,11 +19,11 @@
 
 .table_head tr th:nth-child(5)
  {
-    width: 14% !important;
+    width: 107px !important;
   }
   .table_head tr th:nth-child(4)
  {
-    width:11.6% !important;
+    width:88px !important;
   }
   .package_contents:nth-child(2n)
   {

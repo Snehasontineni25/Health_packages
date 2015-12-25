@@ -450,7 +450,7 @@
               $(local_labs_tr).css("color","white");
               var local_labname_th = document.createElement('th');
               $(local_labname_th).css('border', '1px solid #ddd');
-              $(local_labname_th).css('width','29%');
+              $(local_labname_th).css('width','222px');
               var local_pkg_labname_th = document.createElement('div');
               $(local_pkg_labname_th).html("Lab Name");
               $(local_pkg_labname_th).css('padding','10px');
@@ -475,7 +475,7 @@
              $(local_labname_th).append(local_pkg_imgs);
               var local_labarea_th = document.createElement('th');
               $(local_labarea_th).css('border', '1px solid #ddd');
-              $(local_labarea_th).css('width','16%');
+              $(local_labarea_th).css('width','122px');
               var local_pkg_labarea = document.createElement('div');
               $(local_pkg_labarea).html("Location");
               $(local_pkg_labarea).css('textAlign','center');
@@ -1675,7 +1675,7 @@
                      	 pkg_datastore_handler();
                        }//if
                       
-                   var pkg_appt_time = localStorage.getItem("pkg_app_time");
+                   var pkg_appt_time = localStorage.getItem("patient_app_time");
                    var  pkg_tday = new Date();
                      
                    var i;
@@ -1942,19 +1942,19 @@
         var pkg_ptnt_phone = document.getElementById("pkg_phone");
         var pkg_ptnt_apptime = document.getElementById("pkg_app_time");
         var pkg_ptnt_address = document.getElementById("pkg_address");
-        localStorage.setItem("pkg_patient_name",pkg_ptnt_name.value);
-        localStorage.setItem("pkg_email" ,pkg_ptnt_email.value);
-        localStorage.setItem("pkg_phone" ,pkg_ptnt_phone.value);
-        localStorage.setItem("pkg_app_time" ,pkg_ptnt_apptime.value);
-        localStorage.setItem("pkg_address",pkg_ptnt_address.value);
+        localStorage.setItem("patient_name",pkg_ptnt_name.value);
+        localStorage.setItem("patient_email" ,pkg_ptnt_email.value);
+        localStorage.setItem("patient_phone" ,pkg_ptnt_phone.value);
+        localStorage.setItem("patient_time" ,pkg_ptnt_apptime.value);
+        localStorage.setItem("patient_address",pkg_ptnt_address.value);
     } //fnctn handler
     function pkg_Filling_localdata()
     {
-     	    document.getElementById("pkg_patient_name").value = localStorage.getItem("pkg_patient_name");
-          document.getElementById("pkg_email").value = localStorage.getItem("pkg_email");
-          document.getElementById("pkg_phone").value = localStorage.getItem("pkg_phone");
-          document.getElementById("pkg_app_time").value = localStorage.getItem("pkg_app_time");
-          document.getElementById("pkg_address").value = localStorage.getItem("pkg_address");
+     	    document.getElementById("pkg_patient_name").value = localStorage.getItem("patient_name");
+          document.getElementById("pkg_email").value = localStorage.getItem("patient_email");
+          document.getElementById("pkg_phone").value = localStorage.getItem("patient_phone");
+          document.getElementById("pkg_app_time").value = localStorage.getItem("patient_app_time");
+          document.getElementById("pkg_address").value = localStorage.getItem("patient_address");
     }//fnctn handler
      
    
@@ -1962,7 +1962,7 @@
         
       {
     	           
-      	      var pkg_ptnt_address = localStorage.getItem("pkg_address");
+      	      var pkg_ptnt_address = localStorage.getItem("patient_address");
       	      
    	         var pkg_order_page = document.createElement('div');
                   $(pkg_order_page).addClass("modal");
@@ -2149,7 +2149,7 @@
                   $(pkg_td_patientname).css('width','50%');
                   $(pkg_td_patientname).css('border','1px solid #ddd');
                   var pkg_td_patient_name = document.createElement('td');
-                  $(pkg_td_patient_name).html("&nbsp"+localStorage.getItem("pkg_patient_name"));
+                  $(pkg_td_patient_name).html("&nbsp"+localStorage.getItem("patient_name"));
                  
                   var pkg_tr_email = document.createElement('tr');
                   $(pkg_tr_email).addClass("ptnt_preview_info");
@@ -2160,7 +2160,7 @@
                   $(pkg_td_emailheading).css('width','50%');
                   $(pkg_td_emailheading).css('border','1px solid #ddd');
                   var pkg_td_email_heading = document.createElement('td');
-                  $(pkg_td_email_heading).html("&nbsp"+localStorage.getItem("pkg_email"));
+                  $(pkg_td_email_heading).html("&nbsp"+localStorage.getItem("patient_email"));
                   var pkg_tr_phno = document.createElement('tr');
                   $(pkg_tr_phno).css('lineHeight','2');
                   $(pkg_tr_phno).addClass("ptnt_preview_info");
@@ -2170,7 +2170,7 @@
                   $(pkg_td_phnoheading).css('width','50%');
                   $(pkg_td_phnoheading).css('border','1px solid #ddd');
                   var pkg_td_phno_heading = document.createElement('td');
-                  $(pkg_td_phno_heading).html("&nbsp"+localStorage.getItem("pkg_phone"));
+                  $(pkg_td_phno_heading).html("&nbsp"+localStorage.getItem("patient_phone"));
                   var pkg_tr_apptime = document.createElement('tr');
                   $(pkg_tr_apptime).css('lineHeight','2');
                   $(pkg_tr_apptime).addClass("ptnt_preview_info");
@@ -2180,7 +2180,7 @@
                   $(pkg_td_apptimeheading).css('border','1px solid #ddd');
                   $(pkg_td_apptimeheading).css('width','50%');
                   var pkg_td_apptime_heading = document.createElement('td');
-                  $(pkg_td_apptime_heading).html("&nbsp"+localStorage.getItem("pkg_app_time"));
+                  $(pkg_td_apptime_heading).html("&nbsp"+localStorage.getItem("patient_app_time"));
                   var pkg_tr_address = document.createElement('tr');
                   $(pkg_tr_address).css('lineHeight','2');
                   $(pkg_tr_address).addClass("ptnt_preview_info");
@@ -2190,7 +2190,7 @@
                   $(pkg_td_address_heading).css('width','50%');
                   $(pkg_td_address_heading).css('border','1px solid rgb(221, 221, 221)');
                   var pkg_td_address = document.createElement('td');
-                  $(pkg_td_address).html("&nbsp"+localStorage.getItem("pkg_address"));
+                  $(pkg_td_address).html("&nbsp"+localStorage.getItem("patient_address"));
                   $(pkg_tr_address).append(pkg_td_address_heading);
                   $(pkg_tr_address).append(pkg_td_address);
                   var pkg_ptnt_info = document.createElement('div');
@@ -2309,11 +2309,11 @@
      
       function confirm_pagehandler(package_slug,package_name,local_package_labslug,local_package_labarea,local_package_labname,local_package_price,local_package_mrp,local_package_discount)
  {
- 	 var pkg_pnt_name =localStorage.getItem("pkg_patient_name");
-    var pkg_pnt_mobileno = localStorage.getItem("pkg_phone");
-    var pkg_mail = localStorage.getItem("pkg_email");
-    var pkg_appt_time = localStorage.getItem("pkg_app_time");
-    var pkg_address = localStorage.getItem("pkg_address");
+ 	 var pkg_pnt_name =localStorage.getItem("patient_name");
+    var pkg_pnt_mobileno = localStorage.getItem("patient_phone");
+    var pkg_mail = localStorage.getItem("patient_email");
+    var pkg_appt_time = localStorage.getItem("patient_app_time");
+    var pkg_address = localStorage.getItem("patient_address");
     
     var pkg_sel_month_name = pkg_appt_time.substr(3,3);
     
