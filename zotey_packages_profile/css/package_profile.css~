@@ -1,0 +1,14 @@
+html
+{
+  padding:0px !important;
+}
+li
+{
+ margin-bottom: 0px !important;
+}
+ #pkg_profile_loader
+{
+ margin-left: 38%;
+ width: 11%;
+ margin-top: 6%;
+}
