@@ -12,3 +12,109 @@ li
  width: 11%;
  margin-top: 6%;
 }
+#pkg_profile_details:nth-child(2n) 
+{
+    background: rgba(236,246,248,0.99) !important;
+}
+.pkg_profile_lab_page:hover
+ {
+    background:rgb(234, 73, 79);
+    color: white !important; 
+ }
+ .pkg_profile_lab_page
+ {
+   text-decoration: none !important; 
+ }
+ #pkg_cloud_tests
+ {
+     padding-top: 35px;
+     text-align: justify;
+ }
+/* .pkg_pop_test:nth-child(even)
+ {
+      color:green; 
+ }
+ .pkg_pop_test:nth-child(odd)
+ {
+      color:red; 
+ } */
+ .pkg_tst_li:nth-child(even)
+ {
+   text-align:right; 
+ }
+ .pkg_pop_test:hover
+ {
+   background:yellow; 
+ }
+ .pkg_pop_test
+ {
+   text-decoration: none !important; 
+ }
+ #tmm-form-wizard .button span 
+{
+    border-top: 1px solid #C74242 !important;
+    border-bottom: 1px solid #C03535 !important;
+    border-left: 1px solid #EC4949 !important;
+    border-right: 1px solid #C24040 !important;
+    display: inline-block;
+ }
+ #tmm-form-wizard .prev .button-divider 
+ {
+    position: absolute;
+    height: 50% !important;
+    width: 2px;
+    border: 1px solid #EC4949 !important;
+ }
+  #tmm-form-wizard .next .button-divider
+  {
+     position: absolute;
+    height: 50% !important;
+    width: 2px;
+    border: 1px solid #EC4949 !important;
+  }
+   
+   .form-wizard
+   {
+     background: white !important;   
+   }
+   #tmm-form-wizard .button
+   {
+    background-image: linear-gradient(to bottom, #EC4949 25%, #C04040 100%) !important;   
+   }
+#pkg_pfl_cnt_test_left_name
+{
+  border-right:1px solid #ddd !important;
+}
+#pkg_pfl_cnt_test_right_name
+{
+  border-left:1px solid #ddd !important;
+}
+#pkg_pfl_cnt_test_name
+{
+  border:1px solid #ddd !important;
+}
+#pkg_pfl_cnt_test_name:nth-child(2n)
+{
+  background: rgba(236,246,248,0.99) !important;
+}
+.pkg_pfl_preview_info:nth-child(2n)
+{
+  background: rgba(236,246,248,0.99) !important;
+}
+.pkg_pfl_order_class:nth-child(2n)
+{
+  background:rgba(236,246,248,0.99) !important;
+ }
+  .pkg_pfl_order_class
+ {
+  border:1px solid #ddd !important;
+}
+.pkg_pfl_success_det
+{
+  padding-top: 3px !important;
+  padding-bottom: 3px !important;
+}
+.pkg_pfl_cnt_data:nth-child(2n)
+{
+  background:rgba(236,246,248,0.99) !important;
+}
