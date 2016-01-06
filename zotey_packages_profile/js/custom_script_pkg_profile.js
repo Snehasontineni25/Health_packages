@@ -573,7 +573,14 @@ function pkg_pfl_cont_handler(package_pfl_pkg_det,package_pfl_cnt_head)
    }//for groupsinfo
    if(package_pfl_pkg_det.TestsInfo.length !=0)
    {
-      pkg_pfl_totalcount = package_pfl_pkg_det.TestsInfo.length+1+pkg_pfl_totalcount;                 
+   	if (package_pfl_pkg_det.GroupsInfo.length != 0) 
+      {
+      pkg_pfl_totalcount = package_pfl_pkg_det.TestsInfo.length+1+pkg_pfl_totalcount; 
+      }
+      else 
+      {          
+        pkg_pfl_totalcount = package_pfl_pkg_det.TestsInfo.length+pkg_pfl_totalcount;  
+      }    
    }//if testslength
    if(package_pfl_pkg_det.Consultations.length !=0)
    {
@@ -601,10 +608,13 @@ function pkg_pfl_cont_handler(package_pfl_pkg_det,package_pfl_cnt_head)
    }//if grpinfo lnth  
    if (package_pfl_pkg_det.TestsInfo.length !=0) 
    { 
+        if (package_pfl_pkg_det.GroupsInfo.length != 0) 
+        {
         pkg_pfl_name = "Individual Tests";
         var pkg_pfl_var  = pkg_pfl_cont_append_handler("title",pkg_pfl_name,pkg_pfl_cont_array,pkg_pfl_cont_index,pkg_pfl_cont_middle_count);
         pkg_pfl_cont_index = pkg_pfl_var[0];
    	  pkg_pfl_cont_array = pkg_pfl_var[1];
+   	  }
        for (var pkg_tst =0;pkg_tst<package_pfl_pkg_det.TestsInfo.length;pkg_tst++) 
        {
        	 pkg_pfl_name = package_pfl_pkg_det.TestsInfo[pkg_tst];
