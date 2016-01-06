@@ -1,4 +1,4 @@
-var pkg_profile_slug ="senior-citizen-health-check-up-male";
+var pkg_profile_slug ="lipid-profile";
 var pkg_profile_host = "http://beta.zotey.com/m-api";
 var pkg_profile_pkg_name;
 var pkg_profile_pkg_slug;
@@ -340,6 +340,8 @@ function pkg_profile_details_handler()
 	   $(pkg_profile_img_col).attr('id','pkg_cloud_tests');
 	   var pkg_profile_tst_ul = document.createElement('ul');
 	   $(pkg_profile_tst_ul).css('listStyleType','none');
+	   $(pkg_profile_tst_ul).css('textAlign','left');
+	   $(pkg_profile_tst_ul).css('fontWeight','bold');
 	   if (data.popular_packages.length != 0) 
 	   {
 	     var pkg_profile_popular_head = document.createElement('div');
@@ -357,10 +359,9 @@ function pkg_profile_details_handler()
 	   	 var pkg_profile_pop_test = document.createElement('a');
 	   	 $(pkg_profile_pop_test).attr('href',data.popular_packages[i].packageProfilePageURL);
 	   	 $(pkg_profile_pop_test).addClass("pkg_pop_test");
-	   	 $(pkg_profile_pop_test).html("&nbsp"+"&nbsp"+data.popular_packages[i].packageName);
+	   	 $(pkg_profile_pop_test).html(data.popular_packages[i].packageName);
 	   	 $(pkg_profile_tst_li).append(pkg_profile_pop_test);
 	   	 $(pkg_profile_tst_ul).append(pkg_profile_tst_li);
-	   	 //$(pkg_profile_img_col).append(pkg_profile_pop_test);
 	    }//for loop pop tsts
 	    $(pkg_profile_img_col).append(pkg_profile_tst_ul);
 	   $(pkg_profile_heading_row).append(pkg_profile_img_col);	

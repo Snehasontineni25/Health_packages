@@ -30,25 +30,13 @@ li
      padding-top: 35px;
      text-align: justify;
  }
-/* .pkg_pop_test:nth-child(even)
- {
-      color:green; 
- }
- .pkg_pop_test:nth-child(odd)
- {
-      color:red; 
- } */
- .pkg_tst_li:nth-child(even)
- {
-   text-align:right; 
- }
  .pkg_pop_test:hover
  {
    background:yellow; 
  }
  .pkg_pop_test
  {
-   text-decoration: none !important; 
+   text-decoration: underline; 
  }
  #tmm-form-wizard .button span 
 {
