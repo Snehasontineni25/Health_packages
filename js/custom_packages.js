@@ -69,10 +69,6 @@
              $(div_cont).attr('data-packageid',data[i].packageSlug);
              $(div_cont).attr('data-packagename',data[i].packageName);
              $(div_cont).attr('data-packageconsultations',data[i].consultationsCount);
-              var pkg_det_a = document.createElement('a');
-              $(pkg_det_a).attr('href',data[i].packageSlug);
-              $(pkg_det_a).attr('target','_blank');
-              $(div_cont).append(pkg_det_a);
            $(div_cont).on('click',function () 
            {
            	 
@@ -80,7 +76,7 @@
            	  var package_name = $(this).data('packagename');
            	  var package_consultation = $(this).data('packageconsultations');
            	  loadingimage_handler();
-           	 //package_details_list(package_name,package_slug);
+           	 package_details_list(package_name,package_slug);
            	});//btn click 
            	
            var div_row = document.createElement('div');
