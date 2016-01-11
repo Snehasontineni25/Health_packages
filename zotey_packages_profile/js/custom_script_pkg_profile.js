@@ -1,5 +1,5 @@
-var pkg_profile_slug ="lipid-profile";
-var pkg_profile_host = "http://localzotey.com/m-api";
+var pkg_profile_slug ="thyroid-profile-t3-t4-tsh";
+var pkg_profile_host = "http://beta.zotey.com/m-api";
 var pkg_profile_pkg_name;
 var pkg_profile_pkg_slug;
 var package_pfl_pkg_det;
@@ -631,7 +631,7 @@ function pkg_pfl_cont_handler(package_pfl_pkg_det,package_pfl_cnt_head)
         var pkg_pfl_var = pkg_pfl_cont_append_handler("title",pkg_pfl_name,pkg_pfl_cont_array,pkg_pfl_cont_index,pkg_pfl_cont_middle_count);
         pkg_pfl_cont_index = pkg_pfl_var[0];
    	  pkg_pfl_cont_array = pkg_pfl_var[1];
-        for (var pkg_conslt =0;pkg_conslt<package_pfl_pkg_det.Consultations;pkg_conslt++) 
+        for (var pkg_conslt =0;pkg_conslt<package_pfl_pkg_det.Consultations.length;pkg_conslt++) 
         {
         	   pkg_pfl_name = package_pfl_pkg_det.Consultations[pkg_conslt];
         	   var pkg_pfl_var = pkg_pfl_cont_append_handler("value",pkg_pfl_name,pkg_pfl_cont_array,pkg_pfl_cont_index,pkg_pfl_cont_middle_count);
