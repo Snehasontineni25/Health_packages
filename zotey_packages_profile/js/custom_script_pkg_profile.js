@@ -83,7 +83,7 @@ function pkg_profile_details_handler()
 	   $(pkg_profile_offering_labs).css('paddingBottom','11px');
       var pkg_profile_labs_table = document.createElement('table');
 	   $(pkg_profile_labs_table).addClass("tablesorter");
-	   $(pkg_profile_labs_table).attr('id','tst_profile_tab');
+	   $(pkg_profile_labs_table).attr('id','pkg_profile_tab');
 	   $(pkg_profile_labs_table).css('width','100%');
 	   $(pkg_profile_labs_table).css('fontSize','13px');
 	   var pkg_profile_table_head = document.createElement('thead');
@@ -94,7 +94,7 @@ function pkg_profile_details_handler()
       $(pkg_profile_labs_tr).css('cursor','pointer');
       var pkg_profile_labname_th = document.createElement('th');
       $(pkg_profile_labname_th).css('border', '1px solid #ddd');
-      $(pkg_profile_labname_th).css('width','31%');
+      $(pkg_profile_labname_th).css('width','30%');
       var pkg_profile_labname_element = document.createElement('div');
       $(pkg_profile_labname_element).html("Lab Name");
       $(pkg_profile_labname_element).css('padding','10px');
@@ -132,7 +132,7 @@ function pkg_profile_details_handler()
       $(pkg_profile_address_img_desc).css('paddingTop','13px');
       var pkg_profile_labarea_th = document.createElement('th');
       $(pkg_profile_labarea_th).css('border', '1px solid #ddd');
-      $(pkg_profile_labarea_th).css('width','20%');
+      $(pkg_profile_labarea_th).css('width','19%');
       var pkg_profile_labarea = document.createElement('div');
       $(pkg_profile_labarea).html("Location");
       $(pkg_profile_labarea).css('textAlign','center');
@@ -151,7 +151,7 @@ function pkg_profile_details_handler()
       $(pkg_profile_area_img_desc).css('paddingTop','13px');
       var pkg_profile_labprice_th = document.createElement('th');
       $(pkg_profile_labprice_th).css('border', '1px solid #ddd');
-      $(pkg_profile_labprice_th).css('width','10%');
+      $(pkg_profile_labprice_th).css('width','13%');
       var pkg_profile_labprice = document.createElement('div');
       $(pkg_profile_labprice).html("Price");
       $(pkg_profile_labprice).css('float', 'left');
@@ -197,7 +197,7 @@ function pkg_profile_details_handler()
       $(pkg_profile_book_th).html("Book");
       $(pkg_profile_book_th).css('textAlign','center');
       $(pkg_profile_book_th).css('padding','10px');
-      $(pkg_profile_book_th).css('width','7%');
+      $(pkg_profile_book_th).css('width','6%');
       $(pkg_profile_address_desc).append(pkg_profile_address_img_desc);
       $(pkg_profile_address_asc).append(pkg_profile_address_img_asc);
       $(pkg_profile_address_imgs).append(pkg_profile_address_desc);
@@ -224,7 +224,10 @@ function pkg_profile_details_handler()
       $(pkg_profile_labname_th).append(pkg_profile_imgs);
       $(pkg_profile_labs_tr).append(pkg_profile_labname_th);
       $(pkg_profile_labs_tr).append(pkg_profile_labarea_th);
-       $(pkg_profile_labs_tr).append(pkg_profile_labaddress_th);
+      if (data.offeringLabs.length > 1) 
+      {
+      	$(pkg_profile_labs_tr).append(pkg_profile_labaddress_th);
+      }
       $(pkg_profile_labs_tr).append(pkg_profile_labprice_th);
       $(pkg_profile_labs_tr).append(pkg_profile_labdiscount_th);
       $(pkg_profile_labs_tr).append(pkg_profile_book_th);
@@ -255,30 +258,26 @@ function pkg_profile_details_handler()
           $(pkg_profile_labarea_td).css('border', '1px solid #ddd'); 
           $(pkg_profile_labarea_td).css('paddingLeft','6px');
           var pkg_profile_price_td = document.createElement('td');
+          $(pkg_profile_price_td).css('border', '1px solid #ddd');
+          $(pkg_profile_price_td).css('padding-left',	'7px');
+          var pkg_profile_price_div = document.createElement('div');
+          $(pkg_profile_price_div).css('float','right');
+          $(pkg_profile_price_div).css('paddingRight','6px');
           var pkg_profile_div_td = document.createElement('div');
           $(pkg_profile_div_td).html(data.offeringLabs[i].labPackageDiscountedPrice+"&nbsp"+"(");
-          $(pkg_profile_price_td).css('border', '1px solid #ddd');
           $(pkg_profile_div_td).css('float','left');
-          $(pkg_profile_div_td).css('width','50%');
-          $(pkg_profile_div_td).css('textAlign','right');
-          $(pkg_profile_price_td).css('padding-left',	'7px');
-          var pkg_profile_dp = document.createElement('div');
-          $(pkg_profile_dp).css('width','50%');
-          $(pkg_profile_dp).css('float','right');
           var pkg_profile_discountedprice = document.createElement('div');
           $(pkg_profile_discountedprice).html(data.offeringLabs[i].labPackageMRP);
           $(pkg_profile_discountedprice).css('textDecoration','line-through');
           $(pkg_profile_discountedprice).css('color','rgb(236,73,73)');
-          $(pkg_profile_discountedprice).css('position','relative');
           $(pkg_profile_discountedprice).css('float','left');
           var pkg_profile_close_bracket = document.createElement('div');
           $(pkg_profile_close_bracket).html(")");
-          $(pkg_profile_close_bracket).css('float','left');
-          $(pkg_profile_close_bracket).css('position','relative');
-          $(pkg_profile_dp).append(pkg_profile_discountedprice);
-          $(pkg_profile_dp).append(pkg_profile_close_bracket);
-          $(pkg_profile_price_td).append(pkg_profile_div_td);
-          $(pkg_profile_price_td).append(pkg_profile_dp);
+          $(pkg_profile_close_bracket).css('float','right');
+           $(pkg_profile_price_div).append(pkg_profile_div_td);
+           $(pkg_profile_price_div).append(pkg_profile_discountedprice);
+           $(pkg_profile_price_div).append(pkg_profile_close_bracket);
+          $(pkg_profile_price_td).append(pkg_profile_price_div);
           var pkg_profile_discount_td = document.createElement('td');
           $(pkg_profile_discount_td).html(data.offeringLabs[i].labPackageDiscount+"%");
           $(pkg_profile_discount_td).css('border', '1px solid #ddd');
@@ -319,17 +318,21 @@ function pkg_profile_details_handler()
           $(pkg_profile_book_td).append(pkg_profile_book_div);
           $(pkg_profile_lab_details_tr).append(pkg_profile_labname_td);
           $(pkg_profile_lab_details_tr).append(pkg_profile_labarea_td);
-          $(pkg_profile_lab_details_tr).append(pkg_profile_labaddress_td);
+          if (data.offeringLabs.length > 1) 
+         {
+            $(pkg_profile_lab_details_tr).append(pkg_profile_labaddress_td);
+         }// if offrng lnth 
           $(pkg_profile_lab_details_tr).append(pkg_profile_price_td);
           $(pkg_profile_lab_details_tr).append(pkg_profile_discount_td);
           $(pkg_profile_lab_details_tr).append(pkg_profile_book_td);
           $(pkg_profile_table_body).append(pkg_profile_lab_details_tr);
           $(pkg_profile_labs_table).append(pkg_profile_table_body); 
-       }       	      
+       } //for loop off labs      	      
        $(pkg_profile_labs_tr).on('click',function () 
        {
-          $("#tst_profile_tab").tablesorter( {sortList: [[0,0], [1,0],[2,0],[3,0],[4,0]]} ); 
+       	$("#pkg_profile_tab").tablesorter();
        });//row on click
+      $("#pkg_profile_tab").tablesorter();
       $(pkg_profile_testname_row).append(pkg_profile_offering_labs);
       $(pkg_profile_testname_row).append(pkg_profile_labs_table);
 	   $(pkg_profile_cust_wrapper).append(pkg_profile_testname_row);
