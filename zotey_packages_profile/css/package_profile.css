@@ -106,3 +106,29 @@ li
 {
   background:rgba(236,246,248,0.99) !important;
 }
+#tmm-form-wizard .dropdown-select
+ {
+    color: #b5b5b5 !important;
+}
+#tmm-form-wizard .dropdown-select
+ {
+    position: relative !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding-left: 6px !important;
+    font-size: 14px !important;
+    font-family: 'calibriregular', sans-serif !important;
+    color: #b5b5b5 !important;
+    background: #fff !important;
+    text-indent: 0.01px !important;
+    outline: none !important;
+    height: 34px !important;
+    font-style: normal !important;
+    -webkit-appearance: none !important;
+    -webkit-border-radius: 2px;
+    border-radius: 2px !important;
+}
+#pkg_pfl_gender
+{
+-webkit-appearance: none !important;
+}
