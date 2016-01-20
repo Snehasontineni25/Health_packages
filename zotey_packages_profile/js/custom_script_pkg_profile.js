@@ -2448,11 +2448,10 @@ function  pkg_pfl_preview_handler(pkg_pfl_hme_vst_val,pkg_pfl_hrd_cpy_val,pkg_pf
              $(pkg_pfl_patient_details_table).append(pkg_pfl_tr_patient);
              $(pkg_pfl_patient_details_table).append(pkg_pfl_tr_email);
              $(pkg_pfl_patient_details_table).append(pkg_pfl_tr_phno);
+             if(pkg_pfl_hme_vst_val == "yes")
+            {
              $(pkg_pfl_patient_details_table).append(pkg_pfl_tr_address);
-             if (pkg_pfl_ptnt_address == "") 
-      	    {
-      	        $(pkg_pfl_tr_address).detach();
-      	    } 
+            }
              $(pkg_pfl_patient_details_table).append(pkg_pfl_tr_apptime);
              $(pkg_pfl_tmm_form_element).append(pkg_pfl_prevbtn_element);
              $(pkg_pfl_tmm_form_element).append(pkg_pfl_orderbtn_element);
