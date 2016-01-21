@@ -333,12 +333,13 @@ function pkg_profile_details_handler()
        {
        	$("#pkg_profile_tab").tablesorter();
        });//row on click
-      $("#pkg_profile_tab").tablesorter();
+      
       $(pkg_profile_testname_row).append(pkg_profile_offering_labs);
       $(pkg_profile_testname_row).append(pkg_profile_labs_table);
 	   $(pkg_profile_cust_wrapper).append(pkg_profile_testname_row);
 	   $(pkg_profile_details_col).append(pkg_profile_cust_wrapper);
 	   $(pkg_profile_heading_row).append(pkg_profile_details_col);
+	   
 	   var pkg_profile_img_col = document.createElement('div');
 	   $(pkg_profile_img_col).addClass("col-md-3 col-sm-3");
 	   $(pkg_profile_img_col).attr('id','pkg_cloud_tests');
@@ -373,6 +374,7 @@ function pkg_profile_details_handler()
 	   $(pkg_cust_profile_container).append(pkg_profile_heading_row);
 	   }//if for rltd tsts
 	   $(pkg_cust_profile_container).append(pkg_profile_heading_row);
+	   $("#pkg_profile_tab").tablesorter();
    }//success fncn
   });//ajax
 }
