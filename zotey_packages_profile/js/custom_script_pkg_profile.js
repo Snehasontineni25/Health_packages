@@ -518,7 +518,7 @@ function pkg_pfl_package_contents(pkg_pfl_labname,pkg_pfl_labslug,pkg_pfl_discou
                  	  $(package_pfl_vst_both_one_element).append(package_pfl_error_vst_both_one_element);
                  	  $(package_pfl_cnt_lab_info).append(package_pfl_vst_both_one_element);
              }//home vst only
-             else if  (data.visitType == "homevisitonly")  
+             else  if  (data.visitType == "homevisitonly")  
              {
                 var package_pfl_vst_home_one_element = document.createElement('div');
                     $(package_pfl_vst_home_one_element).attr('id','pkg_reports_msg');
@@ -536,8 +536,8 @@ function pkg_pfl_package_contents(pkg_pfl_labname,pkg_pfl_labslug,pkg_pfl_discou
                  	  $(package_pfl_vst_home_one_element).append(package_pfl_star_vst_home_one);
                  	  $(package_pfl_vst_home_one_element).append(package_pfl_error_vst_home_one_element);
                  	  $(package_pfl_cnt_lab_info).append(package_pfl_vst_home_one_element);          	
-             }//else if 
-             else 
+             }// if 
+               else
              {
                   var package_pfl_vst_lab_one_element = document.createElement('div');
                     $(package_pfl_vst_lab_one_element).attr('id','pkg_reports_msg');
@@ -554,8 +554,8 @@ function pkg_pfl_package_contents(pkg_pfl_labname,pkg_pfl_labslug,pkg_pfl_discou
                     $(package_pfl_error_vst_lab_one_element).html('Home visit not available');
                  	  $(package_pfl_vst_lab_one_element).append(package_pfl_star_vst_lab_one);
                  	  $(package_pfl_vst_lab_one_element).append(package_pfl_error_vst_lab_one_element);
-                 	  $(package_pfl_cnt_lab_info).append(package_pfl_vst_home_one_element);   
-             }//else 
+                 	  $(package_pfl_cnt_lab_info).append(package_pfl_vst_lab_one_element);   
+             }//if  
             $(package_pfl_test_details).append(package_pfl_cnt_lab_info);
             var pkg_pfl_totalcount =0;
              for(var i=0;i<data.packageDetails.GroupsInfo.length;i++)
@@ -1010,7 +1010,7 @@ function pkg_pfl_package_contents_back_btn(pkg_pfl_labname,pkg_pfl_labslug,pkg_p
                     $(package_pfl_back_error_vst_lab_one_element).html('Home visit not available');
                  	  $(package_pfl_back_vst_lab_one_element).append(package_pfl_back_star_vst_lab_one);
                  	  $(package_pfl_back_vst_lab_one_element).append(package_pfl_back_error_vst_lab_one_element);
-                 	  $(package_pfl_back_cnt_lab_info).append(package_pfl_back_vst_home_one_element);   
+                 	  $(package_pfl_back_cnt_lab_info).append(package_pfl_back_vst_lab_one_element);   
              }//else 
                  $(package_pfl_back_test_details).append(package_pfl_back_cnt_lab_info);
             var pkg_pfl_totalcount =0;
@@ -1312,9 +1312,14 @@ function pkg_form_handler(pkg_pfl_labname,pkg_pfl_labslug,pkg_pfl_discount,pkg_p
    $(pkg_pfl_gender_row).addClass("row");
    $(pkg_pfl_gender_row).css('marginBottom','6px');
    var pkg_pfl_age_gender_col_class = document.createElement('div');
-   $(pkg_pfl_age_gender_col_class).addClass("col-md-6 col-sm-6");
+   $(pkg_pfl_age_gender_col_class).css('width','247px');
+   $(pkg_pfl_age_gender_col_class).css('paddingLeft','15px');
+   $(pkg_pfl_age_gender_col_class).css('paddingRight','15px');
+   $(pkg_pfl_age_gender_col_class).css('float','left');
    var pkg_pfl_age_col_class = document.createElement('div');
-   $(pkg_pfl_age_col_class).addClass("col-md-6 col-sm-6");
+   $(pkg_pfl_age_col_class).css('width','85px');
+   $(pkg_pfl_age_col_class).css('float','left');
+   $(pkg_pfl_age_col_class).css('marginRight','34px');
    $(pkg_pfl_age_col_class).css('paddingLeft','0px');
    $(pkg_pfl_age_col_class).css('paddingRight','0px');
    var pkg_pfl_fieldset_age = document.createElement('fieldset');
@@ -1330,8 +1335,10 @@ function pkg_form_handler(pkg_pfl_labname,pkg_pfl_labslug,pkg_pfl_discount,pkg_p
    $(pkg_pfl_input_age).attr('placeholder','Age');
    $(pkg_pfl_input_age).attr('required','');
    $(pkg_pfl_input_age).css('paddingRight','6px');
+   $(pkg_pfl_input_age).attr('maxlength','2');
    var pkg_pfl_gender_col_class = document.createElement('div');
-   $(pkg_pfl_gender_col_class).addClass("col-md-6 col-sm-6");
+   $(pkg_pfl_gender_col_class).css('float','right');
+   $(pkg_pfl_gender_col_class).css('width','90px');
    $(pkg_pfl_gender_col_class).css('paddingLeft','0px');
    var pkg_pfl_fieldset_gender = document.createElement('fieldset');
    $(pkg_pfl_fieldset_gender).addClass("input-block");
@@ -1346,7 +1353,7 @@ function pkg_form_handler(pkg_pfl_labname,pkg_pfl_labslug,pkg_pfl_discount,pkg_p
    $(pkg_pfl_gender_select).css('background','white');
    $(pkg_pfl_gender_select).css('height','34px');
    var pkg_pfl_gender_empty_option = document.createElement('option');
-   $(pkg_pfl_gender_empty_option).attr('selected','selected');
+    $(pkg_pfl_gender_empty_option).html('select');
     $(pkg_pfl_gender_empty_option).attr('value','1');
    var pkg_pfl_gender_male_option = document.createElement('option');
    $(pkg_pfl_gender_male_option).attr('value','2');
@@ -1359,7 +1366,10 @@ function pkg_form_handler(pkg_pfl_labname,pkg_pfl_labslug,pkg_pfl_discount,pkg_p
    $(pkg_pfl_gender_select).append(pkg_pfl_gender_female_option);
    $(pkg_pfl_gender_dropdown).append(pkg_pfl_gender_select);
     var pkg_pfl_pin_col_class = document.createElement('div');
-   $(pkg_pfl_pin_col_class).addClass("col-md-6 col-sm-6");
+   $(pkg_pfl_pin_col_class).css('width','247px');
+   $(pkg_pfl_pin_col_class).css('paddingLeft','15px');
+   $(pkg_pfl_pin_col_class).css('paddingRight','15px');
+   $(pkg_pfl_pin_col_class).css('float','right');
    var pkg_pfl_fieldset_pin = document.createElement('fieldset');
    $(pkg_pfl_fieldset_pin).addClass("input-block");
    var pkg_pfl_label_ptnt_pin = document.createElement('label');
@@ -1373,6 +1383,7 @@ function pkg_form_handler(pkg_pfl_labname,pkg_pfl_labslug,pkg_pfl_discount,pkg_p
    $(pkg_pfl_input_ptnt_pin).attr('placeholder','Pin Code');
    $(pkg_pfl_input_ptnt_pin).attr('required','');
    $(pkg_pfl_input_ptnt_pin).css('paddingRight','6px');
+   $(pkg_pfl_input_ptnt_pin).attr('maxlength','6');
    var pkg_pfl_hardcopy_row = document.createElement('div');
    $(pkg_pfl_hardcopy_row).addClass("row");
    $(pkg_pfl_hardcopy_row).css('marginTop','6px');
@@ -1592,9 +1603,6 @@ function pkg_form_handler(pkg_pfl_labname,pkg_pfl_labslug,pkg_pfl_discount,pkg_p
      $(pkg_pfl_address_col_class).addClass("col-md-12 col-sm-12");
      var pkg_pfl_fieldset_address = document.createElement('fieldset');
      $(pkg_pfl_fieldset_address).addClass("input-block");
-     var pkg_pfl_label_address = document.createElement('label');
-     $(pkg_pfl_label_address).attr('for','Address');
-     $(pkg_pfl_label_address).html("Address & LandMark");
      var pkg_pfl_input_address = document.createElement('input');
      $(pkg_pfl_input_address).attr('type','text');
      $(pkg_pfl_input_address).attr('id','pkg_pfl_address');
@@ -1604,7 +1612,6 @@ function pkg_form_handler(pkg_pfl_labname,pkg_pfl_labslug,pkg_pfl_discount,pkg_p
      $(pkg_pfl_input_address).attr('placeholder','Address & LandMark');
      $(pkg_pfl_input_address).attr('required','required');
      $(pkg_pfl_input_address).css('paddingRight','11px');
-     $(pkg_pfl_fieldset_address).append(pkg_pfl_label_address);
      $(pkg_pfl_fieldset_address).append(pkg_pfl_input_address);
      $(pkg_pfl_address_col_class).append(pkg_pfl_fieldset_address);
      $(pkg_pfl_address_row).append(pkg_pfl_address_col_class);
@@ -1679,9 +1686,6 @@ function pkg_form_handler(pkg_pfl_labname,pkg_pfl_labslug,pkg_pfl_discount,pkg_p
      $(pkg_pfl_address_col_class).addClass("col-md-12 col-sm-12");
      var pkg_pfl_fieldset_address = document.createElement('fieldset');
      $(pkg_pfl_fieldset_address).addClass("input-block");
-     var pkg_pfl_label_address = document.createElement('label');
-     $(pkg_pfl_label_address).attr('for','Address');
-     $(pkg_pfl_label_address).html("Address & LandMark");
       var pkg_pfl_input_address = document.createElement('input');
      $(pkg_pfl_input_address).attr('type','text');
      $(pkg_pfl_input_address).attr('id','pkg_pfl_address');
@@ -1691,7 +1695,6 @@ function pkg_form_handler(pkg_pfl_labname,pkg_pfl_labslug,pkg_pfl_discount,pkg_p
      $(pkg_pfl_input_address).attr('placeholder','Address & LandMark');
      $(pkg_pfl_input_address).attr('required','required');
      $(pkg_pfl_input_address).css('paddingRight','11px');
-     $(pkg_pfl_fieldset_address).append(pkg_pfl_label_address);
      $(pkg_pfl_fieldset_address).append(pkg_pfl_input_address);
      $(pkg_pfl_address_col_class).append(pkg_pfl_fieldset_address);
      $(pkg_pfl_address_row).append(pkg_pfl_address_col_class);
@@ -1708,9 +1711,6 @@ function pkg_form_handler(pkg_pfl_labname,pkg_pfl_labslug,pkg_pfl_discount,pkg_p
      $(pkg_pfl_address_col_class).addClass("col-md-12 col-sm-12");
      var pkg_pfl_fieldset_address = document.createElement('fieldset');
      $(pkg_pfl_fieldset_address).addClass("input-block");
-     var pkg_pfl_label_address = document.createElement('label');
-     $(pkg_pfl_label_address).attr('for','Address');
-     $(pkg_pfl_label_address).html("Address & LandMark");
      var pkg_pfl_input_address = document.createElement('input');
      $(pkg_pfl_input_address).attr('type','text');
      $(pkg_pfl_input_address).attr('id','pkg_pfl_address');
@@ -1720,7 +1720,6 @@ function pkg_form_handler(pkg_pfl_labname,pkg_pfl_labslug,pkg_pfl_discount,pkg_p
      $(pkg_pfl_input_address).attr('placeholder','Address & LandMark');
      $(pkg_pfl_input_address).attr('required','required');
      $(pkg_pfl_input_address).css('paddingRight','11px');
-     $(pkg_pfl_fieldset_address).append(pkg_pfl_label_address);
      $(pkg_pfl_fieldset_address).append(pkg_pfl_input_address);
      $(pkg_pfl_address_col_class).append(pkg_pfl_fieldset_address);
      $(pkg_pfl_address_row).append(pkg_pfl_address_col_class);
