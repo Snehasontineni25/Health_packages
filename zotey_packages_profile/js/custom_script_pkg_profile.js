@@ -1,9 +1,10 @@
 var pkg_profile_slug = "lipid-profile";
-var pkg_profile_host = "http://localzotey.com/m-api";
+var pkg_profile_host = "http://beta.zotey.com/m-api";
 var pkg_profile_pkg_name;
 var pkg_profile_pkg_slug;
 var package_pfl_pkg_det;
 var package_pfl_home_vst;
+var pkg_lab_given_name =[];
 function pkg_profile_details_handler()
 {
    $.ajax({
@@ -13,7 +14,6 @@ function pkg_profile_details_handler()
    data:{packageSlug:pkg_profile_slug},
    success:function(data)
    {
-   	 
    	pkg_profile_pkg_name = data.packageInfo.packageName;
    	pkg_profile_pkg_slug = data.packageInfo.packageSlug;
    	var pkg_profile_loading = document.getElementById("pkg_profile_loader");
@@ -40,6 +40,35 @@ function pkg_profile_details_handler()
 	   $(pkg_profile_description_data).css('paddingTop','26px');
 	   $(pkg_profile_description_data).css('textIndent','38px');
 	   $(pkg_profile_testname_row).append(pkg_profile_name);
+	   if (data.packageInfo.labGivenNames.length > 0) 
+      {
+      	 var pkg_profile_alias_name_head = document.createElement('div');
+      	 $(pkg_profile_alias_name_head).addClass("row");
+      	 $(pkg_profile_alias_name_head).css('marginTop','19px');
+      	 var pkg_profile_alias_head = document.createElement('div');
+      	 $(pkg_profile_alias_head).html("It is also known as"+"&nbsp;");
+      	 $(pkg_profile_alias_head).css("float","left");
+      	 var pkg_profile_alias_name = document.createElement('div');
+      	 for (var i=0; i<data.packageInfo.labGivenNames.length;i++) 
+         {
+       	   pkg_lab_given_name.push(data.packageInfo.labGivenNames[i]);
+       	}
+          var pkg_lab_name_join =  pkg_lab_given_name.join(',  ');
+      	 $(pkg_profile_alias_name).html(pkg_lab_name_join+".");
+      	 $(pkg_profile_alias_name).css('fontStyle','italic');
+      	 $(pkg_profile_alias_name_head).append(pkg_profile_alias_head);
+      	 $(pkg_profile_alias_name_head).append(pkg_profile_alias_name);
+      	 $(pkg_profile_testname_row).append(pkg_profile_alias_name_head);
+      	 var pkg_profile_description_head = document.createElement('div');
+      	 $(pkg_profile_description_head).html("Description");
+      	 $(pkg_profile_description_head).addClass("row");
+      	 $(pkg_profile_description_head).css('fontWeight','bold');
+      	 $(pkg_profile_description_head).css('marginTop','6px');
+      	 $(pkg_profile_description_head).css('color','rgb(65, 167, 179)');
+      	 $(pkg_profile_description_head).css('fontSize','16px');
+      	 $(pkg_profile_testname_row).append(pkg_profile_description_head);
+       }//if labgvn name lnth  
+
 	   $(pkg_profile_testname_row).append(pkg_profile_description_data);
 	   if (data.packageInfo.packageFeatures != null) 
 	   {
@@ -334,13 +363,11 @@ function pkg_profile_details_handler()
        {
        	$("#pkg_profile_tab").tablesorter({sortList: [[2,1]]});
        });//row on click
-      
       $(pkg_profile_testname_row).append(pkg_profile_offering_labs);
       $(pkg_profile_testname_row).append(pkg_profile_labs_table);
 	   $(pkg_profile_cust_wrapper).append(pkg_profile_testname_row);
 	   $(pkg_profile_details_col).append(pkg_profile_cust_wrapper);
 	   $(pkg_profile_heading_row).append(pkg_profile_details_col);
-	   
 	   var pkg_profile_img_col = document.createElement('div');
 	   $(pkg_profile_img_col).addClass("col-md-3 col-sm-3");
 	   $(pkg_profile_img_col).attr('id','pkg_cloud_tests');
@@ -423,7 +450,6 @@ function pkg_pfl_package_contents(pkg_pfl_labname,pkg_pfl_labslug,pkg_pfl_discou
          data:{packageSlug:pkg_profile_pkg_slug,labSlug:pkg_pfl_labslug},
          success:function(data)
          {
-         	
          	package_pfl_home_vst = data.visitType;
             package_pfl_pkg_det = data.packageDetails;
             var package_pfl_test_modal = document.createElement('div');
@@ -2930,7 +2956,6 @@ function  pkg_pfl_preview_handler(pkg_pfl_hme_vst_val,pkg_pfl_hrd_cpy_val,pkg_pf
      $(pkg_pfl_preview_heading).css('fontSize','18px');
      $(pkg_pfl_preview_heading).css('fontWeight','bold');
      $(pkg_pfl_preview_heading).css('color','#5cb0cf');
-     var pkg_pfl_time_error = document.createElement('div');
      var pkg_pfl_preview_pkg_info = document.createElement('div');
      $(pkg_pfl_preview_pkg_info).html("Lab & Price Information");
      $(pkg_pfl_preview_pkg_info).css('background','rgb(65, 167, 179)');
